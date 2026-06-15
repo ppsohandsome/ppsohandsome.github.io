@@ -1023,6 +1023,11 @@ body:not(.user-is-tabbing) a:focus {
     cursor: default;
 }
 
+.project-detail__content > .slide-viewer__download {
+    display: inline-flex;
+    margin-top: var(--gutter-small);
+}
+
 .slide-viewer__frame {
     position: relative;
     min-height: 38rem;
@@ -1228,6 +1233,12 @@ body:not(.user-is-tabbing) a:focus {
         bottom: 1rem;
     }
 
+    .project-back-link,
+    .lang-toggle.lang-toggle--detail {
+        width: 4.8rem;
+        height: 4.8rem;
+    }
+
     .lang-toggle:not(.lang-toggle--detail) {
         right: 1rem;
         bottom: 10.2rem;
@@ -1235,7 +1246,27 @@ body:not(.user-is-tabbing) a:focus {
 
     .lang-toggle {
         right: 1rem;
-        bottom: 7.4rem;
+        bottom: 7rem;
+    }
+
+    .lang-toggle.lang-toggle--detail {
+        right: 1rem;
+        bottom: 6.8rem;
+        font-size: 1.05rem;
+    }
+
+    .slide-viewer__actions {
+        gap: .8rem;
+    }
+
+    .slide-viewer__button,
+    .slide-viewer__download {
+        padding: .8rem 1.2rem;
+        font-size: 1.55rem;
+    }
+
+    .slide-viewer__frame {
+        min-height: 0;
     }
 }
 
