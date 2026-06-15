@@ -1170,6 +1170,11 @@ body:not(.user-is-tabbing) a:focus {
         bottom: 2rem;
     }
 
+    .lang-toggle:not(.lang-toggle--detail) {
+        right: 2rem;
+        bottom: 9.5rem;
+    }
+
     .lang-toggle {
         right: 2rem;
         bottom: 8.5rem;
@@ -1231,6 +1236,11 @@ body:not(.user-is-tabbing) a:focus {
     .project-back-link {
         right: 1rem;
         bottom: 1rem;
+    }
+
+    .lang-toggle:not(.lang-toggle--detail) {
+        right: 1rem;
+        bottom: 8.8rem;
     }
 
     .lang-toggle {
