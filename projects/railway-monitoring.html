@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" type="image/png" href="../images/site/ui/favicon.png" />
+  <title>Railway Safety Monitoring System | Chunpo Wu</title>
+  <meta name="description" content="Railway safety monitoring system by Chunpo Wu." />
+  <link rel="stylesheet" href="../index.css?v=18" />
+</head>
+
+<body data-page="railway">
+  <header class="page-header" role="banner">
+    <div class="row">
+      <nav class="nav" role="navigation">
+        <ul class="nav__items">
+          <li class="nav__item"><a href="../index.html#work" class="nav__link">Projects</a></li>
+          <li class="nav__item"><a href="../index.html#experience" class="nav__link">Experience</a></li>
+          <li class="nav__item"><a href="../index.html#blog" class="nav__link">Blog</a></li>
+          <li class="nav__item"><a href="../index.html#about" class="nav__link">About</a></li>
+          <li class="nav__item"><a href="../index.html#contact" class="nav__link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main">
+    <section class="page-hero">
+      <div class="row">
+        <h1 class="heading-primary">Railway Safety Monitoring System</h1>
+        <p>
+          A real-time video monitoring platform for railway safety, built around multi-stream
+          RTSP ingestion, edge AI inference, and message-based data pipelines.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-detail">
+      <div class="row project-detail__grid">
+        <div class="project-detail__content">
+          <h2>Overview</h2>
+          <p>
+            The system processed 30+ RTSP streams per site and ran AI models on Jetson edge devices
+            for equipment state detection. Detection outputs were passed through a Kafka pipeline for
+            monitoring and integration.
+          </p>
+          <h2>Slides</h2>
+          <div class="slide-viewer" data-total-slides="25" data-slide-prefix="../images/projects/railvision/slides/project_railvision_slide" data-slide-pad="2">
+            <div class="slide-viewer__toolbar">
+              <div class="slide-viewer__meta">
+                <p class="slide-viewer__label">Project deck</p>
+                <p class="slide-viewer__count">1 / 25</p>
+              </div>
+              <div class="slide-viewer__actions">
+                <button class="slide-viewer__button slide-viewer__button--prev" type="button" aria-label="Previous slide">Prev</button>
+                <button class="slide-viewer__button slide-viewer__button--next" type="button" aria-label="Next slide">Next</button>
+                <a class="slide-viewer__download" href="../images/projects/railvision/project_RailVision.pdf">Download PDF</a>
+              </div>
+            </div>
+            <div class="slide-viewer__frame">
+              <img
+                class="slide-viewer__image"
+                src="../images/projects/railvision/slides/project_railvision_slide-01.png"
+                alt="Railway Safety Monitoring presentation slide 1"
+                data-slide-index="1"
+              />
+            </div>
+            <div class="slide-viewer__dots" aria-hidden="true">
+              <button class="slide-viewer__dot is-active" type="button" data-slide-target="1" aria-label="Go to slide 1"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="2" aria-label="Go to slide 2"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="3" aria-label="Go to slide 3"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="4" aria-label="Go to slide 4"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="5" aria-label="Go to slide 5"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="6" aria-label="Go to slide 6"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="7" aria-label="Go to slide 7"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="8" aria-label="Go to slide 8"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="9" aria-label="Go to slide 9"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="10" aria-label="Go to slide 10"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="11" aria-label="Go to slide 11"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="12" aria-label="Go to slide 12"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="13" aria-label="Go to slide 13"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="14" aria-label="Go to slide 14"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="15" aria-label="Go to slide 15"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="16" aria-label="Go to slide 16"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="17" aria-label="Go to slide 17"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="18" aria-label="Go to slide 18"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="19" aria-label="Go to slide 19"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="20" aria-label="Go to slide 20"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="21" aria-label="Go to slide 21"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="22" aria-label="Go to slide 22"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="23" aria-label="Go to slide 23"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="24" aria-label="Go to slide 24"></button>
+              <button class="slide-viewer__dot" type="button" data-slide-target="25" aria-label="Go to slide 25"></button>
+            </div>
+          </div>
+          <h2>Key Work</h2>
+          <ul>
+            <li>Built real-time monitoring using 30+ RTSP streams per deployment site.</li>
+            <li>Deployed AI models on Jetson edge devices.</li>
+            <li>Implemented YOLOv7, SVM, and OCR for equipment state detection.</li>
+            <li>Integrated inference output with a Kafka-based pipeline.</li>
+          </ul>
+        </div>
+
+        <aside class="project-detail__aside">
+          <h3>Project Info</h3>
+          <dl>
+            <dt>Organization</dt>
+            <dd>China Railway</dd>
+            <dt>Period</dt>
+            <dd>Mar 2023 - Dec 2023</dd>
+            <dt>Focus</dt>
+            <dd>YOLOv7, Jetson, Kafka, OCR, real-time systems</dd>
+          </dl>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <a href="../index.html#work" class="project-back-link" aria-label="Back to projects">
+    <img src="../images/site/ui/arrow-up.svg" alt="" class="project-back-link__image" />
+  </a>
+  <button class="lang-toggle lang-toggle--detail" type="button" aria-label="Switch language">中 / EN</button>
+  <script src="../index.js?v=18"></script>
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" type="image/png" href="../images/site/ui/favicon.png" />
+  <title>Music Universe | Chunpo Wu</title>
+  <meta name="description" content="Music Universe project by Chunpo Wu." />
+  <link rel="stylesheet" href="../index.css?v=18" />
+</head>
+
+<body data-page="music">
+  <header class="page-header" role="banner">
+    <div class="row">
+      <nav class="nav" role="navigation">
+        <ul class="nav__items">
+          <li class="nav__item"><a href="../index.html#work" class="nav__link">Projects</a></li>
+          <li class="nav__item"><a href="../index.html#experience" class="nav__link">Experience</a></li>
+          <li class="nav__item"><a href="../index.html#blog" class="nav__link">Blog</a></li>
+          <li class="nav__item"><a href="../index.html#about" class="nav__link">About</a></li>
+          <li class="nav__item"><a href="../index.html#contact" class="nav__link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main">
+    <section class="page-hero">
+      <div class="row">
+        <h1 class="heading-primary">Music Universe</h1>
+        <p>
+          An interactive music exploration system that organizes large-scale song data into a visual universe,
+          helping users inspect genre structure and how musical styles evolve over time across the Million Song Dataset.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-detail">
+      <div class="row project-detail__grid">
+        <div class="project-detail__content">
+          <h2>Overview</h2>
+          <p>
+            The project starts from a genre-labeled dataset and transfers that knowledge to a much larger
+            song collection. After supervised genre classification, dimensionality reduction is used to map
+            songs into an explorable spatial structure where each point represents one track.
+          </p>
+          <p>
+            The core target corpus is the Million Song Dataset, which provides large-scale audio feature data
+            for roughly one million tracks. A labeled CD2C subset is used to train the genre model, then the
+            predictions and reduced features are projected into a universe-style interactive view.
+          </p>
+          <h2>Video</h2>
+          <div class="video-embed">
+            <iframe
+              src="https://www.youtube.com/embed/9v2biRAf9pY"
+              title="Music Universe project video"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <h2>Key Work</h2>
+          <ul>
+            <li>Trained a supervised genre classification pipeline using labeled songs from the CD2C dataset.</li>
+            <li>Used XGBoost to model hierarchical relationships between genres and predict labels for around one million songs.</li>
+            <li>Applied PCA and UMAP to reduce high-dimensional audio features into a visual 3D structure.</li>
+            <li>Built a universe-style interface where songs cluster into genre constellations and can be searched or explored spatially.</li>
+            <li>Computed yearly genre centroids to trace how musical styles shift from 1955 to 2010.</li>
+          </ul>
+          <div class="slide-viewer__actions">
+            <a href="../images/projects/music_universe/iama.pdf" class="slide-viewer__download">Download Research PDF</a>
+            <a href="../images/projects/music_universe/iama2.pdf" class="slide-viewer__download">Download Trend PDF</a>
+          </div>
+        </div>
+
+        <aside class="project-detail__aside">
+          <h3>Project Info</h3>
+          <dl>
+            <dt>Domain</dt>
+            <dd>Music data visualization</dd>
+            <dt>Dataset</dt>
+            <dd>Million Song Dataset with CD2C labeled songs used for supervised genre transfer</dd>
+            <dt>Core Methods</dt>
+            <dd>XGBoost, PCA, UMAP, centroid trajectory analysis</dd>
+            <dt>Focus</dt>
+            <dd>Genre transfer, spatial exploration, temporal trend analysis, interactive storytelling with data</dd>
+          </dl>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <a href="../index.html#work" class="project-back-link" aria-label="Back to projects">
+    <img src="../images/site/ui/arrow-up.svg" alt="" class="project-back-link__image" />
+  </a>
+  <button class="lang-toggle lang-toggle--detail" type="button" aria-label="Switch language">中 / EN</button>
+  <script src="../index.js?v=18"></script>
+</body>
+
+</html>

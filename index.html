@@ -1,13 +1,6 @@
 <!-- 
-  Hello 😊.
-
-  This template is designed and developed by Nisar Hassan Naqvi
-  for anyone to use for free or customize the way they like.
-
-  Github Repo: https://github.com/nisarhassan12/portfolio-template/
-  My Website: https://nisar.dev
-
-  For business & inquires, contact me => syednisarhassan12@gmail.com
+  Based on the portfolio-template project by Nisar Hassan Naqvi:
+  https://github.com/nisarhassan12/portfolio-template/
 -->
 
 <!--
@@ -20,20 +13,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" type="image/png" href="./images/favicon.png" />
+  <link rel="shortcut icon" type="image/png" href="./images/site/ui/favicon.png" />
 
   <!-- Put your site title here -->
   <title>
-    Syed Ali Hussnain | A Web Developer based in Lahore, Pakistan.
+    Chunpo Wu | AI / Computer Vision Engineer
   </title>
 
-  <meta name="description" content="Add small description of yourslef.">
+  <meta name="description" content="Chunpo Wu is an AI and Computer Vision engineer focused on deep learning, robotics, SLAM, and edge AI systems.">
   <!-- Add some coding keywords below, Ex: (React, CSS etc) -->
-  <meta name="keywords" content="Put your name, skills and some coding keywords" />
-  <link rel="stylesheet" href="index.css" />
+  <meta name="keywords" content="Chunpo Wu, AI Engineer, Computer Vision, Deep Learning, Robotics, SLAM, YOLO, JAX, Edge AI" />
+  <link rel="stylesheet" href="index.css?v=18" />
 </head>
 
-<body>
+<body data-page="home">
 
   <!-- ***** Header ***** -->
 
@@ -41,8 +34,9 @@
     <div class="row">
       <nav class="nav" role="navigation">
         <ul class="nav__items">
-          <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
-          <li class="nav__item"><a href="#clients" class="nav__link">Clients</a></li>
+          <li class="nav__item"><a href="#work" class="nav__link">Projects</a></li>
+          <li class="nav__item"><a href="#experience" class="nav__link">Experience</a></li>
+          <li class="nav__item"><a href="#blog" class="nav__link">Blog</a></li>
           <li class="nav__item">
             <a href="#about" class="nav__link">About</a>
           </li>
@@ -56,11 +50,14 @@
       <div class="header__text">
         <h1 class="heading-primary">
           <!-- Replace the following name with your name -->
-          <span>Syed Ali Hussnain</span>
+          <span>Chunpo Wu</span>
         </h1>
         <!-- Put a small paragraph about yourself -->
-        <p>A Web Developer based in Lahore, Pakistan.</p>
-        <a href="#contact" class="btn btn--pink">Get in touch</a>
+        <p>AI / Computer Vision Engineer focused on robotics, edge AI, and real-time visual systems.</p>
+        <div class="header__actions">
+          <a href="#work" class="btn btn--pink">View projects</a>
+          <a href="./cv/CV_CHUNPO%20WU.pdf" target="_blank" class="btn">Download CV</a>
+        </div>
       </div>
     </div>
   </header>
@@ -71,113 +68,261 @@
 
     <section class="work" id="work">
       <div class="row">
-        <h2>My Work</h2>
+        <h2>Selected Projects</h2>
         <div class="work__boxes">
 
           <!-- Each div with the work__box class is a project. -->
 
           <div class="work__box">
             <div class="work__text">
-              <h3>Portfolio Template</h3>
+              <h3>Brain Dance VR</h3>
               <p>
-                A free Open Source Portfolio for anyone to use for free.
+                A VR investigative experience inspired by Cyberpunk 2077 Braindance, built around
+                switching between time and sensory layers to uncover hidden clues in an immersive memory scene.
               </p>
               <ul class="work__list">
-                <li>HTML</li>
-                <li>SCSS</li>
-                <li>JavaScript</li>
-                <li>Parcel</li>
+                <li>VR</li>
+                <li>Unity</li>
+                <li>Interaction Design</li>
+                <li>Immersive Narrative</li>
               </ul>
 
               <div class="work__links">
-                <a href="https://nisar.surge.sh" target="_blank" class="link__text">
-                  Visit Site <span>&rarr;</span>
-                </a>
-                <a href="https://github.com/nisarhassan12/portfolio" title="View Source Code" target="_blank">
-                  <img src="./images/github.svg" class="work__code" alt="GitHub">
+                <a href="./projects/drone-inspection.html" class="link__text">
+                  Project details <span>&rarr;</span>
                 </a>
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/project-1.png" class="work__image" alt="Project 1" />
+              <img src="./images/projects/braindance/project_braindance_first.png" class="work__image" alt="Brain Dance VR project preview" />
             </div>
           </div>
 
           <div class="work__box">
             <div class="work__text">
-              <h3>Calculator</h3>
+              <h3>Railway Safety Monitoring System</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod,
-                eius.
+                Built a real-time railway monitoring system using 30+ RTSP streams per site.
+                Deployed AI models on Jetson edge devices and connected detection results through a Kafka pipeline.
               </p>
               <ul class="work__list">
-                <li>React</li>
-                <li>Next.js</li>
-                <li>Node</li>
-                <li>MongoDB</li>
+                <li>YOLOv7</li>
+                <li>Jetson</li>
+                <li>Kafka</li>
+                <li>OCR</li>
               </ul>
 
               <div class="work__links">
-                <a href="#" class="link__text">
-                  Visit Site <span>&rarr;</span>
-                </a>
-                <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                <a href="./projects/railway-monitoring.html" class="link__text">
+                  Project details <span>&rarr;</span>
                 </a>
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/project-2.png" class="work__image" alt="Project 1" />
+              <img src="./images/projects/general/project_railvision_first.png" class="work__image" alt="Railway safety monitoring project preview" />
             </div>
           </div>
 
           <div class="work__box">
             <div class="work__text">
-              <h3>Notificator</h3>
+              <h3>Autonomous Drone Navigation & Target Tracking</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod,
-                eius.
+                Bachelor thesis project implementing real-time target tracking, obstacle avoidance,
+                and end-to-end video-to-control navigation based on visual feedback.
               </p>
               <ul class="work__list">
-                <li>React</li>
-                <li>Next.js</li>
-                <li>Node</li>
-                <li>MongoDB</li>
+                <li>YOLOv11</li>
+                <li>DepthAnything v2</li>
+                <li>Video Streaming</li>
+                <li>Autonomous Robots</li>
               </ul>
 
               <div class="work__links">
-                <a href="#" class="link__text">
-                  Visit Site <span>&rarr;</span>
-                </a>
-                <a href="#">
-                  <img src="./images/github.svg" class="work__code" title="View Source Code" alt="GitHub">
+                <a href="./projects/autonomous-drone.html" class="link__text">
+                  Project details <span>&rarr;</span>
                 </a>
               </div>
             </div>
             <div class="work__image-box">
-              <img src="./images/project-3.png" class="work__image" alt="Project 3" />
+              <img src="./images/projects/general/project_drove_first.jpg" class="work__image" alt="Autonomous drone navigation project preview" />
+            </div>
+          </div>
+
+          <div class="work__box">
+            <div class="work__text">
+              <h3>Music Universe</h3>
+              <p>
+                An interactive music visualization project that maps one million songs into a navigable
+                universe, built on the Million Song Dataset with genre classification, dimensionality reduction,
+                and long-term trend analysis.
+              </p>
+              <ul class="work__list">
+                <li>XGBoost</li>
+                <li>PCA</li>
+                <li>UMAP</li>
+                <li>Data Visualization</li>
+              </ul>
+
+              <div class="work__links">
+                <a href="./projects/music-universe.html" class="link__text">
+                  Project details <span>&rarr;</span>
+                </a>
+              </div>
+            </div>
+            <div class="work__image-box">
+              <img src="./images/projects/music_universe/project_music_first.png" class="work__image" alt="Music Universe project preview" />
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ***** Clients ***** -->
+    <!-- ***** Experience ***** -->
 
-    <section class="client" id="clients">
+    <section class="experience" id="experience">
       <div class="row">
-        <h2>Clients</h2>
-        <div class="client__logos">
-          <!-- Add logos of the clients or companies you'have worked with. -->
-          <img src="./images/ronjones.png" class="client__logo" alt="Company 2" />
-          <img src="./images/goldengrid.png" class="client__logo" alt="Company 3" />
-          <img src="./images/bullseye.png" class="client__logo" alt="Company 1" />
-          <img src="./images/mighty-furnitures.png" class="client__logo" alt="Company 1" />
-          <img src="./images/fastlane.png" class="client__logo" alt="Company 3" />
-          <img src="./images/chippy.png" class="client__logo" alt="Company 1" />
+        <h2>Experience & Education</h2>
+        <div class="timeline-layout">
+          <div class="timeline-column">
+            <h3>Education</h3>
+            <div class="timeline">
+              <article class="timeline__item">
+                <p class="timeline__meta">2025 - Present</p>
+                <h4>M.Sc. Computer and Information Science</h4>
+                <p>University of Konstanz. Focused on computer vision, deep learning, robotics, SLAM, machine learning, and real-time systems.</p>
+                <p>E-DAVID program with emphasis on AI-driven data analysis.</p>
+              </article>
+              <article class="timeline__item">
+                <p class="timeline__meta">2021 - 2025</p>
+                <h4>B.Sc. Data Science and Big Data Technology</h4>
+                <p>Shandong Jiaotong University. GPA 88.97/100, ranked Top 2/118.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="timeline-column">
+            <h3>Experience & Awards</h3>
+            <div class="timeline">
+              <article class="timeline__item">
+                <p class="timeline__meta">Jun 2025 - Sep 2025</p>
+                <h4>Web Engineer Intern</h4>
+                <p>Baigong Information Technology. Developed backend and frontend features for a monitoring platform and designed APIs.</p>
+              </article>
+              <article class="timeline__item">
+                <p class="timeline__meta">Jun 2024 - Sep 2024</p>
+                <h4>Algorithm Engineer Intern</h4>
+                <p>Youxiangtu Intelligent Technology. Researched remote sensing object detection algorithms and graph neural network methods.</p>
+              </article>
+              <article class="timeline__item">
+                <p class="timeline__meta">Awards</p>
+                <h4>Scholarships & Honors</h4>
+                <p>National Inspirational Scholarship; Shandong Outstanding Student.</p>
+              </article>
+              <article class="timeline__item">
+                <p class="timeline__meta">Competitions</p>
+                <h4>Technical Competitions</h4>
+                <p>Huawei Kunpeng Innovation Competition, Provincial 2nd Prize; Lanqiao Cup, National Excellence; AI Competition, Provincial Prize.</p>
+              </article>
+              <article class="timeline__item">
+                <p class="timeline__meta">Publication</p>
+                <h4>Lightweight Insulator Defect Detection Algorithm Based on UAV Perspective</h4>
+                <p>Published in Journal of Beijing University of Aeronautics and Astronautics, 2025.</p>
+              </article>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- ***** Blog ***** -->
+
+    <section class="blog" id="blog">
+      <div class="row">
+        <div class="blog__header">
+          <div>
+            <h2>Blog</h2>
+            <p class="section-intro">
+              Notes on computer vision, robotics, deep learning systems, and project write-ups.
+            </p>
+          </div>
+        </div>
+
+        <div class="blog__viewport" id="blogCards">
+          <div class="blog__row blog__row--technology">
+            <div class="blog__row-heading">
+              <span>Technology</span>
+              <span class="blog__hint">Drag sideways</span>
+            </div>
+            <div class="blog__track">
+              <article class="blog__card blog__card--technology" data-group="Technology" data-full="Notes on camera ingestion, Jetson-side inference, Kafka messaging, and keeping latency predictable in practical monitoring systems.">
+                <div class="blog__card-top">
+                  <span class="blog__number">01</span>
+                  <span class="blog__group">Technology</span>
+                </div>
+                <p class="blog__meta">Edge AI</p>
+                <h3>Deploying vision models on Jetson edge devices</h3>
+                <p>Real-time monitoring pipelines, model deployment, and stream processing constraints.</p>
+              </article>
+              <article class="blog__card blog__card--technology" data-group="Technology" data-full="Notes from the end-to-end pipeline: video stream, target detector, depth cue, control signal, and navigation behavior.">
+                <div class="blog__card-top">
+                  <span class="blog__number">03</span>
+                  <span class="blog__group">Technology</span>
+                </div>
+                <p class="blog__meta">Robotics</p>
+                <h3>Visual feedback for autonomous drone navigation</h3>
+                <p>Combining target tracking, depth estimation, and obstacle avoidance into a control pipeline.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="blog__row blog__row--research">
+            <div class="blog__row-heading">
+              <span>Research</span>
+              <span class="blog__hint">Drag sideways</span>
+            </div>
+            <div class="blog__track">
+              <article class="blog__card blog__card--research" data-group="Research" data-full="A write-up on using multimodal models to connect visual evidence, defect descriptions, and structured equipment diagnostics.">
+                <div class="blog__card-top">
+                  <span class="blog__number">02</span>
+                  <span class="blog__group">Research</span>
+                </div>
+                <p class="blog__meta">Computer Vision</p>
+                <h3>Vision-language models for UAV inspection</h3>
+                <p>How visual reasoning can support defect localization and equipment fault analysis.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="blog__row blog__row--daily">
+            <div class="blog__row-heading">
+              <span>Daily</span>
+              <span class="blog__hint">Drag sideways</span>
+            </div>
+            <div class="blog__track">
+              <article class="blog__card blog__card--daily" data-group="Daily" data-full="A practical summary of research challenges in insulator defect detection and lightweight deployment for UAV imagery.">
+                <div class="blog__card-top">
+                  <span class="blog__number">04</span>
+                  <span class="blog__group">Daily</span>
+                </div>
+                <p class="blog__meta">Research</p>
+                <h3>Small-object defect detection from UAV perspective</h3>
+                <p>Challenges around complex backgrounds, lightweight models, and edge-device real-time performance.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="blog-modal" role="dialog" aria-modal="true" aria-hidden="true">
+      <button class="blog-modal__close" type="button" aria-label="Close blog detail">Close</button>
+      <article class="blog-modal__card">
+        <p class="blog-modal__group"></p>
+        <h3 class="blog-modal__title"></h3>
+        <p class="blog-modal__summary"></p>
+        <p class="blog-modal__full"></p>
+      </article>
+    </div>
 
     <!-- ***** About ***** -->
 
@@ -188,18 +333,25 @@
           <div class="about__text">
             <!-- Replace the below paragraph with info about yourself -->
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos id
-              nostrum illo harum blanditiis, tenetur eum suscipit cupiditate
-              in vel, ex quam quidem quos mollitia labore aut sunt eius
-              ratione molestiae fuga veniam facere similique voluptate.
+              I am a Computer and Information Science master's student at the University of Konstanz
+              with hands-on experience in computer vision, deep learning, robotics, and real-time systems.
+              My work focuses on deploying AI models on edge devices, building reliable visual pipelines,
+              and applying machine learning to inspection, monitoring, and autonomous navigation problems.
             </p>
+            <ul class="about__skills" aria-label="Core skills">
+              <li>Computer Vision</li>
+              <li>Python & JAX</li>
+              <li>SLAM</li>
+              <li>Autonomous Robots</li>
+              <li>Virtual Reality</li>
+            </ul>
             <!-- Provide a link to your resume -->
-            <a href="#" class="btn">My Resume</a>
+            <a href="./cv/CV_CHUNPO%20WU.pdf" target="_blank" class="btn">Download CV</a>
           </div>
 
           <div class="about__photo-container">
             <!-- Add a nice photo of yourself -->
-            <img class="about__photo" src="./images/syed-ali-hussnain.jpg" alt="" />
+            <img class="about__photo" src="./images/people/wcp-person.png" alt="Portrait of Chunpo Wu" />
           </div>
         </div>
       </div>
@@ -213,15 +365,12 @@
       <h2>Get in Touch</h2>
       <div class="contact__info">
         <p>
-          Are you looking for a fast-performing and user-friendly website to
-          represent your product or business? or looking for any kind of
-          consultation? or want to ask questions? or have some advice for me
-          or just want to say "Hi 👋" in any case feel free to Let me know. I
-          will do my best to respond back. 😊 The quickest way to reach out to
-          me is via an email.
+          I am open to opportunities and collaborations around computer vision,
+          robotics, edge AI, remote sensing, and real-time monitoring systems.
+          The quickest way to reach me is by email.
         </p>
         <!-- Replace the email with yours -->
-        <a href="mailto:you@example.com" class="btn">you@example.com</a>
+        <a href="mailto:chunpo.wu@uni-konstanz.de" class="btn">chunpo.wu@uni-konstanz.de</a>
       </div>
     </div>
   </section>
@@ -233,44 +382,23 @@
       <!-- Update the links to point to your accounts -->
       <ul class="footer__social-links">
         <li class="footer__social-link-item">
-          <a href="https://twitter.com/nisarhassan12/" title="Link to Twitter Profile">
-            <img src="./images/twitter.svg" class="footer__social-image" alt="Twitter">
-          </a>
-        </li>
-        <li class="footer__social-link-item">
-          <a href="https://github.com/nisarhassan12/" title="Link to Github Profile">
-            <img src="./images/github.svg" class="footer__social-image" alt="Github">
-          </a>
-        </li>
-        <li class="footer__social-link-item">
-          <a href="https://codepen.io/nisar_hassan" title="Link to Codepen Profile">
-            <img src="./images/codepen.svg" class="footer__social-image" alt="Codepen">
-          </a>
-        </li>
-        <li class="footer__social-link-item">
-          <a href=https://www.linkedin.com/in/nisar-hassan-naqvi-413466199/">
-            <img src="./images/linkedin.svg" title="Link to Linkedin Profile" class="footer__social-image" alt="Linkedin">
+          <a href="mailto:chunpo.wu@uni-konstanz.de" title="Email Chunpo Wu">
+            chunpo.wu@uni-konstanz.de
           </a>
         </li>
       </ul>
 
-      <!-- If you give me some credit by keeping the below paragraph, will be huge for me 😊 Thanks. -->
       <p>
-        &copy; 2020 - Template designed & developed by <a href="https://nisar.dev" class="link">Nisar</a>.
+        &copy; 2026 Chunpo Wu.
       </p>
-      <div class="footer__github-buttons">
-        <iframe
-          src="https://ghbtns.com/github-btn.html?user=nisarhassan12&repo=portfolio-template&type=watch&count=true"
-          frameborder="0" scrolling="0" width="170" height="20" title="Watch Portfolio Template on GitHub">
-        </iframe>
-      </div>
     </div>
   </footer>
 
   <a href="#top" class="back-to-top" title="Back to Top">
-    <img src="./images/arrow-up.svg" alt="Back to Top" class="back-to-top__image"/>
+    <img src="./images/site/ui/arrow-up.svg" alt="Back to Top" class="back-to-top__image"/>
   </a>
-  <script src="./index.js"></script>
+  <button class="lang-toggle" type="button" aria-label="Switch language">中 / EN</button>
+  <script src="./index.js?v=18"></script>
 </body>
 
 </html>
