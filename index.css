@@ -723,7 +723,7 @@ body:not(.user-is-tabbing) a:focus {
 }
 
 .blog__row::after {
-    content: 'Drag ->';
+    content: 'Horizontal scroll';
     position: absolute;
     right: 0;
     top: 1rem;
@@ -734,18 +734,6 @@ body:not(.user-is-tabbing) a:focus {
     background: rgba(0, 0, 0, .72);
     font-family: 'Jost', sans-serif;
     font-size: 1.35rem;
-    pointer-events: none;
-}
-
-.blog__row::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 8rem;
-    z-index: 1;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0), var(--black));
     pointer-events: none;
 }
 
@@ -760,6 +748,8 @@ body:not(.user-is-tabbing) a:focus {
     padding: .6rem .2rem var(--gutter-small);
     scroll-behavior: smooth;
     user-select: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, .9) 4rem, rgba(0, 0, 0, .9) calc(100% - 4rem), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, .9) 4rem, rgba(0, 0, 0, .9) calc(100% - 4rem), transparent 100%);
 }
 
 .blog__track::-webkit-scrollbar {
