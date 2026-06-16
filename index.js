@@ -167,11 +167,11 @@ const TRANSLATIONS = {
   home: {
     title: {
       en: "Chunpo Wu | AI / Computer Vision Engineer",
-      zh: "Chunpo Wu | AI / 计算机视觉工程师",
+      zh: "吴春坡 | AI / 计算机视觉工程师",
     },
     description: {
       en: "Chunpo Wu is an AI and Computer Vision engineer focused on deep learning, robotics, SLAM, and edge AI systems.",
-      zh: "Chunpo Wu 是一名专注于深度学习、机器人、SLAM 与边缘 AI 系统的 AI / 计算机视觉工程师。",
+      zh: "吴春坡是一名专注于深度学习、机器人、SLAM 与边缘 AI 系统的 AI / 计算机视觉工程师。",
     },
     text: [
       [".nav__item:nth-child(1) .nav__link", "Projects", "项目"],
@@ -260,14 +260,14 @@ const TRANSLATIONS = {
       [".contact__info p", "I am open to opportunities and collaborations around computer vision, robotics, edge AI, remote sensing, and real-time monitoring systems. The quickest way to reach me is by email.", "我希望参与与计算机视觉、机器人、边缘 AI、遥感和实时监测系统相关的机会与合作。最快的联系我方式是邮件。"],
     ],
     attrs: [
-      ["title", "text", "Chunpo Wu | AI / Computer Vision Engineer", "Chunpo Wu | AI / 计算机视觉工程师"],
-      ["meta[name='description']", "content", "Chunpo Wu is an AI and Computer Vision engineer focused on deep learning, robotics, SLAM, and edge AI systems.", "Chunpo Wu 是一名专注于深度学习、机器人、SLAM 与边缘 AI 系统的 AI / 计算机视觉工程师。"],
+      ["title", "text", "Chunpo Wu | AI / Computer Vision Engineer", "吴春坡 | AI / 计算机视觉工程师"],
+      ["meta[name='description']", "content", "Chunpo Wu is an AI and Computer Vision engineer focused on deep learning, robotics, SLAM, and edge AI systems.", "吴春坡是一名专注于深度学习、机器人、SLAM 与边缘 AI 系统的 AI / 计算机视觉工程师。"],
       [".back-to-top", "title", "Back to Top", "返回顶部"],
       [".back-to-top__image", "alt", "Back to Top", "返回顶部"],
       [".blog-modal__close", "aria-label", "Close blog detail", "关闭博客详情"],
       [".about__skills", "aria-label", "Core skills", "核心技能"],
-      [".about__photo", "alt", "Portrait of Chunpo Wu", "Chunpo Wu 头像"],
-      [".footer__social-link-item a", "title", "Email Chunpo Wu", "给 Chunpo Wu 发邮件"],
+      [".about__photo", "alt", "Portrait of Chunpo Wu", "吴春坡头像"],
+      [".footer__social-link-item a", "title", "Email Chunpo Wu", "给吴春坡发邮件"],
     ],
     data: [
       [".blog__card:nth-of-type(1)", "full", "Notes on camera ingestion, Jetson-side inference, Kafka messaging, and keeping latency predictable in practical monitoring systems.", "关于相机采集、Jetson 端推理、Kafka 消息传递以及如何在真实监测系统中控制时延的笔记。"],
@@ -277,8 +277,8 @@ const TRANSLATIONS = {
     ],
   },
   braindance: {
-    title: { en: "Brain Dance VR | Chunpo Wu", zh: "Brain Dance VR | Chunpo Wu" },
-    description: { en: "Brain Dance VR project by Chunpo Wu.", zh: "Chunpo Wu 的 Brain Dance VR 项目。" },
+    title: { en: "Brain Dance VR | Chunpo Wu", zh: "Brain Dance VR | 吴春坡" },
+    description: { en: "Brain Dance VR project by Chunpo Wu.", zh: "吴春坡的 Brain Dance VR 项目。" },
     text: [
       [".nav__item:nth-child(1) .nav__link", "Projects", "项目"],
       [".nav__item:nth-child(2) .nav__link", "Experience", "经历"],
@@ -308,15 +308,15 @@ const TRANSLATIONS = {
       [".project-detail__aside dd:nth-of-type(5)", "Braindance sequences from Cyberpunk 2077", "《赛博朋克 2077》中的 Braindance 片段"],
     ],
     attrs: [
-      ["title", "text", "Brain Dance VR | Chunpo Wu", "Brain Dance VR | Chunpo Wu"],
-      ["meta[name='description']", "content", "Brain Dance VR project by Chunpo Wu.", "Chunpo Wu 的 Brain Dance VR 项目。"],
+      ["title", "text", "Brain Dance VR | Chunpo Wu", "Brain Dance VR | 吴春坡"],
+      ["meta[name='description']", "content", "Brain Dance VR project by Chunpo Wu.", "吴春坡的 Brain Dance VR 项目。"],
       [".video-embed iframe", "title", "Brain Dance VR project video", "Brain Dance VR 项目视频"],
       [".project-back-link", "aria-label", "Back to projects", "返回项目列表"],
     ],
   },
   railway: {
-    title: { en: "Railway Safety Monitoring System | Chunpo Wu", zh: "铁路安全监测系统 | Chunpo Wu" },
-    description: { en: "Railway safety monitoring system by Chunpo Wu.", zh: "Chunpo Wu 的铁路安全监测系统项目。" },
+    title: { en: "Railway Safety Monitoring System | Chunpo Wu", zh: "铁路安全监测系统 | 吴春坡" },
+    description: { en: "Railway safety monitoring system by Chunpo Wu.", zh: "吴春坡的铁路安全监测系统项目。" },
     text: [
       [".nav__item:nth-child(1) .nav__link", "Projects", "项目"],
       [".nav__item:nth-child(2) .nav__link", "Experience", "经历"],
@@ -344,16 +344,16 @@ const TRANSLATIONS = {
       [".project-detail__aside dd:nth-of-type(3)", "YOLOv7, Jetson, Kafka, OCR, real-time systems", "YOLOv7、Jetson、Kafka、OCR、实时系统"],
     ],
     attrs: [
-      ["title", "text", "Railway Safety Monitoring System | Chunpo Wu", "铁路安全监测系统 | Chunpo Wu"],
-      ["meta[name='description']", "content", "Railway safety monitoring system by Chunpo Wu.", "Chunpo Wu 的铁路安全监测系统项目。"],
+      ["title", "text", "Railway Safety Monitoring System | Chunpo Wu", "铁路安全监测系统 | 吴春坡"],
+      ["meta[name='description']", "content", "Railway safety monitoring system by Chunpo Wu.", "吴春坡的铁路安全监测系统项目。"],
       [".slide-viewer__button--prev", "aria-label", "Previous slide", "上一页"],
       [".slide-viewer__button--next", "aria-label", "Next slide", "下一页"],
       [".project-back-link", "aria-label", "Back to projects", "返回项目列表"],
     ],
   },
   drone: {
-    title: { en: "Autonomous Drone Navigation & Target Tracking | Chunpo Wu", zh: "自主无人机导航与目标跟踪 | Chunpo Wu" },
-    description: { en: "Autonomous drone navigation and target tracking project by Chunpo Wu.", zh: "Chunpo Wu 的自主无人机导航与目标跟踪项目。" },
+    title: { en: "Autonomous Drone Navigation & Target Tracking | Chunpo Wu", zh: "自主无人机导航与目标跟踪 | 吴春坡" },
+    description: { en: "Autonomous drone navigation and target tracking project by Chunpo Wu.", zh: "吴春坡的自主无人机导航与目标跟踪项目。" },
     text: [
       [".nav__item:nth-child(1) .nav__link", "Projects", "项目"],
       [".nav__item:nth-child(2) .nav__link", "Experience", "经历"],
@@ -382,16 +382,16 @@ const TRANSLATIONS = {
       [".project-detail__aside dd:nth-of-type(3)", "YOLOv11, DepthAnything v2, robotics, visual navigation", "YOLOv11、DepthAnything v2、机器人、视觉导航"],
     ],
     attrs: [
-      ["title", "text", "Autonomous Drone Navigation & Target Tracking | Chunpo Wu", "自主无人机导航与目标跟踪 | Chunpo Wu"],
-      ["meta[name='description']", "content", "Autonomous drone navigation and target tracking project by Chunpo Wu.", "Chunpo Wu 的自主无人机导航与目标跟踪项目。"],
+      ["title", "text", "Autonomous Drone Navigation & Target Tracking | Chunpo Wu", "自主无人机导航与目标跟踪 | 吴春坡"],
+      ["meta[name='description']", "content", "Autonomous drone navigation and target tracking project by Chunpo Wu.", "吴春坡的自主无人机导航与目标跟踪项目。"],
       [".slide-viewer__button--prev", "aria-label", "Previous slide", "上一页"],
       [".slide-viewer__button--next", "aria-label", "Next slide", "下一页"],
       [".project-back-link", "aria-label", "Back to projects", "返回项目列表"],
     ],
   },
   music: {
-    title: { en: "Music Universe | Chunpo Wu", zh: "音乐宇宙 | Chunpo Wu" },
-    description: { en: "Music Universe project by Chunpo Wu.", zh: "Chunpo Wu 的音乐宇宙项目。" },
+    title: { en: "Music Universe | Chunpo Wu", zh: "音乐宇宙 | 吴春坡" },
+    description: { en: "Music Universe project by Chunpo Wu.", zh: "吴春坡的音乐宇宙项目。" },
     text: [
       [".nav__item:nth-child(1) .nav__link", "Projects", "项目"],
       [".nav__item:nth-child(2) .nav__link", "Experience", "经历"],
@@ -423,8 +423,8 @@ const TRANSLATIONS = {
       [".project-detail__aside dd:nth-of-type(4)", "Genre transfer, spatial exploration, temporal trend analysis, interactive storytelling with data", "流派迁移、空间探索、时间趋势分析以及基于数据的交互式叙事"],
     ],
     attrs: [
-      ["title", "text", "Music Universe | Chunpo Wu", "音乐宇宙 | Chunpo Wu"],
-      ["meta[name='description']", "content", "Music Universe project by Chunpo Wu.", "Chunpo Wu 的音乐宇宙项目。"],
+      ["title", "text", "Music Universe | Chunpo Wu", "音乐宇宙 | 吴春坡"],
+      ["meta[name='description']", "content", "Music Universe project by Chunpo Wu.", "吴春坡的音乐宇宙项目。"],
       [".video-embed iframe", "title", "Music Universe project video", "音乐宇宙项目视频"],
       [".project-back-link", "aria-label", "Back to projects", "返回项目列表"],
     ],
