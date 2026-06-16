@@ -210,7 +210,7 @@ const TRANSLATIONS = {
       [".timeline-column:nth-child(2) .timeline__item:nth-child(1) h4", "Web Engineer Intern", "Web 工程师实习生"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(1) p:nth-child(3)", "Baigong Information Technology. Developed backend and frontend features for a monitoring platform and designed APIs.", "百工信息技术。为监控平台开发前后端功能，并设计相关 API。"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(2) h4", "Algorithm Engineer Intern", "算法工程师实习生"],
-      [".timeline-column:nth-child(2) .timeline__item:nth-child(2) p:nth-child(3)", "Youxiangtu Intelligent Technology. Researched remote sensing object detection algorithms and graph neural network methods.", "优像图智能科技。研究遥感目标检测算法和图神经网络方法。"],
+      [".timeline-column:nth-child(2) .timeline__item:nth-child(2) p:nth-child(3)", "Youxiangtu Intelligent Technology. Researched remote sensing object detection algorithms and graph neural network methods.", "有向图智能科技。研究遥感目标检测算法和图神经网络方法。"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(3) .timeline__meta", "Awards", "奖项"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(3) h4", "Scholarships & Honors", "奖学金与荣誉"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(3) p:nth-child(3)", "National Inspirational Scholarship; Shandong Outstanding Student.", "国家励志奖学金；山东省优秀学生。"],
