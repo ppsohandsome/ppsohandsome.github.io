@@ -179,6 +179,7 @@ const TRANSLATIONS = {
       [".nav__item:nth-child(3) .nav__link", "Blog", "博客"],
       [".nav__item:nth-child(4) .nav__link", "About", "关于"],
       [".nav__item:nth-child(5) .nav__link", "Contact", "联系"],
+      [".header__text .heading-primary span", "Chunpo Wu", "吴春坡"],
       [".header__text p", "AI / Computer Vision Engineer focused on robotics, edge AI, and real-time visual systems.", "专注于机器人、边缘 AI 与实时视觉系统的 AI / 计算机视觉工程师。"],
       [".header__actions .btn--pink", "View projects", "查看项目"],
       [".header__actions .btn:not(.btn--pink)", "Download CV", "下载简历"],
