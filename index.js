@@ -215,7 +215,7 @@ const TRANSLATIONS = {
       [".timeline-column:nth-child(2) .timeline__item:nth-child(3) h4", "Scholarships & Honors", "奖学金与荣誉"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(3) p:nth-child(3)", "National Inspirational Scholarship; Shandong Outstanding Student.", "国家励志奖学金；山东省优秀学生。"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(4) .timeline__meta", "May 2026", "2026 年 5 月"],
-      [".timeline-column:nth-child(2) .timeline__item:nth-child(4) h4", "Notice of exemption from tuition fees for gifted students", "优秀学生学费减免通知"],
+      [".timeline-column:nth-child(2) .timeline__item:nth-child(4) h4", "Tuition Fee Exemption for Gifted International Students", "国际优秀学生学费减免"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(4) p:nth-child(3)", "Issued by University of Konstanz.", "由康斯坦茨大学颁发。"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(5) .timeline__meta", "Competitions", "竞赛"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(5) h4", "Technical Competitions", "技术竞赛"],
