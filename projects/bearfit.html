@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" type="image/png" href="../images/site/ui/favicon.png" />
+  <title>BearFit Multi-Sensor Fitness Demo | Chunpo Wu</title>
+  <meta name="description" content="BearFit multi-sensor fitness demo by Chunpo Wu." />
+  <link rel="stylesheet" href="../index.css?v=19" />
+</head>
+
+<body data-page="bearfit">
+  <header class="page-header" role="banner">
+    <div class="row">
+      <nav class="nav" role="navigation">
+        <ul class="nav__items">
+          <li class="nav__item"><a href="../index.html#work" class="nav__link">Projects</a></li>
+          <li class="nav__item"><a href="../index.html#experience" class="nav__link">Experience</a></li>
+          <li class="nav__item"><a href="../index.html#blog" class="nav__link">Blog</a></li>
+          <li class="nav__item"><a href="../index.html#about" class="nav__link">About</a></li>
+          <li class="nav__item"><a href="../index.html#contact" class="nav__link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main">
+    <section class="page-hero">
+      <div class="row">
+        <h1 class="heading-primary">BearFit Multi-Sensor Fitness Demo</h1>
+        <p>
+          A multi-device workout tracking prototype that fuses iPhone, Apple Watch, AirPods,
+          camera-based pose estimation, and a Linux backend into one fitness sensing workflow.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-detail">
+      <div class="row project-detail__grid">
+        <div class="project-detail__content">
+          <h2>Overview</h2>
+          <p>
+            BearFit is built as a sensor-first fitness demo rather than a single-mode app. The iPhone app can ingest
+            motion data from the phone itself, AirPods IMU streams, and Apple Watch wrist motion, while also supporting
+            a camera mode for live pose estimation and form analysis.
+          </p>
+          <p>
+            Around that capture layer, the project adds local logging, MQTT streaming for low-latency delivery to Linux
+            machines, a FastAPI-based inference backend, and offline movement-analysis scripts for repetition progress,
+            completion features, and model training experiments.
+          </p>
+
+          <h2>Video</h2>
+          <div class="video-embed">
+            <video controls preload="metadata" playsinline poster="../images/projects/bear_fitness/cover.jpg">
+              <source src="../images/projects/bear_fitness/video.mp4" type="video/mp4" />
+            </video>
+          </div>
+
+          <h2>Key Work</h2>
+          <ul>
+            <li>Built an iPhone + Apple Watch data pipeline for collecting synchronized IMU streams during workouts.</li>
+            <li>Integrated AirPods motion sensing and camera-based pose tracking into two different exercise modes.</li>
+            <li>Added MQTT-based live streaming so multiple Linux receivers can subscribe to the same sensor session.</li>
+            <li>Implemented a FastAPI backend for ingest, logging, and exercise-classifier inference experiments.</li>
+            <li>Created offline movement-analysis tooling for progress baselines, completion features, and visualization.</li>
+          </ul>
+        </div>
+
+        <aside class="project-detail__aside">
+          <h3>Project Info</h3>
+          <dl>
+            <dt>Platform</dt>
+            <dd>iPhone, Apple Watch, AirPods, Linux backend</dd>
+            <dt>Frontend</dt>
+            <dd>SwiftUI, WatchConnectivity, Core Motion</dd>
+            <dt>Backend</dt>
+            <dd>Python, FastAPI, MQTT</dd>
+            <dt>Focus</dt>
+            <dd>Multi-sensor fusion, rep tracking, live feedback, local-first exercise analysis</dd>
+          </dl>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <a href="../index.html#work" class="project-back-link" aria-label="Back to projects">
+    <img src="../images/site/ui/arrow-up.svg" alt="" class="project-back-link__image" />
+  </a>
+  <button class="lang-toggle lang-toggle--detail" type="button" aria-label="Switch language">中 / EN</button>
+  <script src="../index.js?v=19"></script>
+</body>
+
+</html>

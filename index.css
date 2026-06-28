@@ -1086,6 +1086,14 @@ body:not(.user-is-tabbing) a:focus {
     border: 0;
 }
 
+.video-embed video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+    background: #000;
+}
+
 .project-back-link {
     position: fixed;
     right: 4rem;
