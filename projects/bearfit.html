@@ -30,8 +30,8 @@
       <div class="row">
         <h1 class="heading-primary">BearFit Multi-Sensor Fitness Demo</h1>
         <p>
-          A multi-device workout tracking prototype that fuses iPhone, Apple Watch, AirPods,
-          camera-based pose estimation, and a Linux backend into one fitness sensing workflow.
+          A gym-ready workout tracking prototype built around what people already carry:
+          one phone, one watch, and one pair of earbuds, with no special outfit or external rig required.
         </p>
       </div>
     </section>
@@ -41,14 +41,14 @@
         <div class="project-detail__content">
           <h2>Overview</h2>
           <p>
-            BearFit is built as a sensor-first fitness demo rather than a single-mode app. The iPhone app can ingest
-            motion data from the phone itself, AirPods IMU streams, and Apple Watch wrist motion, while also supporting
-            a camera mode for live pose estimation and form analysis.
+            BearFit is designed around a low-friction gym workflow: you walk in dressed normally, bring your iPhone,
+            wear an Apple Watch, put on your earbuds, and the system can start tracking movement immediately without
+            straps, markers, or dedicated hardware.
           </p>
           <p>
-            Around that capture layer, the project adds local logging, MQTT streaming for low-latency delivery to Linux
-            machines, a FastAPI-based inference backend, and offline movement-analysis scripts for repetition progress,
-            completion features, and model training experiments.
+            Technically, the project fuses motion streams from the phone, Apple Watch, and earbuds, then adds local
+            logging, MQTT streaming for low-latency Linux delivery, a FastAPI-based inference backend, and offline
+            movement-analysis scripts for repetition progress, completion features, and model training experiments.
           </p>
 
           <h2>Video</h2>
@@ -61,7 +61,7 @@
           <h2>Key Work</h2>
           <ul>
             <li>Built an iPhone + Apple Watch data pipeline for collecting synchronized IMU streams during workouts.</li>
-            <li>Integrated AirPods motion sensing and camera-based pose tracking into two different exercise modes.</li>
+            <li>Integrated earbud motion sensing so a normal phone + watch + earbuds setup is enough for live exercise tracking.</li>
             <li>Added MQTT-based live streaming so multiple Linux receivers can subscribe to the same sensor session.</li>
             <li>Implemented a FastAPI backend for ingest, logging, and exercise-classifier inference experiments.</li>
             <li>Created offline movement-analysis tooling for progress baselines, completion features, and visualization.</li>
