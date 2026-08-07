@@ -5,8 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="shortcut icon" type="image/png" href="../images/site/ui/favicon.png" />
-  <title>BearFit Multi-Sensor Fitness Demo | Chunpo Wu</title>
-  <meta name="description" content="BearFit multi-sensor fitness demo by Chunpo Wu." />
+  <title>BearFit Multi-Device IMU Fitness Sensing | Chunpo Wu</title>
+  <meta name="description" content="BearFit multi-device IMU fitness sensing project by Chunpo Wu." />
   <link rel="stylesheet" href="../index.css?v=19" />
 </head>
 
@@ -28,10 +28,10 @@
   <main role="main">
     <section class="page-hero">
       <div class="row">
-        <h1 class="heading-primary">BearFit Multi-Sensor Fitness Demo</h1>
+        <h1 class="heading-primary">BearFit Multi-Device IMU Fitness Sensing</h1>
         <p>
-          A gym-ready workout tracking prototype built around what people already carry:
-          one phone, one watch, and one pair of earbuds, with no special outfit or external rig required.
+          A multi-device IMU workout sensing prototype for body awareness in the gym, built around what people
+          already carry plus a lightweight ring device: phone, watch, earbuds, and ring.
         </p>
       </div>
     </section>
@@ -42,13 +42,14 @@
           <h2>Overview</h2>
           <p>
             BearFit is designed around a low-friction gym workflow: you walk in dressed normally, bring your iPhone,
-            wear an Apple Watch, put on your earbuds, and the system can start tracking movement immediately without
-            straps, markers, or dedicated hardware.
+            wear an Apple Watch, put on your earbuds, and add a lightweight IMU ring, then the system can start
+            tracking whole-body movement immediately without cameras, straps, or dedicated gym hardware.
           </p>
           <p>
-            Technically, the project fuses motion streams from the phone, Apple Watch, and earbuds, then adds local
-            logging, MQTT streaming for low-latency Linux delivery, a FastAPI-based inference backend, and offline
-            movement-analysis scripts for repetition progress, completion features, and model training experiments.
+            Technically, the project fuses motion streams from the phone, Apple Watch, earbuds, and left/right ring
+            IMUs, then adds local logging, MQTT streaming for low-latency Linux delivery, a FastAPI-based inference
+            backend, and offline movement-analysis scripts for repetition progress, completion features, pose fusion,
+            and model training experiments.
           </p>
 
           <h2>Video</h2>
@@ -60,11 +61,11 @@
 
           <h2>Key Work</h2>
           <ul>
-            <li>Built an iPhone + Apple Watch data pipeline for collecting synchronized IMU streams during workouts.</li>
-            <li>Integrated earbud motion sensing so a normal phone + watch + earbuds setup is enough for live exercise tracking.</li>
-            <li>Added MQTT-based live streaming so multiple Linux receivers can subscribe to the same sensor session.</li>
-            <li>Implemented a FastAPI backend for ingest, logging, and exercise-classifier inference experiments.</li>
-            <li>Created offline movement-analysis tooling for progress baselines, completion features, and visualization.</li>
+            <li>Built a multi-device IMU pipeline for collecting synchronized motion streams from phone, watch, earbuds, and rings during workouts.</li>
+            <li>Extended the sensing setup with ring_left and ring_right inputs to capture finer hand and arm motion during exercise.</li>
+            <li>Added MQTT-based live streaming so multiple Linux receivers can subscribe to the same sensor session with low latency.</li>
+            <li>Implemented a FastAPI backend for ingest, logging, exercise inference experiments, and body-movement analysis workflows.</li>
+            <li>Created offline tooling for progress baselines, completion features, pose fusion, and visualization across multi-device IMU sessions.</li>
           </ul>
         </div>
 
@@ -72,13 +73,13 @@
           <h3>Project Info</h3>
           <dl>
             <dt>Platform</dt>
-            <dd>iPhone, Apple Watch, AirPods, Linux backend</dd>
+            <dd>iPhone, Apple Watch, AirPods, IMU rings, Linux backend</dd>
             <dt>Frontend</dt>
             <dd>SwiftUI, WatchConnectivity, Core Motion</dd>
             <dt>Backend</dt>
             <dd>Python, FastAPI, MQTT</dd>
             <dt>Focus</dt>
-            <dd>Multi-sensor fusion, rep tracking, live feedback, local-first exercise analysis</dd>
+            <dd>Multi-device IMU fusion, body-movement sensing, rep tracking, live feedback</dd>
           </dl>
         </aside>
       </div>
