@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Build and export Chunpo Wu's CV from structured portfolio data.">
+  <title>CV Studio | Chunpo Wu</title>
+  <link rel="shortcut icon" type="image/png" href="./images/site/ui/favicon.png">
+  <link rel="stylesheet" href="./cv-studio.css?v=17">
+</head>
+<body>
+  <header class="studio-header">
+    <a class="studio-brand" href="./index.html"><span>CHUNPO /</span> CV STUDIO</a>
+    <div class="studio-actions">
+      <div class="language-switcher" id="languageSwitcher" role="group" aria-label="CV language">
+        <button type="button" data-language="en" class="is-active">EN</button>
+        <button type="button" data-language="zh">中文</button>
+      </div>
+      <span class="save-state" id="saveState">Saved locally</span>
+      <button class="button button--quiet" id="resetButton" type="button">Reset</button>
+      <button class="button button--primary" id="printButton" type="button">Export PDF</button>
+    </div>
+  </header>
+  <main class="studio-layout">
+    <aside class="control-panel" aria-label="CV controls">
+      <div class="control-intro">
+        <p class="eyebrow">ONE-PAGE CONTROL</p>
+        <h1>Shape the CV,<br>not the data.</h1>
+        <p>Choose what earns space. The preview follows the visual structure of the current Canva CV and saves changes in this browser.</p>
+      </div>
+      <section class="control-section">
+        <div class="control-heading"><h2>Design</h2><span>3 layouts</span></div>
+        <div class="template-switcher" id="templateSwitcher" role="group" aria-label="CV design">
+          <button type="button" data-template="classic" class="is-active"><strong>Classic</strong><span>Current CV</span></button>
+          <button type="button" data-template="signal"><strong>Signal</strong><span>Modern tech</span></button>
+          <button type="button" data-template="minimal"><strong>Minimal</strong><span>High density</span></button>
+        </div>
+      </section>
+      <section class="control-section">
+        <div class="control-heading"><h2>Page fit</h2><span class="fit-status" id="fitStatus">Checking...</span></div>
+        <label class="field-label" for="density">Spacing</label>
+        <div class="segmented" id="density" role="group" aria-label="CV spacing">
+          <button type="button" data-density="compact">Compact</button>
+          <button type="button" data-density="balanced" class="is-active">Balanced</button>
+          <button type="button" data-density="roomy">Roomy</button>
+        </div>
+        <label class="range-row" for="projectLimit"><span>Maximum projects</span><strong id="projectLimitValue">3</strong></label>
+        <input id="projectLimit" type="range" min="1" max="6" value="3">
+      </section>
+      <section class="control-section">
+        <div class="control-heading"><h2>Projects</h2><span id="selectedCount">3 selected</span></div>
+        <p class="section-help">Enable projects, set bullet count, and use arrows to control priority.</p>
+        <div class="project-controls" id="projectControls"></div>
+      </section>
+      <section class="control-section data-note">
+        <h2>Data source</h2>
+        <p>Default content lives in <code>cv/resume-data.js</code>. Control changes are auto-saved to this browser.</p>
+        <button class="text-button" id="downloadDataButton" type="button">Download current data</button>
+      </section>
+    </aside>
+    <section class="preview-stage" aria-label="CV preview">
+      <div class="preview-caption"><span>LIVE A4 PREVIEW</span><span id="previewMeta">3 projects / balanced</span></div>
+      <article class="cv-page" id="cvPage"></article>
+    </section>
+  </main>
+  <script src="./cv/resume-data.js?v=4"></script>
+  <script src="./cv-studio.js?v=11"></script>
+</body>
+</html>

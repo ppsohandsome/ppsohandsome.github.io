@@ -422,6 +422,10 @@ body:not(.user-is-tabbing) a:focus {
     background: var(--pink);
 }
 
+.nav__link--studio {
+    color: var(--pink);
+}
+
 /* --------------------------------------- */
 /* ----- Header ----- */
 /* --------------------------------------- */
