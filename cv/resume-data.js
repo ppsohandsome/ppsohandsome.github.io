@@ -27,8 +27,8 @@ window.RESUME_DATA = {
       period: "2021 - 2025",
       bullets: [
         "GPA: 88.97/100 (Top 2/118)",
-        "National Inspirational Scholarship; Shandong Outstanding Student",
-        "Huawei Kunpeng Innovation Competition (Provincial 2nd Prize); Lanqiao Cup (National Excellence); AI Competition (Provincial Prize)"
+        "National Inspirational Scholarship; Jinan Scholarship; Shandong Outstanding Student",
+        "Won national and provincial awards in the Huawei Kunpeng Innovation Competition, China International College Students' Innovation Competition, and Challenge Cup"
       ]
     }
   ],
@@ -94,7 +94,13 @@ window.RESUME_ZH = {
       title: "数据科学与大数据技术学士",
       organization: "山东交通学院",
       period: "2021 - 2025",
-      bullets: ["平均成绩：88.97/100，专业排名 2/118", "国家励志奖学金；山东省优秀学生", "华为鲲鹏创新大赛省级二等奖；蓝桥杯全国优秀奖；人工智能竞赛省级奖项"]
+      bullets: ["平均成绩：88.97/100，专业排名 2/118", "国家励志奖学金；济南奖学金；山东省优秀学生", "以项目负责人身份多次在‘大创’、‘挑战杯’等 A 类赛事中获得国家级、省级奖项"]
+    },
+    {
+      title: "服役经历",
+      organization: "中国人民解放军陆军特种作战某旅",
+      period: "2019 - 2021",
+      bullets: ["获四有优秀士兵勋章、献身国防铜质勋章"]
     }
   ],
   projects: {

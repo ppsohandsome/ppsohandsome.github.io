@@ -125,8 +125,9 @@ code { color: #d8d8dc; }
 .cv-entry .period { color: #6f6f73; font-size: 7.7pt; white-space: nowrap; }
 .cv-entry .organization { margin: .4mm 0 1.2mm; color: #555; font-size: 9.2pt; font-style: italic; line-height: 1.05; }
 .cv-bullets { margin: 0; padding: 0; color: #69696e; list-style: none; }
-.cv-bullets li { padding-left: 3mm; text-indent: -3mm; }
-.cv-bullets li::before { content: '- '; }
+.cv-bullets li { display: grid; grid-template-columns: 2.8mm minmax(0, 1fr); padding: 0; text-indent: 0; }
+.cv-bullets li::before { content: '-'; }
+.cv-bullets li span { min-width: 0; }
 .publication-title { margin: 0 0 2mm; font-size: 10.5pt; font-weight: 400; }
 .cv-page[data-language='zh'] { font-family: 'Noto Sans CJK SC', 'Microsoft YaHei', 'Hk Grotesk', sans-serif; --cv-line: 1.4; }
 .cv-page[data-language='zh'] .identity-card h1 { font-size: 20pt; line-height: 1.15; }

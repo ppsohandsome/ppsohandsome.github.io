@@ -620,6 +620,19 @@ body:not(.user-is-tabbing) a:focus {
     margin: .8rem 0 0;
 }
 
+.timeline__list {
+    margin: .8rem 0 0;
+    padding-left: 2rem;
+}
+
+.timeline__list li {
+    padding-left: .3rem;
+}
+
+.timeline__list li + li {
+    margin-top: .45rem;
+}
+
 .timeline__meta {
     margin: 0 0 1rem;
     color: var(--pink);

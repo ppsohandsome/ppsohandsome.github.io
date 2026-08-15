@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'chunpo-cv-studio-v3';
+const STORAGE_KEY = 'chunpo-cv-studio-v7';
 const originalData = structuredClone(window.RESUME_DATA);
 
 const loadState = () => {
@@ -72,7 +72,7 @@ const localizedData = () => {
     profile: { ...state.data.profile, ...zh.profile },
     skills: zh.skills,
     languages: zh.languages,
-    education: state.data.education.map((entry, index) => ({ ...entry, ...zh.education[index] })),
+    education: zh.education.map((entry, index) => ({ ...state.data.education[index], ...entry })),
     projects: state.data.projects.map((project) => ({ ...project, ...zh.projects[project.id] })),
     experience: state.data.experience.map((entry, index) => ({ ...entry, ...zh.experience[index] })),
     publication: { ...state.data.publication, ...zh.publication }
@@ -84,7 +84,7 @@ const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (character)
 })[character]);
 
 const renderBullets = (bullets, limit = bullets.length) => `
-  <ul class="cv-bullets">${bullets.slice(0, limit).map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join('')}</ul>`;
+  <ul class="cv-bullets">${bullets.slice(0, limit).map((bullet) => `<li><span>${escapeHtml(bullet)}</span></li>`).join('')}</ul>`;
 
 const renderEntries = (entries) => entries.map((entry) => `
   <article class="cv-entry">

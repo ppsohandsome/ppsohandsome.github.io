@@ -221,13 +221,17 @@ const TRANSLATIONS = {
       [".timeline-column:nth-child(2) .timeline__item:nth-child(2) p:nth-child(3)", "Youxiangtu Intelligent Technology. Researched remote sensing object detection algorithms and graph neural network methods.", "有向图智能科技。研究遥感目标检测算法和图神经网络方法。"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(3) .timeline__meta", "Awards", "奖项"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(3) h4", "Scholarships & Honors", "奖学金与荣誉"],
-      [".timeline-column:nth-child(2) .timeline__item:nth-child(3) p:nth-child(3)", "National Inspirational Scholarship; Shandong Outstanding Student.", "国家励志奖学金；山东省优秀学生。"],
+      [".timeline-column:nth-child(2) .timeline__item:nth-child(3) p:nth-child(3)", "National Inspirational Scholarship; Jinan Scholarship; Shandong Outstanding Student.", "国家励志奖学金；济南奖学金；山东省优秀学生。"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(4) .timeline__meta", "May 2026", "2026 年 5 月"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(4) h4", "Tuition Fee Exemption for Gifted International Students", "国际优秀学生学费减免"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(4) p:nth-child(3)", "Issued by University of Konstanz.", "由康斯坦茨大学颁发。"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(5) .timeline__meta", "Competitions", "竞赛"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(5) h4", "Technical Competitions", "技术竞赛"],
-      [".timeline-column:nth-child(2) .timeline__item:nth-child(5) p:nth-child(3)", "Huawei Kunpeng Innovation Competition, Provincial 2nd Prize; Lanqiao Cup, National Excellence; AI Competition, Provincial Prize.", "华为鲲鹏创新大赛省级二等奖；蓝桥杯全国优秀奖；AI 竞赛省级奖项。"],
+      [".technical-competitions li:nth-child(1)", "Huawei Kunpeng Innovation Competition, Provincial 2nd Prize", "华为鲲鹏创新大赛省级二等奖"],
+      [".technical-competitions li:nth-child(2)", "Lanqiao Cup, National Excellence", "蓝桥杯全国优秀奖"],
+      [".technical-competitions li:nth-child(3)", "AI Competition, Provincial Prize", "AI 竞赛省级奖项"],
+      [".technical-competitions li:nth-child(4)", "Multiple national and provincial awards in the China International College Students' Innovation Competition and Challenge Cup as project lead", "以项目负责人身份多次在大学生创新创业大赛（大创）、‘挑战杯’等 A 类赛事中获得国家级、省级奖项"],
+      [".technical-competitions li:nth-child(5)", "AdventureX Hackathon, Track Award", "AdventureX 黑客松赛道奖项"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(6) .timeline__meta", "Publication", "论文"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(6) h4", "Lightweight Insulator Defect Detection Algorithm Based on UAV Perspective", "基于无人机视角的轻量化绝缘子缺陷检测算法"],
       [".timeline-column:nth-child(2) .timeline__item:nth-child(6) p:nth-child(3)", "Published in Journal of Beijing University of Aeronautics and Astronautics, 2025.", "发表于《北京航空航天大学学报》，2025。"],
@@ -513,6 +517,9 @@ const applyLanguage = (language) => {
       element.dataset[attr] = language === "zh" ? zh : en;
     });
   }
+
+  const militaryEntry = document.querySelector(".timeline__item--military");
+  if (militaryEntry) militaryEntry.hidden = language !== "zh";
 
   if (langToggle) {
     langToggle.classList.toggle("is-zh", language === "zh");
