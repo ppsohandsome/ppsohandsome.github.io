@@ -633,6 +633,17 @@ body:not(.user-is-tabbing) a:focus {
     margin-top: .45rem;
 }
 
+.timeline__title-link {
+    color: inherit;
+    border-bottom: 1px solid rgba(240, 233, 242, .35);
+}
+
+.timeline__title-link:hover,
+.timeline__title-link:focus-visible {
+    color: var(--pink);
+    border-color: var(--pink);
+}
+
 .timeline__meta {
     margin: 0 0 1rem;
     color: var(--pink);
