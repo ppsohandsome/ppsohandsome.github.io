@@ -5,7 +5,7 @@ const DEFAULT_INCLUDED = {
   sidebar: { contact: true, about: true, skills: true, languages: true },
   education: { 'msc-konstanz': true, 'bsc-sdjt': true, 'military-service': true },
   experience: { 'algorithm-intern': true, 'web-intern': true },
-  publications: { 'insulator-uav': true }
+  publications: { 'insulator-uav': true, 'mapf-wt-rbf': true }
 };
 
 const defaultState = (language = 'en') => ({
@@ -21,11 +21,24 @@ const normalizeIncluded = (included = {}) => Object.fromEntries(
   Object.entries(DEFAULT_INCLUDED).map(([group, defaults]) => [group, { ...defaults, ...included[group] }])
 );
 
+const mergeProjectSettings = (savedProjects = []) => {
+  const latestById = new Map(originalData.projects.map((project) => [project.id, project]));
+  const restored = savedProjects.flatMap((savedProject) => {
+    const latest = latestById.get(savedProject.id);
+    if (!latest) return [];
+    latestById.delete(savedProject.id);
+    return [{ ...latest, enabled: savedProject.enabled, bulletLimit: savedProject.bulletLimit }];
+  });
+  return [...restored, ...latestById.values()];
+};
+
 const loadState = () => {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (saved?.data?.projects) {
-      return { ...defaultState(saved.language), ...saved, included: normalizeIncluded(saved.included) };
+      const data = structuredClone(originalData);
+      data.projects = mergeProjectSettings(saved.data.projects);
+      return { ...defaultState(saved.language), ...saved, data, included: normalizeIncluded(saved.included) };
     }
   } catch (error) {
     console.warn('Could not load CV Studio draft.', error);

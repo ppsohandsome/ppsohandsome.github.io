@@ -75,6 +75,11 @@ window.RESUME_DATA = {
       id: "insulator-uav",
       title: "Lightweight Insulator Defect Detection Algorithm Based on UAV Perspective",
       bullets: ["Proposed a lightweight deep learning model for insulator defect detection in UAV images", "Published in Journal of Beijing University of Aeronautics and Astronautics (2025)"]
+    },
+    {
+      id: "mapf-wt-rbf",
+      title: "Multi-agent Path Finding Based on WT-RBF Linear and Feature Enhancement",
+      bullets: ["Co-authored a DHC-based MAPF method integrating CBAM, WT-RBF Linear, and conflict resolution", "Published in Journal of Nanjing University of Posts and Telecommunications (Natural Science Edition) (2026); achieved a 96.5% average success rate"]
     }
   ]
 };
@@ -146,6 +151,11 @@ window.RESUME_ZH = {
       id: "insulator-uav",
       title: "无人机视角下的轻量化绝缘子缺陷检测算法",
       bullets: ["提出面向无人机图像绝缘子缺陷检测的轻量化深度学习模型", "发表于《北京航空航天大学学报》（2025）"]
+    },
+    {
+      id: "mapf-wt-rbf",
+      title: "基于 WT-RBF Linear 与特征增强的多机器人路径规划",
+      bullets: ["参与提出基于 DHC 的多机器人路径规划方法，引入 CBAM、WT-RBF Linear 与冲突消解策略", "发表于《南京邮电大学学报（自然科学版）》（2026）；平均成功率达到 96.5%"]
     }
   ]
 };
