@@ -12,6 +12,7 @@ window.RESUME_DATA = {
   languages: ["Chinese (Native)", "English (C1)", "German (A2)"],
   education: [
     {
+      id: "msc-konstanz",
       title: "M.Sc. Computer and Information Science",
       organization: "University of Konstanz",
       period: "2025 - Present",
@@ -22,6 +23,7 @@ window.RESUME_DATA = {
       ]
     },
     {
+      id: "bsc-sdjt",
       title: "B.Sc. Data Science and Big Data Technology",
       organization: "Shandong Jiaotong University",
       period: "2021 - 2025",
@@ -65,13 +67,16 @@ window.RESUME_DATA = {
     }
   ],
   experience: [
-    { title: "Algorithm Engineer Intern", organization: "Youxiangtu Intelligent Technology", period: "06.2024 - 09.2024", bullets: ["Researched remote sensing object detection algorithms", "Explored Graph Neural Network methods"] },
-    { title: "Web Engineer Intern", organization: "Baigong Information Technology", period: "06.2025 - 09.2025", bullets: ["Developed backend and frontend features for a construction activity monitoring platform", "Designed APIs and collaborated with engineering teams"] }
+    { id: "algorithm-intern", title: "Algorithm Engineer Intern", organization: "Youxiangtu Intelligent Technology", period: "06.2024 - 09.2024", bullets: ["Researched remote sensing object detection algorithms", "Explored Graph Neural Network methods"] },
+    { id: "web-intern", title: "Web Engineer Intern", organization: "Baigong Information Technology", period: "06.2025 - 09.2025", bullets: ["Developed backend and frontend features for a construction activity monitoring platform", "Designed APIs and collaborated with engineering teams"] }
   ],
-  publication: {
-    title: "Lightweight Insulator Defect Detection Algorithm Based on UAV Perspective",
-    bullets: ["Proposed a lightweight deep learning model for insulator defect detection in UAV images", "Published in Journal of Beijing University of Aeronautics and Astronautics (2025)"]
-  }
+  publications: [
+    {
+      id: "insulator-uav",
+      title: "Lightweight Insulator Defect Detection Algorithm Based on UAV Perspective",
+      bullets: ["Proposed a lightweight deep learning model for insulator defect detection in UAV images", "Published in Journal of Beijing University of Aeronautics and Astronautics (2025)"]
+    }
+  ]
 };
 
 window.RESUME_ZH = {
@@ -85,18 +90,21 @@ window.RESUME_ZH = {
   languages: ["中文（母语）", "英语（C1）", "德语（A2）"],
   education: [
     {
+      id: "msc-konstanz",
       title: "计算机与信息科学硕士",
       organization: "康斯坦茨大学",
       period: "2025 - 至今",
       bullets: ["研究方向：计算机视觉、深度学习与机器人", "相关领域：SLAM、机器学习与实时系统", "参与 E-DAVID 项目，聚焦人工智能驱动的数据分析"]
     },
     {
+      id: "bsc-sdjt",
       title: "数据科学与大数据技术学士",
       organization: "山东交通学院",
       period: "2021 - 2025",
       bullets: ["平均成绩：88.97/100，专业排名 2/118", "国家励志奖学金；济南奖学金；山东省优秀学生", "以项目负责人身份多次在‘大创’、‘挑战杯’等 A 类赛事中获得国家级、省级奖项"]
     },
     {
+      id: "military-service",
       title: "服役经历",
       organization: "中国人民解放军陆军特种作战某旅",
       period: "2019 - 2021",
@@ -130,11 +138,14 @@ window.RESUME_ZH = {
     }
   },
   experience: [
-    { title: "算法工程师实习生", organization: "有向图智能科技", period: "2024.06 - 2024.09", bullets: ["研究遥感目标检测算法", "探索图神经网络方法及其应用"] },
-    { title: "Web 工程师实习生", organization: "百工信息科技", period: "2025.06 - 2025.09", bullets: ["开发施工动态监测平台的后端与前端功能", "设计 API 并与工程团队协作完成系统集成"] }
+    { id: "algorithm-intern", title: "算法工程师实习生", organization: "有向图智能科技", period: "2024.06 - 2024.09", bullets: ["研究遥感目标检测算法", "探索图神经网络方法及其应用"] },
+    { id: "web-intern", title: "Web 工程师实习生", organization: "百工信息科技", period: "2025.06 - 2025.09", bullets: ["开发施工动态监测平台的后端与前端功能", "设计 API 并与工程团队协作完成系统集成"] }
   ],
-  publication: {
-    title: "无人机视角下的轻量化绝缘子缺陷检测算法",
-    bullets: ["提出面向无人机图像绝缘子缺陷检测的轻量化深度学习模型", "发表于《北京航空航天大学学报》（2025）"]
-  }
+  publications: [
+    {
+      id: "insulator-uav",
+      title: "无人机视角下的轻量化绝缘子缺陷检测算法",
+      bullets: ["提出面向无人机图像绝缘子缺陷检测的轻量化深度学习模型", "发表于《北京航空航天大学学报》（2025）"]
+    }
+  ]
 };

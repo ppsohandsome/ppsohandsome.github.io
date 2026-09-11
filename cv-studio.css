@@ -68,6 +68,16 @@ input[type='range'] { width: 100%; accent-color: var(--accent); }
 .bullet-choice span { display: grid; place-items: center; width: 20px; height: 20px; border: 1px solid #45454b; border-radius: 50%; color: #98989e; font-size: 10px; }
 .bullet-choice input:checked + span { border-color: var(--accent); color: #fff; background: var(--accent); }
 .bullet-choice input:focus-visible + span { outline: 2px solid #fff; outline-offset: 2px; }
+.content-controls { display: grid; gap: 12px; margin-top: 16px; }
+.content-group { border: 1px solid #323238; background: #18181b; }
+.content-group h3 { margin: 0; padding: 9px 11px; border-bottom: 1px solid #303035; color: #7f7f85; font: 400 10px/1 'Jost', sans-serif; letter-spacing: .13em; }
+.content-group-items { display: grid; }
+.content-toggle { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 9px; align-items: center; padding: 10px 11px; cursor: pointer; }
+.content-toggle + .content-toggle { border-top: 1px solid #29292e; }
+.content-toggle:has(input:not(:checked)) { opacity: .48; }
+.content-toggle input { margin: 0; accent-color: var(--accent); }
+.content-toggle span { min-width: 0; overflow: hidden; color: #d2cfd2; font-size: 12px; line-height: 1.25; text-overflow: ellipsis; white-space: nowrap; }
+.content-toggle small { color: #77777d; font-size: 9px; white-space: nowrap; }
 .text-button { border: 0; padding: 4px 0; color: var(--accent); background: transparent; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
 code { color: #d8d8dc; }
 
@@ -93,6 +103,7 @@ code { color: #d8d8dc; }
 .identity-card h1 { width: 100%; margin: 3mm 0 1mm; font-size: 21pt; font-weight: 400; line-height: .92; letter-spacing: .02em; }
 .identity-card .role { width: 100%; margin: 2.5mm 0 0; font-size: 10.5pt; line-height: 1.2; }
 .sidebar-card { margin-top: 4mm; padding: 3mm 7.5mm 5mm; }
+.sidebar-module + .sidebar-module { margin-top: 2mm; }
 .cv-section-title {
   position: relative; margin: 0 0 5mm; padding-bottom: 3.2mm; border-bottom: .3mm solid #777;
   text-align: center; font-size: 14.5pt; line-height: 1;

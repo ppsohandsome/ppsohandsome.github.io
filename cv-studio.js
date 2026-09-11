@@ -1,16 +1,36 @@
-const STORAGE_KEY = 'chunpo-cv-studio-v7';
+const STORAGE_KEY = 'chunpo-cv-studio-v8';
 const originalData = structuredClone(window.RESUME_DATA);
+
+const DEFAULT_INCLUDED = {
+  sidebar: { contact: true, about: true, skills: true, languages: true },
+  education: { 'msc-konstanz': true, 'bsc-sdjt': true, 'military-service': true },
+  experience: { 'algorithm-intern': true, 'web-intern': true },
+  publications: { 'insulator-uav': true }
+};
+
+const defaultState = (language = 'en') => ({
+  data: structuredClone(originalData),
+  template: 'classic',
+  density: 'balanced',
+  projectLimit: 3,
+  language,
+  included: structuredClone(DEFAULT_INCLUDED)
+});
+
+const normalizeIncluded = (included = {}) => Object.fromEntries(
+  Object.entries(DEFAULT_INCLUDED).map(([group, defaults]) => [group, { ...defaults, ...included[group] }])
+);
 
 const loadState = () => {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (saved?.data?.projects) {
-      return { template: 'classic', density: 'balanced', projectLimit: 3, language: 'en', ...saved };
+      return { ...defaultState(saved.language), ...saved, included: normalizeIncluded(saved.included) };
     }
   } catch (error) {
     console.warn('Could not load CV Studio draft.', error);
   }
-  return { data: structuredClone(originalData), template: 'classic', density: 'balanced', projectLimit: 3, language: 'en' };
+  return defaultState();
 };
 
 let state = loadState();
@@ -19,16 +39,23 @@ const previewTemplate = previewParams.get('template');
 if (['classic', 'signal', 'minimal'].includes(previewTemplate)) state.template = previewTemplate;
 const previewDensity = previewParams.get('density');
 if (['compact', 'balanced', 'roomy'].includes(previewDensity)) state.density = previewDensity;
-if (previewParams.get('all') === 'true') state.data.projects.forEach((project) => { project.enabled = true; });
+if (previewParams.get('all') === 'true') {
+  state.data.projects.forEach((project) => { project.enabled = true; });
+  Object.values(state.included).forEach((group) => {
+    Object.keys(group).forEach((id) => { group[id] = true; });
+  });
+}
 const previewLimit = Number(previewParams.get('projects'));
 if (previewLimit >= 1 && previewLimit <= state.data.projects.length) state.projectLimit = previewLimit;
 const previewLanguage = previewParams.get('language');
 if (['en', 'zh'].includes(previewLanguage)) state.language = previewLanguage;
 const cvPage = document.querySelector('#cvPage');
 const projectControls = document.querySelector('#projectControls');
+const contentControls = document.querySelector('#contentControls');
 const projectLimit = document.querySelector('#projectLimit');
 const projectLimitValue = document.querySelector('#projectLimitValue');
 const selectedCount = document.querySelector('#selectedCount');
+const contentSelectedCount = document.querySelector('#contentSelectedCount');
 const previewMeta = document.querySelector('#previewMeta');
 const fitStatus = document.querySelector('#fitStatus');
 const saveState = document.querySelector('#saveState');
@@ -41,11 +68,13 @@ const UI_TEXT = {
     design: 'Design', layouts: '3 layouts', currentCv: 'Current CV', modernTech: 'Modern tech', highDensity: 'High density',
     pageFit: 'Page fit', checking: 'Checking...', spacing: 'Spacing', compact: 'Compact', balanced: 'Balanced', roomy: 'Roomy', maxProjects: 'Maximum projects',
     projects: 'Projects', selected: 'selected', projectHelp: 'Enable projects, set bullet count, and use arrows to control priority.',
+    content: 'Other content', contentHelp: 'Choose sidebar modules and individual education, experience, and publication entries.', active: 'active',
+    contentGroups: { sidebar: 'SIDEBAR', education: 'EDUCATION', experience: 'EXPERIENCE', publications: 'PUBLICATIONS' },
     dataSource: 'Data source', dataNote: 'Default content lives in <code>cv/resume-data.js</code>. Control changes are auto-saved to this browser.', download: 'Download current data',
     preview: 'LIVE A4 PREVIEW', include: 'Include', up: 'UP', down: 'DOWN', bullets: 'Bullets', fits: 'Fits one page', overflow: 'Page overflow', tel: 'TEL', location: 'LOC', nfc: 'TAP NFC · PORTFOLIO',
     sections: { contact: 'CONTACT', about: 'ABOUT ME', skills: 'SKILLS', languages: 'LANGUAGES', education: 'EDUCATION', project: 'PROJECT', experience: 'EXPERIENCE', publication: 'PUBLICATION' },
-    resetConfirm: 'Reset the CV layout and project selection to defaults?',
-    overflowAlert: 'This layout exceeds one A4 page. Reduce projects or bullets, choose Compact spacing, or switch to Signal / Minimal before export.'
+    resetConfirm: 'Reset the CV layout and all content selections to defaults?',
+    overflowAlert: 'This layout exceeds one A4 page. Hide content, reduce project bullets, choose Compact spacing, or switch to Signal / Minimal before export.'
   },
   zh: {
     title: '简历管理 | 吴春坡', saved: '已保存到本机', saving: '保存中...', reset: '重置', export: '导出 PDF',
@@ -54,11 +83,13 @@ const UI_TEXT = {
     design: '版式', layouts: '3 套方案', currentCv: '接近当前简历', modernTech: '现代技术风', highDensity: '高密度排版',
     pageFit: '页面适配', checking: '检测中...', spacing: '间距', compact: '紧凑', balanced: '均衡', roomy: '宽松', maxProjects: '最多项目数',
     projects: '项目', selected: '项已选择', projectHelp: '选择进入简历的项目，设置要展示的要点数量，并用按钮调整优先级。',
+    content: '其他内容', contentHelp: '选择侧栏模块，以及单条教育、实习和论文经历。', active: '项启用',
+    contentGroups: { sidebar: '侧栏模块', education: '教育经历', experience: '实习经历', publications: '论文发表' },
     dataSource: '数据来源', dataNote: '默认内容保存在 <code>cv/resume-data.js</code>，控制项会自动保存到当前浏览器。', download: '下载当前数据',
     preview: 'A4 实时预览', include: '加入', up: '上移', down: '下移', bullets: '要点', fits: '适合单页', overflow: '内容超出一页', tel: '电话', location: '地址', nfc: '轻触 NFC 查看作品集',
     sections: { contact: '联系方式', about: '个人简介', skills: '专业技能', languages: '语言能力', education: '教育经历', project: '项目经历', experience: '实习经历', publication: '论文发表' },
-    resetConfirm: '确定将简历版式和项目选择恢复为默认设置吗？',
-    overflowAlert: '当前内容超过一页 A4。请减少项目或要点、选择紧凑间距，或者切换到 Signal / Minimal 后再导出。'
+    resetConfirm: '确定将简历版式和所有内容选择恢复为默认设置吗？',
+    overflowAlert: '当前内容超过一页 A4。请隐藏部分内容、减少项目要点、选择紧凑间距，或切换到 Signal / Minimal 后再导出。'
   }
 };
 
@@ -75,9 +106,12 @@ const localizedData = () => {
     education: zh.education.map((entry, index) => ({ ...state.data.education[index], ...entry })),
     projects: state.data.projects.map((project) => ({ ...project, ...zh.projects[project.id] })),
     experience: state.data.experience.map((entry, index) => ({ ...entry, ...zh.experience[index] })),
-    publication: { ...state.data.publication, ...zh.publication }
+    publications: zh.publications.map((entry, index) => ({ ...state.data.publications[index], ...entry }))
   };
 };
+
+const isIncluded = (group, id) => state.included[group]?.[id] !== false;
+const includedEntries = (group, entries) => entries.filter((entry) => isIncluded(group, entry.id));
 
 const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (character) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
@@ -96,12 +130,53 @@ const renderEntries = (entries) => entries.map((entry) => `
     ${renderBullets(entry.bullets, entry.bulletLimit)}
   </article>`).join('');
 
+const renderPublications = (publications) => publications.map((publication) => `
+  <article class="cv-entry">
+    <h3 class="publication-title">${escapeHtml(publication.title)}</h3>
+    ${renderBullets(publication.bullets)}
+  </article>`).join('');
+
+const renderMainSection = (title, content) => content ? `
+  <section class="cv-section">
+    <h2 class="cv-section-title">${title}</h2>
+    <div class="timeline">${content}</div>
+  </section>` : '';
+
 const activeProjects = (data) => data.projects.filter((project) => project.enabled).slice(0, state.projectLimit);
 
 const renderCV = () => {
   const data = localizedData();
-  const { profile, skills, languages, education, experience, publication } = data;
+  const { profile, skills, languages, education, experience, publications } = data;
   const projects = activeProjects(data);
+  const visibleEducation = includedEntries('education', education);
+  const visibleExperience = includedEntries('experience', experience);
+  const visiblePublications = includedEntries('publications', publications);
+  const sidebarModules = [
+    isIncluded('sidebar', 'contact') ? `
+      <div class="sidebar-module">
+        <h2 class="cv-section-title">${t('sections').contact}</h2>
+        <div class="contact-list">
+          ${profile.phones.map((phone, index) => `<div class="contact-item"><span class="contact-icon">${index === 0 ? t('tel') : ''}</span><span>${escapeHtml(phone)}</span></div>`).join('')}
+          <div class="contact-item"><span class="contact-icon">@</span><span>${escapeHtml(profile.email)}</span></div>
+          <div class="contact-item"><span class="contact-icon">${t('location')}</span><span>${escapeHtml(profile.address)}</span></div>
+        </div>
+      </div>` : '',
+    isIncluded('sidebar', 'about') ? `
+      <div class="sidebar-module">
+        <h2 class="cv-section-title">${t('sections').about}</h2>
+        <p class="cv-summary">${escapeHtml(profile.summary)}</p>
+      </div>` : '',
+    isIncluded('sidebar', 'skills') ? `
+      <div class="sidebar-module">
+        <h2 class="cv-section-title">${t('sections').skills}</h2>
+        <ul class="simple-list">${skills.map((skill) => `<li>${escapeHtml(skill)}</li>`).join('')}</ul>
+      </div>` : '',
+    isIncluded('sidebar', 'languages') ? `
+      <div class="sidebar-module">
+        <h2 class="cv-section-title">${t('sections').languages}</h2>
+        <ul class="simple-list">${languages.map((language) => `<li>${escapeHtml(language)}</li>`).join('')}</ul>
+      </div>` : ''
+  ].join('');
   cvPage.dataset.template = state.template;
   cvPage.dataset.density = state.density;
   cvPage.dataset.language = state.language;
@@ -118,41 +193,13 @@ const renderCV = () => {
         <h1>${escapeHtml(profile.name)}</h1>
         <p class="role">${escapeHtml(profile.role)}</p>
       </section>
-      <section class="sidebar-card">
-        <h2 class="cv-section-title">${t('sections').contact}</h2>
-        <div class="contact-list">
-          ${profile.phones.map((phone, index) => `<div class="contact-item"><span class="contact-icon">${index === 0 ? t('tel') : ''}</span><span>${escapeHtml(phone)}</span></div>`).join('')}
-          <div class="contact-item"><span class="contact-icon">@</span><span>${escapeHtml(profile.email)}</span></div>
-          <div class="contact-item"><span class="contact-icon">${t('location')}</span><span>${escapeHtml(profile.address)}</span></div>
-        </div>
-        <h2 class="cv-section-title">${t('sections').about}</h2>
-        <p class="cv-summary">${escapeHtml(profile.summary)}</p>
-        <h2 class="cv-section-title">${t('sections').skills}</h2>
-        <ul class="simple-list">${skills.map((skill) => `<li>${escapeHtml(skill)}</li>`).join('')}</ul>
-        <h2 class="cv-section-title">${t('sections').languages}</h2>
-        <ul class="simple-list">${languages.map((language) => `<li>${escapeHtml(language)}</li>`).join('')}</ul>
-      </section>
+      ${sidebarModules ? `<section class="sidebar-card">${sidebarModules}</section>` : ''}
     </aside>
     <main class="cv-main">
-      <section class="cv-section">
-        <h2 class="cv-section-title">${t('sections').education}</h2>
-        <div class="timeline">${renderEntries(education)}</div>
-      </section>
-      <section class="cv-section">
-        <h2 class="cv-section-title">${t('sections').project}</h2>
-        <div class="timeline">${renderEntries(projects)}</div>
-      </section>
-      <section class="cv-section">
-        <h2 class="cv-section-title">${t('sections').experience}</h2>
-        <div class="timeline">${renderEntries(experience)}</div>
-      </section>
-      <section class="cv-section">
-        <h2 class="cv-section-title">${t('sections').publication}</h2>
-        <div class="timeline"><article class="cv-entry">
-          <h3 class="publication-title">${escapeHtml(publication.title)}</h3>
-          ${renderBullets(publication.bullets)}
-        </article></div>
-      </section>
+      ${renderMainSection(t('sections').education, renderEntries(visibleEducation))}
+      ${renderMainSection(t('sections').project, renderEntries(projects))}
+      ${renderMainSection(t('sections').experience, renderEntries(visibleExperience))}
+      ${renderMainSection(t('sections').publication, renderPublications(visiblePublications))}
     </main>`;
 
   projectLimit.value = state.projectLimit;
@@ -166,6 +213,40 @@ const renderCV = () => {
   document.querySelectorAll('#languageSwitcher [data-language]').forEach((button) => button.classList.toggle('is-active', button.dataset.language === state.language));
   applyInterfaceLanguage();
   requestAnimationFrame(updateFitStatus);
+};
+
+const contentGroups = (data) => [
+  {
+    key: 'sidebar',
+    items: [
+      { id: 'contact', title: t('sections').contact },
+      { id: 'about', title: t('sections').about },
+      { id: 'skills', title: t('sections').skills },
+      { id: 'languages', title: t('sections').languages }
+    ]
+  },
+  { key: 'education', items: data.education },
+  { key: 'experience', items: data.experience },
+  { key: 'publications', items: data.publications }
+];
+
+const renderContentControls = (data) => {
+  const groups = contentGroups(data);
+  const items = groups.flatMap((group) => group.items.map((item) => ({ ...item, group: group.key })));
+  const activeCount = items.filter((item) => isIncluded(item.group, item.id)).length;
+  contentSelectedCount.textContent = `${activeCount}/${items.length} ${t('active')}`;
+  contentControls.innerHTML = groups.map((group) => `
+    <div class="content-group">
+      <h3>${t('contentGroups')[group.key]}</h3>
+      <div class="content-group-items">
+        ${group.items.map((item) => `
+          <label class="content-toggle">
+            <input type="checkbox" data-content-group="${group.key}" data-content-id="${escapeHtml(item.id)}" ${isIncluded(group.key, item.id) ? 'checked' : ''}>
+            <span title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</span>
+            ${item.period ? `<small>${escapeHtml(item.period)}</small>` : ''}
+          </label>`).join('')}
+      </div>
+    </div>`).join('');
 };
 
 const renderControls = () => {
@@ -189,6 +270,7 @@ const renderControls = () => {
         </div>
       </div>
     </article>`).join('');
+  renderContentControls(data);
 };
 
 function applyInterfaceLanguage() {
@@ -204,21 +286,27 @@ function applyInterfaceLanguage() {
   intro.querySelector('h1').innerHTML = ui.headline;
   intro.querySelector('p:last-child').textContent = ui.intro;
 
-  const sections = document.querySelectorAll('.control-section');
-  sections[0].querySelector('h2').textContent = ui.design;
-  sections[0].querySelector('.control-heading span').textContent = ui.layouts;
+  const designControls = document.querySelector('#designControls');
+  designControls.querySelector('h2').textContent = ui.design;
+  designControls.querySelector('.control-heading span').textContent = ui.layouts;
   const templateNotes = [ui.currentCv, ui.modernTech, ui.highDensity];
-  sections[0].querySelectorAll('.template-switcher button span').forEach((element, index) => { element.textContent = templateNotes[index]; });
+  designControls.querySelectorAll('.template-switcher button span').forEach((element, index) => { element.textContent = templateNotes[index]; });
 
-  sections[1].querySelector('h2').textContent = ui.pageFit;
-  sections[1].querySelector('.field-label').textContent = ui.spacing;
-  [ui.compact, ui.balanced, ui.roomy].forEach((label, index) => { sections[1].querySelectorAll('#density button')[index].textContent = label; });
-  sections[1].querySelector('.range-row span').textContent = ui.maxProjects;
+  const fitControls = document.querySelector('#fitControls');
+  fitControls.querySelector('h2').textContent = ui.pageFit;
+  fitControls.querySelector('.field-label').textContent = ui.spacing;
+  [ui.compact, ui.balanced, ui.roomy].forEach((label, index) => { fitControls.querySelectorAll('#density button')[index].textContent = label; });
+  fitControls.querySelector('.range-row span').textContent = ui.maxProjects;
 
-  sections[2].querySelector('h2').textContent = ui.projects;
-  sections[2].querySelector('.section-help').textContent = ui.projectHelp;
-  sections[3].querySelector('h2').textContent = ui.dataSource;
-  sections[3].querySelector('p').innerHTML = ui.dataNote;
+  const projectSection = document.querySelector('#projectSection');
+  projectSection.querySelector('h2').textContent = ui.projects;
+  projectSection.querySelector('.section-help').textContent = ui.projectHelp;
+  const contentSection = document.querySelector('#contentSection');
+  contentSection.querySelector('h2').textContent = ui.content;
+  contentSection.querySelector('.section-help').textContent = ui.contentHelp;
+  const dataSection = document.querySelector('#dataSection');
+  dataSection.querySelector('h2').textContent = ui.dataSource;
+  dataSection.querySelector('p').innerHTML = ui.dataNote;
   document.querySelector('#downloadDataButton').textContent = ui.download;
   document.querySelector('.preview-caption > span:first-child').textContent = ui.preview;
 }
@@ -270,6 +358,13 @@ projectControls.addEventListener('click', (event) => {
   update();
 });
 
+contentControls.addEventListener('change', (event) => {
+  const input = event.target.closest('input[data-content-group][data-content-id]');
+  if (!input) return;
+  state.included[input.dataset.contentGroup][input.dataset.contentId] = input.checked;
+  update();
+});
+
 document.querySelector('#density').addEventListener('click', (event) => {
   if (!event.target.dataset.density) return;
   state.density = event.target.dataset.density;
@@ -304,7 +399,7 @@ document.querySelector('#printButton').addEventListener('click', () => {
 });
 document.querySelector('#resetButton').addEventListener('click', () => {
   if (!window.confirm(t('resetConfirm'))) return;
-  state = { data: structuredClone(originalData), template: 'classic', density: 'balanced', projectLimit: 3, language: state.language };
+  state = defaultState(state.language);
   update();
 });
 

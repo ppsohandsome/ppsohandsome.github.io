@@ -6,7 +6,7 @@
   <meta name="description" content="Build and export Chunpo Wu's CV from structured portfolio data.">
   <title>CV Studio | Chunpo Wu</title>
   <link rel="shortcut icon" type="image/png" href="./images/site/ui/favicon.png">
-  <link rel="stylesheet" href="./cv-studio.css?v=18">
+  <link rel="stylesheet" href="./cv-studio.css?v=19">
 </head>
 <body>
   <header class="studio-header">
@@ -28,7 +28,7 @@
         <h1>Shape the CV,<br>not the data.</h1>
         <p>Choose what earns space. The preview follows the visual structure of the current Canva CV and saves changes in this browser.</p>
       </div>
-      <section class="control-section">
+      <section class="control-section" id="designControls">
         <div class="control-heading"><h2>Design</h2><span>3 layouts</span></div>
         <div class="template-switcher" id="templateSwitcher" role="group" aria-label="CV design">
           <button type="button" data-template="classic" class="is-active"><strong>Classic</strong><span>Current CV</span></button>
@@ -36,7 +36,7 @@
           <button type="button" data-template="minimal"><strong>Minimal</strong><span>High density</span></button>
         </div>
       </section>
-      <section class="control-section">
+      <section class="control-section" id="fitControls">
         <div class="control-heading"><h2>Page fit</h2><span class="fit-status" id="fitStatus">Checking...</span></div>
         <label class="field-label" for="density">Spacing</label>
         <div class="segmented" id="density" role="group" aria-label="CV spacing">
@@ -47,12 +47,17 @@
         <label class="range-row" for="projectLimit"><span>Maximum projects</span><strong id="projectLimitValue">3</strong></label>
         <input id="projectLimit" type="range" min="1" max="6" value="3">
       </section>
-      <section class="control-section">
+      <section class="control-section" id="projectSection">
         <div class="control-heading"><h2>Projects</h2><span id="selectedCount">3 selected</span></div>
         <p class="section-help">Enable projects, set bullet count, and use arrows to control priority.</p>
         <div class="project-controls" id="projectControls"></div>
       </section>
-      <section class="control-section data-note">
+      <section class="control-section" id="contentSection">
+        <div class="control-heading"><h2>Other content</h2><span id="contentSelectedCount">All active</span></div>
+        <p class="section-help">Choose sidebar modules and individual education, experience, and publication entries.</p>
+        <div class="content-controls" id="contentControls"></div>
+      </section>
+      <section class="control-section data-note" id="dataSection">
         <h2>Data source</h2>
         <p>Default content lives in <code>cv/resume-data.js</code>. Control changes are auto-saved to this browser.</p>
         <button class="text-button" id="downloadDataButton" type="button">Download current data</button>
@@ -63,7 +68,7 @@
       <article class="cv-page" id="cvPage"></article>
     </section>
   </main>
-  <script src="./cv/resume-data.js?v=8"></script>
-  <script src="./cv-studio.js?v=16"></script>
+  <script src="./cv/resume-data.js?v=9"></script>
+  <script src="./cv-studio.js?v=17"></script>
 </body>
 </html>
