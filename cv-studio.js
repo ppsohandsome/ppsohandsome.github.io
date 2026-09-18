@@ -4,15 +4,15 @@ const originalData = structuredClone(window.RESUME_DATA);
 const DEFAULT_INCLUDED = {
   sidebar: { contact: true, about: true, skills: true, languages: true },
   education: { 'msc-konstanz': true, 'bsc-sdjt': true, 'military-service': true },
-  experience: { 'algorithm-intern': true, 'web-intern': true },
-  publications: { 'insulator-uav': true, 'mapf-wt-rbf': true }
+  experience: { 'algorithm-intern': true, 'railway-engineer': true, 'web-intern': false },
+  publications: { 'svd-imoe': false, 'insulator-uav': true, 'mapf-wt-rbf': true }
 };
 
 const defaultState = (language = 'en') => ({
   data: structuredClone(originalData),
   template: 'classic',
-  density: 'balanced',
-  projectLimit: 3,
+  density: 'compact',
+  projectLimit: 2,
   language,
   included: structuredClone(DEFAULT_INCLUDED)
 });
@@ -66,6 +66,7 @@ const cvPage = document.querySelector('#cvPage');
 const projectControls = document.querySelector('#projectControls');
 const contentControls = document.querySelector('#contentControls');
 const projectLimit = document.querySelector('#projectLimit');
+projectLimit.max = originalData.projects.length;
 const projectLimitValue = document.querySelector('#projectLimitValue');
 const selectedCount = document.querySelector('#selectedCount');
 const contentSelectedCount = document.querySelector('#contentSelectedCount');
@@ -85,7 +86,7 @@ const UI_TEXT = {
     contentGroups: { sidebar: 'SIDEBAR', education: 'EDUCATION', experience: 'EXPERIENCE', publications: 'PUBLICATIONS' },
     dataSource: 'Data source', dataNote: 'Default content lives in <code>cv/resume-data.js</code>. Control changes are auto-saved to this browser.', download: 'Download current data',
     preview: 'LIVE A4 PREVIEW', include: 'Include', up: 'UP', down: 'DOWN', bullets: 'Bullets', fits: 'Fits one page', overflow: 'Page overflow', tel: 'TEL', location: 'LOC', nfc: 'TAP NFC · PORTFOLIO',
-    sections: { contact: 'CONTACT', about: 'ABOUT ME', skills: 'SKILLS', languages: 'LANGUAGES', education: 'EDUCATION', project: 'PROJECT', experience: 'EXPERIENCE', publication: 'PUBLICATION' },
+    sections: { contact: 'CONTACT', about: 'ABOUT ME', skills: 'SKILLS', languages: 'LANGUAGES', education: 'EDUCATION', project: 'PROJECT', experience: 'EXPERIENCE', publication: 'PUBLICATIONS & SUBMISSIONS' },
     resetConfirm: 'Reset the CV layout and all content selections to defaults?',
     overflowAlert: 'This layout exceeds one A4 page. Hide content, reduce project bullets, choose Compact spacing, or switch to Signal / Minimal before export.'
   },
@@ -97,10 +98,10 @@ const UI_TEXT = {
     pageFit: '页面适配', checking: '检测中...', spacing: '间距', compact: '紧凑', balanced: '均衡', roomy: '宽松', maxProjects: '最多项目数',
     projects: '项目', selected: '项已选择', projectHelp: '选择进入简历的项目，设置要展示的要点数量，并用按钮调整优先级。',
     content: '其他内容', contentHelp: '选择侧栏模块，以及单条教育、实习和论文经历。', active: '项启用',
-    contentGroups: { sidebar: '侧栏模块', education: '教育经历', experience: '实习经历', publications: '论文发表' },
+    contentGroups: { sidebar: '侧栏模块', education: '教育经历', experience: '工作与实习', publications: '论文与投稿' },
     dataSource: '数据来源', dataNote: '默认内容保存在 <code>cv/resume-data.js</code>，控制项会自动保存到当前浏览器。', download: '下载当前数据',
     preview: 'A4 实时预览', include: '加入', up: '上移', down: '下移', bullets: '要点', fits: '适合单页', overflow: '内容超出一页', tel: '电话', location: '地址', nfc: '轻触 NFC 查看作品集',
-    sections: { contact: '联系方式', about: '个人简介', skills: '专业技能', languages: '语言能力', education: '教育经历', project: '项目经历', experience: '实习经历', publication: '论文发表' },
+    sections: { contact: '联系方式', about: '个人简介', skills: '专业技能', languages: '语言能力', education: '教育经历', project: '项目经历', experience: '工作经历', publication: '论文与投稿' },
     resetConfirm: '确定将简历版式和所有内容选择恢复为默认设置吗？',
     overflowAlert: '当前内容超过一页 A4。请隐藏部分内容、减少项目要点、选择紧凑间距，或切换到 Signal / Minimal 后再导出。'
   }
@@ -116,10 +117,10 @@ const localizedData = () => {
     profile: { ...state.data.profile, ...zh.profile },
     skills: zh.skills,
     languages: zh.languages,
-    education: zh.education.map((entry, index) => ({ ...state.data.education[index], ...entry })),
+    education: zh.education.map((entry) => ({ ...state.data.education.find((item) => item.id === entry.id), ...entry })),
     projects: state.data.projects.map((project) => ({ ...project, ...zh.projects[project.id] })),
-    experience: state.data.experience.map((entry, index) => ({ ...entry, ...zh.experience[index] })),
-    publications: zh.publications.map((entry, index) => ({ ...state.data.publications[index], ...entry }))
+    experience: state.data.experience.map((entry) => ({ ...entry, ...zh.experience.find((item) => item.id === entry.id) })),
+    publications: state.data.publications.map((entry) => ({ ...entry, ...zh.publications.find((item) => item.id === entry.id) }))
   };
 };
 
@@ -170,7 +171,7 @@ const renderCV = () => {
         <h2 class="cv-section-title">${t('sections').contact}</h2>
         <div class="contact-list">
           ${profile.phones.map((phone, index) => `<div class="contact-item"><span class="contact-icon">${index === 0 ? t('tel') : ''}</span><span>${escapeHtml(phone)}</span></div>`).join('')}
-          <div class="contact-item"><span class="contact-icon">@</span><span>${escapeHtml(profile.email)}</span></div>
+          ${(profile.emails || [profile.email]).map((email, index) => `<div class="contact-item"><span class="contact-icon">${index === 0 ? '@' : ''}</span><span>${escapeHtml(email)}</span></div>`).join('')}
           <div class="contact-item"><span class="contact-icon">${t('location')}</span><span>${escapeHtml(profile.address)}</span></div>
         </div>
       </div>` : '',

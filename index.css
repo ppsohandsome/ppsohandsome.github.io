@@ -1,3 +1,29 @@
+/* Project collections retain the existing typography and accent palette. */
+.project-group-heading { margin: 5rem 0 4rem; }
+.project-period { color: var(--pink); font-size: 1.6rem; letter-spacing: .04em; }
+.personal-project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; }
+.personal-project { padding: 3rem; border: var(--border-light); background: linear-gradient(140deg, #161616, #080808); }
+.personal-project .work__text { flex-basis: auto; }
+.personal-project .work__links { flex-wrap: wrap; gap: 2rem; }
+.personal-project h3 { font-size: 3rem; }
+.personal-project .work__list { display: flex; flex-wrap: wrap; gap: 1rem; list-style: none; padding: 0; margin: 2rem 0; }
+.personal-project .work__list li { font-size: 1.5rem; padding: .3rem .8rem; border: var(--border-light); }
+.project-flow { display: grid; gap: 1.4rem; width: 100%; padding: 2.4rem; border: var(--border-light); background: linear-gradient(135deg, #1b1517, #080808); }
+.project-flow > div { display: flex; align-items: center; gap: 2rem; }
+.project-flow span { color: var(--pink); font-family: 'Jost', sans-serif; }
+.project-flow strong { font-weight: 400; }
+.recognition-list { padding-left: 2rem; }
+.recognition-list li { margin-bottom: 2rem; }
+#research h3 { margin-top: 3rem; }
+#projectMedia h2 { margin-top: 4rem; }
+#projectResources { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 2rem; }
+html[lang="zh-CN"] .blog__row::after { content: '横向滚动'; }
+@media (max-width: 700px) {
+    .personal-project-grid { grid-template-columns: 1fr; }
+    .personal-project { padding: 2rem; }
+    .project-flow { padding: 2rem; }
+}
+
 /* --------------------------------------- */
 /* ----- Basic Setup ----- */
 /* --------------------------------------- */

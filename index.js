@@ -25,6 +25,7 @@ const backToTopButton = document.querySelector(".back-to-top");
 let isBackToTopRendered = false;
 
 let alterStyles = (isBackToTopRendered) => {
+  if (!backToTopButton) return;
   backToTopButton.style.visibility = isBackToTopRendered ? "visible" : "hidden";
   backToTopButton.style.opacity = isBackToTopRendered ? 1 : 0;
   backToTopButton.style.transform = isBackToTopRendered
@@ -483,8 +484,17 @@ const TRANSLATIONS = {
   },
 };
 
+const resolveTranslationSelector = (selector) => selector
+  .replace(/\.blog__card:nth-of-type\((\d)\)/g, (_, index) => ({
+    1: '.blog__row--technology .blog__card:nth-of-type(1)',
+    2: '.blog__row--technology .blog__card:nth-of-type(2)',
+    3: '.blog__row--research .blog__card',
+    4: '.blog__row--daily .blog__card'
+  }[index]))
+  .replace(/\.blog__hint:nth-of-type\((\d)\)/g, (_, index) => `.${['blog__row--technology', 'blog__row--research', 'blog__row--daily'][index - 1]} .blog__hint`);
+
 const setSelectorText = (selector, value) => {
-  const element = document.querySelector(selector);
+  const element = document.querySelector(resolveTranslationSelector(selector));
   if (!element) return;
   element.textContent = value;
 };
@@ -501,21 +511,21 @@ const setSelectorAttr = (selector, attr, value) => {
 
 const applyLanguage = (language) => {
   const page = TRANSLATIONS[pageId];
-  if (!page) return;
 
   document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
 
-  page.text.forEach(([selector, en, zh]) => {
+  page?.text.forEach(([selector, en, zh]) => {
+    if (window.renderPortfolio && pageId === 'home' && /^(\.work|\.experience|\.timeline|\.technical|\.publication)/.test(selector)) return;
     setSelectorText(selector, language === "zh" ? zh : en);
   });
 
-  page.attrs.forEach(([selector, attr, en, zh]) => {
+  page?.attrs.forEach(([selector, attr, en, zh]) => {
     setSelectorAttr(selector, attr, language === "zh" ? zh : en);
   });
 
-  if (page.data) {
+  if (page?.data) {
     page.data.forEach(([selector, attr, en, zh]) => {
-      const element = document.querySelector(selector);
+      const element = document.querySelector(resolveTranslationSelector(selector));
       if (!element) return;
       element.dataset[attr] = language === "zh" ? zh : en;
     });
@@ -530,6 +540,7 @@ const applyLanguage = (language) => {
   }
 
   localStorage.setItem(LANGUAGE_KEY, language);
+  window.renderPortfolio?.(language);
 };
 
 if (langToggle) {
