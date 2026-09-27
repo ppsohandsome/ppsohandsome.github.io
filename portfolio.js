@@ -7,6 +7,8 @@
       image: 'images/projects/parcel_sorting/cover.jpg', page: 'project.html?project=parcel-sorting',
       summary: pair('A collaborative vision-guided parcel sorting system, connecting 3D grasp planning with robot motion, vacuum control and recovery.', '团队协作开发视觉引导的包裹分拣系统，将三维抓取规划、机械臂运动、真空控制与失败恢复连接起来。'),
       result: pair('Trialled at a postal parcel distribution site in Jinan for one month.', '已在济南市邮政快递集散点试运行一个月。'),
+      resultTitle: pair('Field Trial', '现场试运行'),
+      videoNote: pair('Parcel-label region blurred; site audio removed.', '面单区域已模糊处理，现场音轨已移除。'),
       pipeline: pair(['RGB + depth', 'Detection + normals', 'Hand-eye + TCP', 'Grasp + place', 'Monitor + recover'], ['RGB 与深度', '检测与表面法线', '手眼变换与 TCP', '抓取与放置', '监控与恢复']),
       video: 'images/projects/parcel_sorting/video.mp4'
     },
@@ -25,7 +27,8 @@
       group: 'engineering', tags: ['Jetson', 'DeepStream', 'Kafka', 'MQTT'],
       image: 'images/projects/general/project_railvision_first.png', page: 'railway-monitoring.html',
       summary: pair('Real-time monitoring for railway maintenance depots with 30+ 1080p RTSP streams per site and edge inference.', '面向铁路检修地库，接入单站点 30+ 路 1080p RTSP 视频，完成边缘推理与实时设备状态监测。'),
-      result: pair('Deployed in Chongqing and the Chuzhou-Nanjing section; pre-delivery completed for the Mexico deployment.', '重庆及滁宁段已部署运行，墨西哥段已完成预交付。')
+      result: pair('Deployed in Chongqing and the Chuzhou-Nanjing section; pre-delivery completed for the Mexico deployment.', '重庆及滁宁段已部署运行，墨西哥段已完成预交付。'),
+      resultTitle: pair('Deployment', '部署情况')
     },
     bearfit: {
       group: 'personal', tags: ['SwiftUI', 'IMU Rings', 'MQTT', 'FastAPI'],
@@ -43,6 +46,16 @@
       page: 'project.html?project=llm-gateway', url: 'https://aaccx.pw/',
       summary: pair('A maintained API gateway providing a unified access point for multiple large-model providers.', '持续运营的大模型 API 中转站，为多种模型提供统一访问入口。'),
       pipeline: pair(['Applications', 'Unified API', 'Model providers'], ['应用接入', '统一 API', '模型服务'])
+    },
+    'zilo-ring': {
+      group: 'personal', tags: ['BLE IMU', 'Python', 'Qt', 'Temporal KNN'],
+      image: 'images/projects/zilo_ring/cover.jpg', page: 'project.html?project=zilo-ring',
+      summary: pair('A micro-gesture input system that turns subtle finger movement from an IMU ring into binary symbols and confirmed text.', '通过 IMU 戒指感知手指细微动作，将其转换为二进制符号和确认后的文本输入。'),
+      result: pair('The demo uses small upward/downward finger motions and a rapid double gesture to type text without a conventional keyboard.', '演示实验通过手指向上、向下微动及快速双次动作，在无需传统键盘的情况下完成文本输入。'),
+      resultTitle: pair('Typing Experiment', '微动打字实验'),
+      videoNote: pair('26-second demonstration of micro-gesture recognition and Morse-based typing.', '26 秒微手势识别与摩斯码打字实验演示。'),
+      pipeline: pair(['BLE IMU stream', 'Bias correction + filtering', 'Temporal segmentation', 'Waveform KNN + rejection', '0 / 1 / confirm', 'Morse text'], ['BLE IMU 数据流', '偏置校正与滤波', '动作时序分段', '波形 KNN 与拒识', '0 / 1 / 确认', '摩斯码文本']),
+      video: 'images/projects/zilo_ring/video.mp4'
     },
     braindance: {
       group: 'personal', tags: ['Quest 3', 'Unity', '3D Gaussian Splatting', 'VR'],
@@ -112,7 +125,7 @@
     if (page === 'home') {
       const projects = data.projects;
       const engineeringIds = ['parcel-sorting', 'autonomous-drone', 'drone-inspection', 'railway-monitoring'];
-      const personalIds = ['bearfit', 'soarm-vision', 'llm-gateway', 'braindance', 'music-universe'];
+      const personalIds = ['zilo-ring', 'bearfit', 'soarm-vision', 'llm-gateway', 'braindance', 'music-universe'];
       document.querySelector('#work .row').innerHTML = `<h2>${tr('Selected Projects', '精选项目')}</h2>
         <h3 class="project-group-heading">${tr('Engineering & Applied AI', '工程项目与 AI 应用')}</h3>
         <div class="work__boxes">${engineeringIds.map((id) => projectCard(projects.find((item) => item.id === id))).join('')}</div>
@@ -181,14 +194,14 @@
       <section class="project-detail"><div class="row project-detail__grid"><div class="project-detail__content">
       <h2>${tr('Overview & Implementation', '概览与实现')}</h2>${list(project.bullets)}
       ${meta.pipeline ? `<h2>${tr('System Pipeline', '系统链路')}</h2><div class="project-flow">${meta.pipeline[lang].map((step, index) => `<div><span>${index + 1}</span><strong>${esc(step)}</strong></div>`).join('')}</div>` : ''}
-      ${meta.result ? `<h2>${tr('Field Trial', '现场试运行')}</h2><p>${esc(meta.result[lang])}</p>` : ''}
+      ${meta.result ? `<h2>${esc(meta.resultTitle?.[lang] || tr('Result', '项目结果'))}</h2><p>${esc(meta.result[lang])}</p>` : ''}
       <div id="projectMedia"></div><div id="projectResources"></div>
       ${meta.url ? `<p>${external(meta.url, tr('Visit API gateway', '访问 API 中转站'))}</p>` : ''}
       </div><aside class="project-detail__aside"><h3>${tr('Project Info', '项目信息')}</h3><dl>
       <dt>${tr('Period', '时间')}</dt><dd>${esc(project.period)}</dd><dt>${tr('Context', '项目背景')}</dt><dd>${esc(project.organization)}</dd>
       <dt>${tr('Technology', '技术栈')}</dt><dd>${esc(meta.tags.join(' · '))}</dd></dl></aside></div></section>`;
     const media = document.querySelector('#projectMedia');
-    if (meta.video) media.innerHTML = `<h2>${tr('Field Video', '现场视频')}</h2><div class="video-embed"><video controls playsinline preload="none" poster="${root}${meta.image}"><source src="${root}${meta.video.replace('.mp4', '.webm')}" type="video/webm"><source src="${root}${meta.video}" type="video/mp4"></video></div><p class="project-period">${tr('Parcel-label region blurred; site audio removed.', '面单区域已模糊处理，现场音轨已移除。')}</p><a href="${root}${meta.video}" download class="link__text">${tr('Download video (MP4)', '下载视频（MP4）')}</a>`;
+    if (meta.video) media.innerHTML = `<h2>${tr('Demo Video', '演示视频')}</h2><div class="video-embed"><video controls playsinline preload="none" poster="${root}${meta.image}"><source src="${root}${meta.video.replace('.mp4', '.webm')}" type="video/webm"><source src="${root}${meta.video}" type="video/mp4"></video></div>${meta.videoNote ? `<p class="project-period">${esc(meta.videoNote[lang])}</p>` : ''}<a href="${root}${meta.video}" download class="link__text">${tr('Download video (MP4)', '下载视频（MP4）')}</a>`;
     mediaNodes.forEach((node) => {
       const heading = document.createElement('h2');
       heading.textContent = node.classList.contains('slide-viewer') ? tr('Project Slides', '项目幻灯片') : tr('Video', '视频');

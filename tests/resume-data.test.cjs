@@ -22,6 +22,8 @@ assert(!ids(en.education).includes('military-service'));
 assert(ids(zh.education).includes('military-service'));
 assert(en.languages.some((entry) => entry.includes('IELTS 6.5')));
 assert(en.projects.find((entry) => entry.id === 'parcel-sorting').organization.includes('Team'));
+assert(en.projects.find((entry) => entry.id === 'zilo-ring').bullets.join().includes('binary 0/1'));
+assert(zh.projects['zilo-ring'].bullets.join().includes('快速双次动作'));
 assert(zh.publications.find((entry) => entry.id === 'svd-imoe').bullets.join().includes('投稿中'));
 assert(!/face tracking|人脸跟踪/.test(JSON.stringify(en.projects) + JSON.stringify(zh.projects)));
 for (const entry of [en.projects.find((item) => item.id === 'llm-gateway'), zh.projects['llm-gateway']]) {

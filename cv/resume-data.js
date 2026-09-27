@@ -80,6 +80,11 @@ window.RESUME_DATA = {
       id: "llm-gateway", enabled: false, bulletLimit: 2,
       title: "LLM API Gateway", organization: "Personal Project", period: "02.2025 - Present",
       bullets: ["Built and operate a unified API entry point for Claude, OpenAI, DeepSeek and Kimi", "Provide ongoing model access services at https://aaccx.pw/"]
+    },
+    {
+      id: "zilo-ring", enabled: false, bulletLimit: 3,
+      title: "Zilo Ring: Micro-Gesture IMU Input", organization: "Personal Project", period: "2026",
+      bullets: ["Built a low-latency Linux application that converts subtle finger motion from a BLE IMU ring into discrete input", "Mapped downward and upward micro-gestures to binary 0/1, with a rapid double gesture used to confirm and compile Morse sequences", "Implemented IMU bias correction, temporal segmentation, waveform KNN classification, rejection diagnostics, and persistent recognition logs"]
     }
   ],
   experience: [
@@ -174,6 +179,10 @@ window.RESUME_ZH = {
     "llm-gateway": {
       title: "大模型 API 中转站", organization: "个人项目", period: "2025.02 - 至今",
       bullets: ["构建 Claude、OpenAI、DeepSeek、Kimi 等模型的统一 API 访问入口", "持续提供模型调用服务：https://aaccx.pw/"]
+    },
+    "zilo-ring": {
+      title: "Zilo Ring：IMU 戒指微手势输入", organization: "个人项目", period: "2026",
+      bullets: ["构建 Linux 低延迟应用，将 BLE IMU 戒指捕捉的手指细微动作转换为离散输入", "将向下、向上微手势分别编码为 0/1，以快速双次动作为确认，将摩斯码序列编译为文本", "实现 IMU 偏置校正、动作时序分段、波形 KNN 分类、拒识诊断与识别日志持久化"]
     }
   },
   experience: [
