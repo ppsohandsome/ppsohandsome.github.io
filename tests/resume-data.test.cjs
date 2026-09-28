@@ -10,6 +10,7 @@ for (const match of presentation.matchAll(/(?:image|video): '([^']+)'/g)) {
 }
 const context = { window: {} };
 vm.runInNewContext(fs.readFileSync(path.join(root, 'cv/resume-data.js'), 'utf8'), context);
+vm.runInNewContext(fs.readFileSync(path.join(root, 'project-details.js'), 'utf8'), context);
 const { RESUME_DATA: en, RESUME_ZH: zh } = context.window;
 const ids = (entries) => Array.from(entries, (entry) => entry.id).sort();
 assert.deepEqual(ids(en.projects), Object.keys(zh.projects).sort());
@@ -29,9 +30,18 @@ assert(!/face tracking|人脸跟踪/.test(JSON.stringify(en.projects) + JSON.str
 for (const entry of [en.projects.find((item) => item.id === 'llm-gateway'), zh.projects['llm-gateway']]) {
   assert(!/15B|150亿|3,000|3000|收益|收入|revenue|income/i.test(JSON.stringify(entry)));
 }
+assert.deepEqual(Object.keys(context.window.PROJECT_DETAILS).sort(), ids(en.projects));
+for (const [id, detail] of Object.entries(context.window.PROJECT_DETAILS)) {
+  for (const language of ['en', 'zh']) {
+    assert(detail[language].length >= 3, `${id} needs at least three ${language} detail sections`);
+    const minimumLength = language === 'zh' ? 55 : 100;
+    assert(detail[language].every((section) => section.title && section.paragraphs?.join('').length >= minimumLength), `${id} has a thin ${language} detail section`);
+  }
+}
 for (const name of fs.readdirSync(path.join(root, 'projects')).filter((name) => name.endsWith('.html'))) {
   const html = fs.readFileSync(path.join(root, 'projects', name), 'utf8');
   assert(html.includes('portfolio.js'), `${name} must use shared project rendering`);
+  assert(html.includes('project-details.js'), `${name} must load long-form project details`);
   for (const match of html.matchAll(/(?:src|href)="(\.\.\/[^"?#]+)(?:[?#][^"]*)?"/g)) {
     assert(fs.existsSync(path.resolve(root, 'projects', decodeURIComponent(match[1]))), `${name}: missing ${match[1]}`);
   }

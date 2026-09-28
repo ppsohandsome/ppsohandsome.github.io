@@ -85,6 +85,9 @@
   ];
   const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
   const list = (items) => `<ul>${items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>`;
+  const projectStory = (sections) => `<div class="project-story">${sections.map((section, index) => `<article class="project-story__section">
+    <p class="project-story__index">${String(index + 1).padStart(2, '0')}</p><div><h2>${esc(section.title)}</h2>
+    ${section.paragraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join('')}${section.facts ? list(section.facts) : ''}</div></article>`).join('')}</div>`;
   const external = (url, text) => `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(text)}</a>`;
   const localized = (language) => {
     const data = window.RESUME_DATA;
@@ -183,6 +186,7 @@
     const id = page === 'project' ? new URLSearchParams(location.search).get('project') : pageIds[page];
     const project = data.projects.find((item) => item.id === id);
     const meta = metadata[id];
+    const details = window.PROJECT_DETAILS?.[id]?.[lang];
     if (!project || !meta) {
       if (page === 'project') document.querySelector('main').innerHTML = `<section class="page-hero"><div class="row"><h1>${tr('Project not found', '未找到项目')}</h1><a href="../index.html#work">${tr('Back to projects', '返回项目列表')}</a></div></section>`;
       return;
@@ -192,7 +196,7 @@
     if (!resourceNodes) resourceNodes = [...document.querySelectorAll('main a.slide-viewer__download')].filter((node) => !node.closest('.slide-viewer'));
     document.querySelector('main').innerHTML = `<section class="page-hero"><div class="row"><h1 class="heading-primary">${esc(project.title)}</h1><p>${esc(meta.summary[lang])}</p></div></section>
       <section class="project-detail"><div class="row project-detail__grid"><div class="project-detail__content">
-      <h2>${tr('Overview & Implementation', '概览与实现')}</h2>${list(project.bullets)}
+      ${details ? projectStory(details) : `<h2>${tr('Overview & Implementation', '概览与实现')}</h2>${list(project.bullets)}`}
       ${meta.pipeline ? `<h2>${tr('System Pipeline', '系统链路')}</h2><div class="project-flow">${meta.pipeline[lang].map((step, index) => `<div><span>${index + 1}</span><strong>${esc(step)}</strong></div>`).join('')}</div>` : ''}
       ${meta.result ? `<h2>${esc(meta.resultTitle?.[lang] || tr('Result', '项目结果'))}</h2><p>${esc(meta.result[lang])}</p>` : ''}
       <div id="projectMedia"></div><div id="projectResources"></div>
