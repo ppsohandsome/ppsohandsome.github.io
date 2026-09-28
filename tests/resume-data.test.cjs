@@ -5,6 +5,9 @@ const vm = require('node:vm');
 
 const root = path.resolve(__dirname, '..');
 const presentation = fs.readFileSync(path.join(root, 'portfolio.js'), 'utf8');
+const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+assert(!/id="blog"|href="#blog"|blog-modal/.test(home), 'Home page must not include the removed blog section');
+assert(!/personal-project(?:-grid)?/.test(presentation), 'Personal projects must use the same work cards as selected projects');
 for (const match of presentation.matchAll(/(?:image|video): '([^']+)'/g)) {
   assert(fs.existsSync(path.join(root, match[1])), `Missing project media: ${match[1]}`);
 }
@@ -42,6 +45,7 @@ for (const name of fs.readdirSync(path.join(root, 'projects')).filter((name) => 
   const html = fs.readFileSync(path.join(root, 'projects', name), 'utf8');
   assert(html.includes('portfolio.js'), `${name} must use shared project rendering`);
   assert(html.includes('project-details.js'), `${name} must load long-form project details`);
+  assert(!html.includes('#blog'), `${name} must not link to the removed blog section`);
   for (const match of html.matchAll(/(?:src|href)="(\.\.\/[^"?#]+)(?:[?#][^"]*)?"/g)) {
     assert(fs.existsSync(path.resolve(root, 'projects', decodeURIComponent(match[1]))), `${name}: missing ${match[1]}`);
   }

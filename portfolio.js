@@ -113,17 +113,17 @@
     const data = localized(lang);
     const page = document.body.dataset.page;
     const root = page === 'home' ? './' : '../';
-    const projectCard = (project, compact = false) => {
+    const projectCard = (project) => {
       const meta = metadata[project.id];
       const visual = meta.image
         ? `<img src="${root}${meta.image}" class="work__image" alt="${esc(project.title)}" loading="lazy">`
         : `<div class="project-flow" aria-label="${tr('Technical pipeline', '技术链路')}">${meta.pipeline[lang].map((step, index) => `<div><span>${String(index + 1).padStart(2, '0')}</span><strong>${esc(step)}</strong></div>`).join('')}</div>`;
-      return `<article class="${compact ? 'personal-project' : 'work__box'}" data-project-id="${project.id}">
+      return `<article class="work__box" data-project-id="${project.id}">
         <div class="work__text"><p class="project-period">${esc(project.period)}</p><h3>${esc(project.title)}</h3>
         <p>${esc(meta.summary[lang])}</p><ul class="work__list">${meta.tags.map((tag) => `<li>${esc(tag)}</li>`).join('')}</ul>
         <div class="work__links"><a href="${root}projects/${meta.page}" class="link__text">${tr('Project details', '项目详情')} <span aria-hidden="true">&rarr;</span></a>
         ${meta.url ? external(meta.url, tr('Visit website', '访问网站')) : ''}</div></div>
-        ${compact ? '' : `<div class="work__image-box">${visual}</div>`}</article>`;
+        <div class="work__image-box">${visual}</div></article>`;
     };
     if (page === 'home') {
       const projects = data.projects;
@@ -133,7 +133,7 @@
         <h3 class="project-group-heading">${tr('Engineering & Applied AI', '工程项目与 AI 应用')}</h3>
         <div class="work__boxes">${engineeringIds.map((id) => projectCard(projects.find((item) => item.id === id))).join('')}</div>
         <h3 class="project-group-heading">${tr('Personal Explorations', '个人探索')}</h3>
-        <div class="personal-project-grid">${personalIds.map((id) => projectCard(projects.find((item) => item.id === id), true)).join('')}</div>`;
+        <div class="work__boxes">${personalIds.map((id) => projectCard(projects.find((item) => item.id === id))).join('')}</div>`;
       document.querySelector('#experience .row').innerHTML = `<h2>${tr('Experience & Education', '工作与教育经历')}</h2>
         <div class="timeline-layout"><div class="timeline-column"><h3>${tr('Education', '教育经历')}</h3><div class="timeline">${data.education.map(timeline).join('')}</div></div>
         <div class="timeline-column"><h3>${tr('Work & Internships', '工作与实习经历')}</h3><div class="timeline">${['algorithm-intern', 'web-intern', 'railway-engineer'].map((id) => timeline(data.experience.find((entry) => entry.id === id))).join('')}</div></div></div>`;
@@ -212,7 +212,7 @@
       media.append(heading, node);
     });
     resourceNodes.forEach((node) => document.querySelector('#projectResources').append(node));
-    document.querySelectorAll('.nav__link').forEach((node, index) => { node.textContent = [tr('Projects', '项目'), tr('Experience', '经历'), tr('Blog', '博客'), tr('About', '关于'), tr('Contact', '联系')][index]; });
+    document.querySelectorAll('.nav__link').forEach((node, index) => { node.textContent = [tr('Projects', '项目'), tr('Experience', '经历'), tr('About', '关于'), tr('Contact', '联系')][index]; });
     document.title = `${project.title} | ${tr('Chunpo Wu', '吴春坡')}`;
     document.querySelector('meta[name="description"]').content = meta.summary[lang];
   };

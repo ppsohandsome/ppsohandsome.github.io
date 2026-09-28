@@ -43,78 +43,6 @@ window.addEventListener("scroll", () => {
   }
 });
 
-const blogTracks = document.querySelectorAll(".blog__track");
-const blogCards = document.querySelectorAll(".blog__card");
-const blogModal = document.querySelector(".blog-modal");
-const blogModalClose = document.querySelector(".blog-modal__close");
-
-blogTracks.forEach((track) => {
-  let startX = 0;
-  let scrollLeft = 0;
-  let isDragging = false;
-  let moved = false;
-
-  track.addEventListener("mousedown", (event) => {
-    isDragging = true;
-    moved = false;
-    startX = event.pageX - track.offsetLeft;
-    scrollLeft = track.scrollLeft;
-    track.classList.add("is-dragging");
-  });
-
-  track.addEventListener("mouseleave", () => {
-    isDragging = false;
-    track.classList.remove("is-dragging");
-  });
-
-  track.addEventListener("mouseup", () => {
-    isDragging = false;
-    track.classList.remove("is-dragging");
-  });
-
-  track.addEventListener("mousemove", (event) => {
-    if (!isDragging) return;
-    event.preventDefault();
-    const x = event.pageX - track.offsetLeft;
-    const walk = (x - startX) * 1.15;
-    if (Math.abs(walk) > 8) moved = true;
-    track.scrollLeft = scrollLeft - walk;
-  });
-
-  track.addEventListener("click", (event) => {
-    if (!moved) return;
-    event.preventDefault();
-    event.stopPropagation();
-  }, true);
-});
-
-const setBlogModalOpen = (isOpen) => {
-  if (!blogModal) return;
-  blogModal.classList.toggle("is-open", isOpen);
-  blogModal.setAttribute("aria-hidden", String(!isOpen));
-};
-
-blogCards.forEach((card) => {
-  card.addEventListener("click", () => {
-    if (!blogModal) return;
-
-    blogModal.querySelector(".blog-modal__group").textContent = card.dataset.group || "";
-    blogModal.querySelector(".blog-modal__title").textContent = card.querySelector("h3")?.textContent || "";
-    blogModal.querySelector(".blog-modal__summary").textContent = card.querySelector("p:last-child")?.textContent || "";
-    blogModal.querySelector(".blog-modal__full").textContent = card.dataset.full || "";
-    setBlogModalOpen(true);
-  });
-});
-
-blogModalClose?.addEventListener("click", () => setBlogModalOpen(false));
-blogModal?.addEventListener("click", (event) => {
-  if (event.target === blogModal) setBlogModalOpen(false);
-});
-
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") setBlogModalOpen(false);
-});
-
 const slideViewers = document.querySelectorAll(".slide-viewer");
 
 slideViewers.forEach((slideViewer) => {
@@ -177,10 +105,9 @@ const TRANSLATIONS = {
     text: [
       [".nav__item:nth-child(1) .nav__link", "Projects", "项目"],
       [".nav__item:nth-child(2) .nav__link", "Experience", "经历"],
-      [".nav__item:nth-child(3) .nav__link", "Blog", "博客"],
-      [".nav__item:nth-child(4) .nav__link", "About", "关于"],
-      [".nav__item:nth-child(5) .nav__link", "Contact", "联系"],
-      [".nav__item:nth-child(6) .nav__link", "CV Studio", "简历管理"],
+      [".nav__item:nth-child(3) .nav__link", "About", "关于"],
+      [".nav__item:nth-child(4) .nav__link", "Contact", "联系"],
+      [".nav__item:nth-child(5) .nav__link", "CV Studio", "简历管理"],
       [".header__text .heading-primary span", "Chunpo Wu", "吴春坡"],
       [".header__text p", "AI / Computer Vision Engineer focused on robotics, edge AI, and real-time visual systems.", "专注于机器人、边缘 AI 与实时视觉系统的 AI / 计算机视觉工程师。"],
       [".header__actions .btn--pink", "View projects", "查看项目"],
@@ -239,31 +166,6 @@ const TRANSLATIONS = {
       [".publication-mapf .timeline__meta", "Publication · 2026", "论文 · 2026"],
       [".publication-mapf .timeline__title-link", "Multi-agent Path Finding Based on WT-RBF Linear and Feature Enhancement", "基于 WT-RBF Linear 与特征增强的多机器人路径规划"],
       [".publication-mapf > p:last-child", "Co-authored a DHC-based multi-robot path-planning method using CBAM, WT-RBF Linear, and conflict resolution, achieving a 96.5% average success rate.", "参与提出一种基于 DHC 的多机器人路径规划方法，引入 CBAM、WT-RBF Linear 与冲突消解策略，平均成功率达到 96.5%。"],
-      [".blog h2", "Blog", "博客"],
-      [".blog .section-intro", "Notes on computer vision, robotics, deep learning systems, and project write-ups.", "记录计算机视觉、机器人、深度学习系统与项目实践的笔记。"],
-      [".blog__row--technology .blog__row-heading span:first-child", "Technology", "技术"],
-      [".blog__row--research .blog__row-heading span:first-child", "Research", "研究"],
-      [".blog__row--daily .blog__row-heading span:first-child", "Daily", "日常"],
-      [".blog__hint:nth-of-type(1)", "Horizontal scroll", "横向滚动"],
-      [".blog__hint:nth-of-type(2)", "Horizontal scroll", "横向滚动"],
-      [".blog__hint:nth-of-type(3)", "Horizontal scroll", "横向滚动"],
-      [".blog__card:nth-of-type(1) .blog__group", "Technology", "技术"],
-      [".blog__card:nth-of-type(1) .blog__meta", "Edge AI", "边缘 AI"],
-      [".blog__card:nth-of-type(1) h3", "Deploying vision models on Jetson edge devices", "在 Jetson 边缘设备上部署视觉模型"],
-      [".blog__card:nth-of-type(1) p:last-child", "Real-time monitoring pipelines, model deployment, and stream processing constraints.", "实时监测管线、模型部署以及流式处理约束。"],
-      [".blog__card:nth-of-type(2) .blog__group", "Technology", "技术"],
-      [".blog__card:nth-of-type(2) .blog__meta", "Robotics", "机器人"],
-      [".blog__card:nth-of-type(2) h3", "Visual feedback for autonomous drone navigation", "用于自主无人机导航的视觉反馈"],
-      [".blog__card:nth-of-type(2) p:last-child", "Combining target tracking, depth estimation, and obstacle avoidance into a control pipeline.", "将目标跟踪、深度估计与避障整合进同一控制管线。"],
-      [".blog__card:nth-of-type(3) .blog__group", "Research", "研究"],
-      [".blog__card:nth-of-type(3) .blog__meta", "Computer Vision", "计算机视觉"],
-      [".blog__card:nth-of-type(3) h3", "Vision-language models for UAV inspection", "用于无人机巡检的视觉语言模型"],
-      [".blog__card:nth-of-type(3) p:last-child", "How visual reasoning can support defect localization and equipment fault analysis.", "视觉推理如何支持缺陷定位与设备故障分析。"],
-      [".blog__card:nth-of-type(4) .blog__group", "Daily", "日常"],
-      [".blog__card:nth-of-type(4) .blog__meta", "Research", "研究"],
-      [".blog__card:nth-of-type(4) h3", "Small-object defect detection from UAV perspective", "无人机视角下的小目标缺陷检测"],
-      [".blog__card:nth-of-type(4) p:last-child", "Challenges around complex backgrounds, lightweight models, and edge-device real-time performance.", "围绕复杂背景、轻量化模型与边缘设备实时性能的挑战。"],
-      [".blog-modal__close", "Close", "关闭"],
       [".about h2", "About Me", "关于我"],
       [".about__text p", "I am a Computer and Information Science master's student at the University of Konstanz with hands-on experience in computer vision, deep learning, robotics, and real-time systems. My work focuses on deploying AI models on edge devices, building reliable visual pipelines, and applying machine learning to inspection, monitoring, and autonomous navigation problems.", "我目前是康斯坦茨大学计算机与信息科学硕士，拥有计算机视觉、深度学习、机器人和实时系统的实践经验。我的工作重点是将 AI 模型部署到边缘设备，构建可靠的视觉处理流程，并将机器学习应用到巡检、监测与自主导航问题中。"],
       [".about__skills li:nth-child(1)", "Computer Vision", "计算机视觉"],
@@ -280,16 +182,9 @@ const TRANSLATIONS = {
       ["meta[name='description']", "content", "Chunpo Wu is an AI and Computer Vision engineer focused on deep learning, robotics, SLAM, and edge AI systems.", "吴春坡是一名专注于深度学习、机器人、SLAM 与边缘 AI 系统的 AI / 计算机视觉工程师。"],
       [".back-to-top", "title", "Back to Top", "返回顶部"],
       [".back-to-top__image", "alt", "Back to Top", "返回顶部"],
-      [".blog-modal__close", "aria-label", "Close blog detail", "关闭博客详情"],
       [".about__skills", "aria-label", "Core skills", "核心技能"],
       [".about__photo", "alt", "Portrait of Chunpo Wu", "吴春坡头像"],
       [".footer__social-link-item a", "title", "Email Chunpo Wu", "给吴春坡发邮件"],
-    ],
-    data: [
-      [".blog__card:nth-of-type(1)", "full", "Notes on camera ingestion, Jetson-side inference, Kafka messaging, and keeping latency predictable in practical monitoring systems.", "关于相机采集、Jetson 端推理、Kafka 消息传递以及如何在真实监测系统中控制时延的笔记。"],
-      [".blog__card:nth-of-type(2)", "full", "Notes from the end-to-end pipeline: video stream, target detector, depth cue, control signal, and navigation behavior.", "关于端到端流程的笔记：视频流、目标检测器、深度线索、控制信号与导航行为。"],
-      [".blog__card:nth-of-type(3)", "full", "A write-up on using multimodal models to connect visual evidence, defect descriptions, and structured equipment diagnostics.", "一篇关于如何使用多模态模型连接视觉证据、缺陷描述和结构化设备诊断信息的记录。"],
-      [".blog__card:nth-of-type(4)", "full", "A practical summary of research challenges in insulator defect detection and lightweight deployment for UAV imagery.", "一份关于绝缘子缺陷检测与无人机图像轻量化部署研究挑战的实践总结。"],
     ],
   },
   braindance: {
@@ -298,9 +193,8 @@ const TRANSLATIONS = {
     text: [
       [".nav__item:nth-child(1) .nav__link", "Projects", "项目"],
       [".nav__item:nth-child(2) .nav__link", "Experience", "经历"],
-      [".nav__item:nth-child(3) .nav__link", "Blog", "博客"],
-      [".nav__item:nth-child(4) .nav__link", "About", "关于"],
-      [".nav__item:nth-child(5) .nav__link", "Contact", "联系"],
+      [".nav__item:nth-child(3) .nav__link", "About", "关于"],
+      [".nav__item:nth-child(4) .nav__link", "Contact", "联系"],
       [".page-hero .heading-primary", "Brain Dance VR", "Brain Dance VR"],
       [".page-hero p", "An immersive VR investigation experience inspired by Cyberpunk 2077 Braindance, focused on sensory layering, time-based exploration, and clue discovery in memory space.", "一个受《赛博朋克 2077》Braindance 启发的沉浸式 VR 调查体验，聚焦于感官分层、时间探索与记忆空间中的线索发现。"],
       [".project-detail__content h2:nth-of-type(1)", "Overview", "概述"],
@@ -336,9 +230,8 @@ const TRANSLATIONS = {
     text: [
       [".nav__item:nth-child(1) .nav__link", "Projects", "项目"],
       [".nav__item:nth-child(2) .nav__link", "Experience", "经历"],
-      [".nav__item:nth-child(3) .nav__link", "Blog", "博客"],
-      [".nav__item:nth-child(4) .nav__link", "About", "关于"],
-      [".nav__item:nth-child(5) .nav__link", "Contact", "联系"],
+      [".nav__item:nth-child(3) .nav__link", "About", "关于"],
+      [".nav__item:nth-child(4) .nav__link", "Contact", "联系"],
       [".page-hero .heading-primary", "Railway Safety Monitoring System", "铁路安全监测系统"],
       [".page-hero p", "A real-time video monitoring platform for railway safety, built around multi-stream RTSP ingestion, edge AI inference, and message-based data pipelines.", "一个面向铁路安全的实时视频监测平台，围绕多路 RTSP 接入、边缘 AI 推理和消息化数据管线构建。"],
       [".project-detail__content h2:nth-of-type(1)", "Overview", "概述"],
@@ -373,9 +266,8 @@ const TRANSLATIONS = {
     text: [
       [".nav__item:nth-child(1) .nav__link", "Projects", "项目"],
       [".nav__item:nth-child(2) .nav__link", "Experience", "经历"],
-      [".nav__item:nth-child(3) .nav__link", "Blog", "博客"],
-      [".nav__item:nth-child(4) .nav__link", "About", "关于"],
-      [".nav__item:nth-child(5) .nav__link", "Contact", "联系"],
+      [".nav__item:nth-child(3) .nav__link", "About", "关于"],
+      [".nav__item:nth-child(4) .nav__link", "Contact", "联系"],
       [".page-hero .heading-primary", "Autonomous Drone Navigation & Target Tracking", "自主无人机导航与目标跟踪"],
       [".page-hero p", "A bachelor thesis project that connected visual target tracking, depth estimation, obstacle avoidance, and autonomous control.", "一个将视觉目标跟踪、深度估计、避障与自主控制连接起来的本科毕业设计项目。"],
       [".project-detail__content h2:nth-of-type(1)", "Overview", "概述"],
@@ -411,9 +303,8 @@ const TRANSLATIONS = {
     text: [
       [".nav__item:nth-child(1) .nav__link", "Projects", "项目"],
       [".nav__item:nth-child(2) .nav__link", "Experience", "经历"],
-      [".nav__item:nth-child(3) .nav__link", "Blog", "博客"],
-      [".nav__item:nth-child(4) .nav__link", "About", "关于"],
-      [".nav__item:nth-child(5) .nav__link", "Contact", "联系"],
+      [".nav__item:nth-child(3) .nav__link", "About", "关于"],
+      [".nav__item:nth-child(4) .nav__link", "Contact", "联系"],
       [".page-hero .heading-primary", "Music Universe", "音乐宇宙"],
       [".page-hero p", "An interactive music exploration system that organizes large-scale song data into a visual universe, helping users inspect genre structure and how musical styles evolve over time across the Million Song Dataset.", "一个将大规模歌曲数据组织成可视化宇宙的交互式音乐探索系统，帮助用户在 Million Song Dataset 上观察流派结构以及音乐风格如何随时间演化。"],
       [".project-detail__content h2:nth-of-type(1)", "Overview", "概述"],
@@ -451,9 +342,8 @@ const TRANSLATIONS = {
     text: [
       [".nav__item:nth-child(1) .nav__link", "Projects", "项目"],
       [".nav__item:nth-child(2) .nav__link", "Experience", "经历"],
-      [".nav__item:nth-child(3) .nav__link", "Blog", "博客"],
-      [".nav__item:nth-child(4) .nav__link", "About", "关于"],
-      [".nav__item:nth-child(5) .nav__link", "Contact", "联系"],
+      [".nav__item:nth-child(3) .nav__link", "About", "关于"],
+      [".nav__item:nth-child(4) .nav__link", "Contact", "联系"],
       [".page-hero .heading-primary", "BearFit Multi-Device IMU Fitness Sensing", "BearFit 多设备 IMU 健身感知系统"],
       [".page-hero p", "A multi-device IMU workout sensing prototype for body awareness in the gym, built around what people already carry plus a lightweight ring device: phone, watch, earbuds, and ring.", "一个用于健身房身体动作感知的多设备 IMU 训练感知原型，在用户原有设备基础上加入轻量戒指设备：手机、手表、耳机和戒指协同工作。"],
       [".project-detail__content h2:nth-of-type(1)", "Overview", "概述"],
@@ -484,17 +374,8 @@ const TRANSLATIONS = {
   },
 };
 
-const resolveTranslationSelector = (selector) => selector
-  .replace(/\.blog__card:nth-of-type\((\d)\)/g, (_, index) => ({
-    1: '.blog__row--technology .blog__card:nth-of-type(1)',
-    2: '.blog__row--technology .blog__card:nth-of-type(2)',
-    3: '.blog__row--research .blog__card',
-    4: '.blog__row--daily .blog__card'
-  }[index]))
-  .replace(/\.blog__hint:nth-of-type\((\d)\)/g, (_, index) => `.${['blog__row--technology', 'blog__row--research', 'blog__row--daily'][index - 1]} .blog__hint`);
-
 const setSelectorText = (selector, value) => {
-  const element = document.querySelector(resolveTranslationSelector(selector));
+  const element = document.querySelector(selector);
   if (!element) return;
   element.textContent = value;
 };
@@ -525,7 +406,7 @@ const applyLanguage = (language) => {
 
   if (page?.data) {
     page.data.forEach(([selector, attr, en, zh]) => {
-      const element = document.querySelector(resolveTranslationSelector(selector));
+      const element = document.querySelector(selector);
       if (!element) return;
       element.dataset[attr] = language === "zh" ? zh : en;
     });
