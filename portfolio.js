@@ -2,6 +2,20 @@
 (() => {
   const pair = (en, zh) => ({ en, zh });
   const metadata = {
+    'anythingmcp-sandbox': {
+      group: 'engineering', tags: ['AnythingMCP', 'TypeScript', 'V8 Isolate', 'MCP'],
+      image: 'images/projects/anythingmcp/cover.png', page: 'project.html?project=anythingmcp-sandbox',
+      summary: pair('A hackathon implementation of Code Mode for AnythingMCP: run saved JavaScript beside connectors, keep bulk data inside the gateway and return only the result.', '为 AnythingMCP 实现的 Code Mode 沙箱：在连接器旁运行可保存的 JavaScript，让批量数据留在网关内，仅返回计算结果。'),
+      result: pair('On the 150,000-order benchmark, Code Mode matched independently computed ground truth while reducing model-facing payloads by more than 99.8% across all three queries.', '在 15 万订单基准中，Code Mode 的结果与独立计算的真值一致，三个查询面向模型的传输量均减少 99.8% 以上。'),
+      resultTitle: pair('Measured Result', '实测结果'),
+      pipeline: pair(['Agent request', 'Saved JavaScript', 'V8 isolate', 'MCP tools', 'Small JSON result'], ['智能体请求', '可保存 JavaScript', 'V8 隔离环境', 'MCP 工具', '小型 JSON 结果']),
+      presentation: 'presentations/anythingmcp-code-mode/code_mode.html',
+      gallery: [
+        { src: 'images/projects/anythingmcp/script-run.png', en: 'Saved script execution and connector data flow', zh: '已保存脚本的执行与连接器数据流' },
+        { src: 'images/projects/anythingmcp/isolation.png', en: 'Live 20-case isolation suite', zh: '20 项实时隔离测试' },
+        { src: 'images/projects/anythingmcp/benchmark.png', en: 'Raw tool call and Code Mode benchmark', zh: '原始工具调用与 Code Mode 基准对比' }
+      ]
+    },
     'parcel-sorting': {
       group: 'engineering', tags: ['Nova5', 'YOLO', 'Open3D', 'TCP/IP'],
       image: 'images/projects/parcel_sorting/cover.jpg', page: 'project.html?project=parcel-sorting',
@@ -122,12 +136,13 @@
         <div class="work__text"><p class="project-period">${esc(project.period)}</p><h3>${esc(project.title)}</h3>
         <p>${esc(meta.summary[lang])}</p><ul class="work__list">${meta.tags.map((tag) => `<li>${esc(tag)}</li>`).join('')}</ul>
         <div class="work__links"><a href="${root}projects/${meta.page}" class="link__text">${tr('Project details', '项目详情')} <span aria-hidden="true">&rarr;</span></a>
-        ${meta.url ? external(meta.url, tr('Visit website', '访问网站')) : ''}</div></div>
+        ${meta.url ? external(meta.url, tr('Visit website', '访问网站')) : ''}
+        ${meta.presentation ? external(`${root}${meta.presentation}`, tr('Interactive presentation', '交互演示')) : ''}</div></div>
         <div class="work__image-box">${visual}</div></article>`;
     };
     if (page === 'home') {
       const projects = data.projects;
-      const engineeringIds = ['parcel-sorting', 'autonomous-drone', 'drone-inspection', 'railway-monitoring'];
+      const engineeringIds = ['anythingmcp-sandbox', 'parcel-sorting', 'autonomous-drone', 'drone-inspection', 'railway-monitoring'];
       const personalIds = ['zilo-ring', 'bearfit', 'soarm-vision', 'llm-gateway', 'braindance', 'music-universe'];
       document.querySelector('#work .row').innerHTML = `<h2>${tr('Selected Projects', '精选项目')}</h2>
         <h3 class="project-group-heading">${tr('Engineering & Applied AI', '工程项目与 AI 应用')}</h3>
@@ -206,6 +221,8 @@
       <dt>${tr('Technology', '技术栈')}</dt><dd>${esc(meta.tags.join(' · '))}</dd></dl></aside></div></section>`;
     const media = document.querySelector('#projectMedia');
     if (meta.video) media.innerHTML = `<h2>${tr('Demo Video', '演示视频')}</h2><div class="video-embed"><video controls playsinline preload="none" poster="${root}${meta.image}"><source src="${root}${meta.video.replace('.mp4', '.webm')}" type="video/webm"><source src="${root}${meta.video}" type="video/mp4"></video></div>${meta.videoNote ? `<p class="project-period">${esc(meta.videoNote[lang])}</p>` : ''}<a href="${root}${meta.video}" download class="link__text">${tr('Download video (MP4)', '下载视频（MP4）')}</a>`;
+    if (meta.presentation) media.insertAdjacentHTML('beforeend', `<h2>${tr('Interactive Code Mode Presentation', 'Code Mode 交互演示')}</h2><div class="presentation-embed"><iframe src="${root}${meta.presentation}" title="${tr('AnythingMCP Code Mode interactive presentation', 'AnythingMCP Code Mode 交互演示')}" loading="lazy"></iframe></div><p class="project-period">${tr('Scroll inside the frame or open it in a new tab for the full animated presentation.', '可在框内滚动播放，或在新标签页中打开完整动画演示。')}</p><p>${external(`${root}${meta.presentation}`, tr('Open presentation in a new tab', '在新标签页打开演示'))}</p>`);
+    if (meta.gallery) media.insertAdjacentHTML('beforeend', `<h2>${tr('Implementation Evidence', '实现截图')}</h2><div class="project-gallery">${meta.gallery.map((item) => `<figure><img src="${root}${item.src}" alt="${esc(item[lang])}" loading="lazy"><figcaption>${esc(item[lang])}</figcaption></figure>`).join('')}</div>`);
     mediaNodes.forEach((node) => {
       const heading = document.createElement('h2');
       heading.textContent = node.classList.contains('slide-viewer') ? tr('Project Slides', '项目幻灯片') : tr('Video', '视频');

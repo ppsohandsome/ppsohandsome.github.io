@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AnythingMCP — Code Mode</title>
+<link href="vendor/fonts/fonts.css" rel="stylesheet">
+<style>
+:root{--bg:#0B0C0F;--bg2:#111318;--fg:#E8E6E1;--mute:rgba(232,230,225,.55);--faint:rgba(232,230,225,.28);--hair:rgba(232,230,225,.12);--hair2:rgba(232,230,225,.24);
+  --acc:#BFFF47;--red:#FF4D3D;--sans:Inter,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;--mono:"JetBrains Mono","SF Mono",Menlo,Consolas,monospace;--g:clamp(24px,5vw,80px);--ease:cubic-bezier(.22,.8,.2,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);color-scheme:dark}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--acc);color:#000}
+.mono{font-family:var(--mono)}
+.micro{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--mute)}
+.tnum{font-variant-numeric:tabular-nums}
+.acc{color:var(--acc)}.mute{color:var(--mute)}.red{color:var(--red)}
+.rv{opacity:0;transform:translateY(20px)}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:20px var(--g);pointer-events:none}
+.nav>*{pointer-events:auto}
+.nav::before{content:"";position:absolute;inset:0;background:linear-gradient(var(--bg),transparent);z-index:-1;pointer-events:none}
+.brand{display:flex;align-items:center;gap:12px;font-weight:500;font-size:14px}
+.brand i{width:8px;height:8px;background:var(--acc);display:inline-block}
+.brand span{color:var(--mute);font-weight:400}
+.progress{position:fixed;left:0;bottom:0;height:2px;background:var(--acc);width:0;z-index:40}
+.hint{position:fixed;right:var(--g);bottom:16px;z-index:40;color:var(--faint);font-size:11px;letter-spacing:.12em}
+
+main{position:relative;z-index:1}
+section{min-height:100vh;min-height:100svh;position:relative;display:grid;align-content:center;padding:120px var(--g) 100px}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:clamp(32px,5vh,64px)}
+.head h2{font-size:clamp(30px,4.2vw,56px);font-weight:300;letter-spacing:-.025em;line-height:1.05;max-width:18ch}
+.head p{color:var(--mute);max-width:52ch;font-size:15px;line-height:1.65}
+.head p strong{color:var(--fg);font-weight:500}
+.eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--hair2)}
+@media(max-width:900px){.head{grid-template-columns:1fr}}
+
+/* 1 hero */
+#hero,#end{padding:0;overflow:hidden;height:100vh;height:100svh;min-height:0}
+#tex2{position:absolute;inset:0;width:100%;height:100%;display:block}
+#tex{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero__shade{position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 50%,rgba(11,12,15,.2),rgba(11,12,15,.92) 100%)}
+.hero__in{position:relative;z-index:2;display:grid;place-content:center;justify-items:center;text-align:center;min-height:100vh;padding:0 var(--g)}
+.hero__in .pl{font-size:clamp(40px,7.5vw,120px);font-weight:300;letter-spacing:-.035em;line-height:.95;color:var(--mute);margin-bottom:.08em}
+.hero__in h1{font-size:clamp(56px,11vw,180px);font-weight:300;letter-spacing:-.045em;line-height:.9}
+.hero__in h1 b{font-weight:500}
+.hero__in .ans{margin-top:12px;font-family:var(--mono);font-size:clamp(14px,1.6vw,22px);color:var(--acc);padding:12px 18px;border:1px solid rgba(191,255,71,.35);background:rgba(11,12,15,.85)}
+.hero__in p{margin-top:34px;color:var(--fg);font-size:clamp(22px,3vw,44px);font-weight:300;letter-spacing:-.02em;line-height:1.2}
+.hero__in p b.hand{font-family:Caveat,"Segoe Print","Bradley Hand",cursive;font-weight:700;color:var(--acc);font-size:2.4em;line-height:.6;display:inline-block;margin-left:.15em;transform-origin:50% 60%;text-shadow:0 0 24px rgba(191,255,71,.35)}
+
+/* 2 problem / shared pinned layout */
+#problem,#solution,#compare,#security{padding:0;display:block;min-height:0}
+.pin4{height:100vh;height:100svh;display:grid;grid-template-rows:auto 1fr;gap:12px;padding:96px var(--g) 36px;max-width:1500px;margin:0 auto}
+#solution .pin4{padding-top:84px}
+.head4{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;overflow:visible}
+.head4 h2{font-size:clamp(26px,3.4vw,46px);font-weight:300;letter-spacing:-.025em;line-height:1.05;max-width:30ch;white-space:nowrap}
+.head4 .hand4{font-family:Caveat,"Segoe Print","Bradley Hand",cursive;font-weight:700;font-size:clamp(30px,3.8vw,56px);line-height:1.25;padding-bottom:.15em;color:var(--acc);text-align:right;transform:rotate(-3deg);transform-origin:50% 50%;opacity:0;text-shadow:0 0 24px rgba(191,255,71,.3)}
+.fl{min-height:0}
+.fl svg{width:100%;height:100%;display:block;overflow:visible}
+.fl text{font-family:var(--sans);fill:var(--mute);font-size:15px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.fl text.m{font-family:var(--mono);text-transform:none;letter-spacing:0;font-size:15px;fill:var(--fg)}
+.fl text.d{fill:var(--mute);font-size:13px;letter-spacing:.08em;text-transform:none}
+.fl text.b{font-family:var(--sans);text-transform:none;letter-spacing:-.01em;font-size:19px;fill:var(--fg);font-weight:400}
+.fl text.r{fill:var(--red)}
+.fl text.a{fill:var(--acc)}
+.fl .node{fill:var(--bg2);stroke:var(--hair2)}
+.fl .bub{fill:#1A1D24;stroke:var(--hair2)}
+.fl .ln{fill:none;stroke:rgba(232,230,225,.45);stroke-width:1.5;stroke-linecap:round}
+.fl .ln.ret{stroke:rgba(232,230,225,.22);stroke-width:14}
+.fl .ln.a{stroke:var(--acc)}
+.fl .tbl rect.bg{fill:#14171D;stroke:var(--hair2)}
+.fl .tbl line{stroke:var(--hair)}
+.fl .tbl text.h{font-family:var(--mono);text-transform:none;letter-spacing:0;font-size:16px;fill:var(--fg);font-weight:500}
+.fl .tbl text.dots{font-family:var(--mono);text-transform:none;letter-spacing:.1em;font-size:13px;fill:var(--faint)}
+.fl .ctxw{fill:none;stroke:var(--hair2);stroke-dasharray:4 6}
+.fl .cm{fill:rgba(191,255,71,.05);stroke:var(--acc);stroke-dasharray:5 6;stroke-width:1.5}
+.fl .p{fill:rgba(232,230,225,.65)}
+.fl .logo-c{fill:#D97757}.fl .logo-o{fill:none;stroke:#E8E6E1;stroke-width:3;stroke-linecap:round}.fl .logo-a{fill:var(--acc)}
+@media(max-width:900px){.head4{grid-template-columns:1fr}}
+
+/* 4 compare */
+.bars text{font-family:var(--sans);fill:var(--mute);font-size:18px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.bars text.v{font-family:var(--mono);text-transform:none;letter-spacing:0;font-size:34px;fill:var(--fg);font-weight:500}
+.bars text.t{font-family:var(--mono);text-transform:none;letter-spacing:0;font-size:18px;fill:var(--mute)}
+.bars text.a{fill:var(--acc)}
+.bars .frame{fill:none;stroke:var(--hair2);stroke-width:1.5}
+.bars .liq{fill:rgba(232,230,225,.28)}
+.bars .liq.a{fill:rgba(191,255,71,.55)}
+.bars .ghost{fill:rgba(232,230,225,.1)}
+.bars .base{stroke:var(--hair2);stroke-width:1}
+
+/* 5 security */
+.perm text{font-size:15px}
+.perm text.n{fill:var(--fg);font-size:18px}
+.perm text.m{font-size:17px}
+.perm text.tag{font-family:var(--mono);text-transform:none;letter-spacing:0;font-size:14px;fill:var(--red)}
+.perm text.ok{fill:var(--acc)}
+.perm text.d{font-size:14px}
+.perm .card{fill:var(--bg2);stroke:var(--hair2)}
+.perm .ln{stroke:var(--acc)}
+.perm .ln.dead{stroke:var(--red);stroke-width:3;opacity:.85}
+.perm .shield{fill:none;stroke:var(--acc);stroke-width:1.2;stroke-dasharray:14 10;stroke-linecap:round;transform-box:fill-box;transform-origin:center}
+.perm .shield.r1{animation:shieldDash 6s linear infinite}
+.perm .shield.r2{stroke-dasharray:6 14;opacity:.55;animation:shieldDash 9s linear infinite reverse}
+@keyframes shieldDash{to{stroke-dashoffset:-240}}
+.perm .shield-glow{fill:rgba(191,255,71,.05);stroke:none;filter:drop-shadow(0 0 18px rgba(191,255,71,.35));animation:shieldPulse 2.6s ease-in-out infinite}
+@keyframes shieldPulse{50%{fill:rgba(191,255,71,.09)}}
+
+footer{padding:24px var(--g) 40px;display:flex;justify-content:space-between;color:var(--faint);font-size:12px;border-top:1px solid var(--hair);flex-wrap:wrap;gap:10px}
+@page{size:1920px 1080px;margin:0}
+html.print body{overflow:visible;cursor:default}
+html.print .nav,html.print .progress,html.print .hint,html.print footer{display:none!important}
+html.print main>section{height:1080px;min-height:1080px;width:1920px;overflow:hidden;page-break-after:always;break-after:page;position:relative}
+html.print .pin4{height:1080px}
+html.print #hero,html.print #end{height:1080px}
+html.print .hero__in{min-height:1080px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="nav"><a href="#hero" class="brand"><i></i>AnythingMCP <span>/ Code Mode</span></a></header>
+<div class="progress" id="prog"></div>
+<div class="hint mono">→ next · ← back · F fullscreen</div>
+
+<main>
+
+<!-- 1 TITLE -->
+<section id="hero">
+  <canvas id="tex"></canvas>
+  <div class="hero__shade"></div>
+  <div class="hero__in">
+    <div class="pl">AnythingMCP</div>
+    <h1>Code <b>Mode</b></h1>
+    <div style="height:22px"></div>
+    <div class="ans mono">{ team name: "No thanks, i use claude" }</div>
+    <div class="ans mono">{ challenge: "Sandbox AI" }</div>
+    <p>Give everything in the database to the LLM? <b class="hand">No!</b></p>
+  </div>
+</section>
+
+<!-- 2 PROBLEM -->
+<section id="problem">
+  <div class="pin4">
+    <div class="head4"><div><div class="eyebrow micro">The problem</div><h2>All table data gets into the memory.</h2></div><p class="hand4" id="pHand">slow &amp; consumes lots of tokens</p></div>
+    <div class="fl"><svg viewBox="0 0 1400 600" id="pSvg" preserveAspectRatio="xMidYMid meet">
+      <g id="pLLM" opacity="0">
+        <rect class="node" x="40" y="40" width="280" height="200" rx="4"/>
+        <text x="60" y="72">LLM</text>
+        <g transform="translate(260 66) scale(.7)" class="logo-o"><g id="oa"><path d="M0 -14 a14 14 0 0 1 12 7 l0 14 a14 14 0 0 1 -12 7 l-12 -7 l0 -14 z"/></g><use href="#oa" transform="rotate(60)"/><use href="#oa" transform="rotate(120)"/><use href="#oa" transform="rotate(180)"/><use href="#oa" transform="rotate(240)"/><use href="#oa" transform="rotate(300)"/></g>
+        <g transform="translate(296 66) scale(.75)" class="logo-c"><g id="cl"><path d="M-2 -16 L2 -16 L3 -4 L-3 -4 Z"/></g><use href="#cl" transform="rotate(45)"/><use href="#cl" transform="rotate(90)"/><use href="#cl" transform="rotate(135)"/><use href="#cl" transform="rotate(180)"/><use href="#cl" transform="rotate(225)"/><use href="#cl" transform="rotate(270)"/><use href="#cl" transform="rotate(315)"/><circle r="4"/></g>
+        <g id="pBub" opacity="0"><path class="bub" d="M64 100 h232 a6 6 0 0 1 6 6 v76 a6 6 0 0 1 -6 6 h-190 l-14 14 v-14 h-28 a6 6 0 0 1 -6 -6 v-76 a6 6 0 0 1 6 -6 z"/><text class="b" x="80" y="134">Hi, what happened to</text><text class="b" x="80" y="162">order number 12345?</text></g>
+      </g>
+      <g id="pGW" opacity="0">
+        <rect class="node" x="560" y="40" width="280" height="200" rx="4"/>
+        <g transform="translate(700 118)" class="logo-a"><rect x="-22" y="-22" width="44" height="44" rx="6" fill="none" stroke="var(--acc)" stroke-width="2"/><rect x="-9" y="-9" width="18" height="18" rx="2"/><line x1="-22" y1="0" x2="-32" y2="0" stroke="var(--acc)" stroke-width="2"/><line x1="22" y1="0" x2="32" y2="0" stroke="var(--acc)" stroke-width="2"/><line x1="0" y1="-22" x2="0" y2="-32" stroke="var(--acc)" stroke-width="2"/><line x1="0" y1="22" x2="0" y2="32" stroke="var(--acc)" stroke-width="2"/></g>
+        <text x="700" y="196" text-anchor="middle">AnythingMCP</text>
+      </g>
+      <g id="pDB" opacity="0">
+        <rect class="node" x="1080" y="40" width="280" height="200" rx="4"/>
+        <ellipse cx="1220" cy="90" rx="46" ry="12" fill="none" stroke="rgba(232,230,225,.45)" stroke-width="2"/><path d="M1174 90 V140 a46 12 0 0 0 92 0 V90" fill="none" stroke="rgba(232,230,225,.45)" stroke-width="2"/><path d="M1174 115 a46 12 0 0 0 92 0" fill="none" stroke="rgba(232,230,225,.3)" stroke-width="2"/>
+        <text x="1220" y="196" text-anchor="middle">Database</text>
+      </g>
+      <path class="ln" id="pq1" d="M320 140 H560"/><text class="m" id="pq1t" x="440" y="126" text-anchor="middle" opacity="0" style="fill:var(--mute)">tool call</text>
+      <path class="ln" id="pq2" d="M840 140 H1080"/><text class="m" id="pq2t" x="960" y="126" text-anchor="middle" opacity="0" style="fill:var(--mute)">SELECT * FROM users</text>
+      <path class="ln ret" id="pret" d="M1220 240 C 1220 320, 1000 320, 700 320 S 440 320, 400 400"/>
+      <rect class="ctxw" id="pCtx" x="40" y="360" width="1320" height="220" rx="4" opacity="0"/><text id="pCtxT" x="60" y="348" opacity="0">LLM context window</text>
+      <text class="r" id="pNeed" x="1340" y="348" text-anchor="end" opacity="0">needed: one row</text>
+      <g class="tbl" id="pT1" opacity="0"><rect class="bg" x="-120" y="-56" width="240" height="112" rx="3"/><text class="h" x="-104" y="-30">users</text><text class="d" x="104" y="-30" text-anchor="end">… rows</text><line x1="-120" y1="-16" x2="120" y2="-16"/><text class="dots" x="-104" y="8">… … … … … … …</text><text class="dots" x="-104" y="30">… … … … … … …</text></g><g class="tbl" id="pT2" opacity="0"><rect class="bg" x="-120" y="-56" width="240" height="112" rx="3"/><text class="h" x="-104" y="-30">orders</text><text class="d" x="104" y="-30" text-anchor="end">8,247 rows</text><line x1="-120" y1="-16" x2="120" y2="-16"/><text class="dots" x="-104" y="8">… … … … … … …</text><text class="dots" x="-104" y="30">… … … … … … …</text></g><g class="tbl" id="pT3" opacity="0"><rect class="bg" x="-120" y="-56" width="240" height="112" rx="3"/><text class="h" x="-104" y="-30">shipments</text><text class="d" x="104" y="-30" text-anchor="end">… rows</text><line x1="-120" y1="-16" x2="120" y2="-16"/><text class="dots" x="-104" y="8">… … … … … … …</text><text class="dots" x="-104" y="30">… … … … … … …</text></g>
+      <g id="pParts"></g>
+    </svg></div>
+  </div>
+</section>
+
+<!-- 3 SOLUTION -->
+<section id="solution">
+  <div class="pin4">
+    <div class="head4"><div><div class="eyebrow micro">Code Mode</div><h2>Generate JavaScript first.</h2></div><p class="hand4" id="sHand">Return only the result.</p></div>
+    <div class="fl"><svg viewBox="0 -40 1400 360" id="sSvg" preserveAspectRatio="xMidYMid meet">
+      <g id="sLLM">
+        <rect class="node" x="40" y="20" width="380" height="250" rx="4"/>
+        <text x="64" y="56" style="font-size:18px">LLM</text>
+        <g transform="translate(340 50) scale(.9)" class="logo-o"><use href="#oa"/><use href="#oa" transform="rotate(60)"/><use href="#oa" transform="rotate(120)"/><use href="#oa" transform="rotate(180)"/><use href="#oa" transform="rotate(240)"/><use href="#oa" transform="rotate(300)"/></g>
+        <g transform="translate(388 50) scale(.95)" class="logo-c"><use href="#cl"/><use href="#cl" transform="rotate(45)"/><use href="#cl" transform="rotate(90)"/><use href="#cl" transform="rotate(135)"/><use href="#cl" transform="rotate(180)"/><use href="#cl" transform="rotate(225)"/><use href="#cl" transform="rotate(270)"/><use href="#cl" transform="rotate(315)"/><circle r="4"/></g>
+        <g><path class="bub" d="M64 90 h332 a6 6 0 0 1 6 6 v100 a6 6 0 0 1 -6 6 h-280 l-16 16 v-16 h-36 a6 6 0 0 1 -6 -6 v-100 a6 6 0 0 1 6 -6 z"/><text class="b" x="84" y="134" style="font-size:24px">Hi, what happened to</text><text class="b" x="84" y="168" style="font-size:24px">order number 12345?</text></g>
+      </g>
+      <g id="sDB">
+        <rect class="node" x="980" y="20" width="380" height="250" rx="4"/>
+        <ellipse cx="1170" cy="90" rx="60" ry="15" fill="none" stroke="rgba(232,230,225,.45)" stroke-width="2.5"/><path d="M1110 90 V160 a60 15 0 0 0 120 0 V90" fill="none" stroke="rgba(232,230,225,.45)" stroke-width="2.5"/><path d="M1110 125 a60 15 0 0 0 120 0" fill="none" stroke="rgba(232,230,225,.3)" stroke-width="2.5"/>
+        <text x="1170" y="230" text-anchor="middle" style="font-size:18px">Database</text>
+      </g>
+      <rect class="cm" id="sCM" x="510" y="20" width="380" height="250" rx="4" opacity="0"/><text class="a" id="sCMT" x="890" y="4" text-anchor="end" opacity="0" style="font-size:22px">Code Mode</text>
+      <g id="sGW">
+        <rect class="node" id="sGWr" x="510" y="20" width="380" height="250" rx="4"/>
+        <g id="sGWi" transform="translate(700 125) scale(1.3)" class="logo-a"><rect x="-22" y="-22" width="44" height="44" rx="6" fill="none" stroke="var(--acc)" stroke-width="2"/><rect x="-9" y="-9" width="18" height="18" rx="2"/><line x1="-22" y1="0" x2="-32" y2="0" stroke="var(--acc)" stroke-width="2"/><line x1="22" y1="0" x2="32" y2="0" stroke="var(--acc)" stroke-width="2"/><line x1="0" y1="-22" x2="0" y2="-32" stroke="var(--acc)" stroke-width="2"/><line x1="0" y1="22" x2="0" y2="32" stroke="var(--acc)" stroke-width="2"/></g>
+        <text id="sGWt" x="700" y="230" text-anchor="middle" style="font-size:18px">AnythingMCP</text>
+      </g>
+      <g id="sIn" opacity="0">
+        <g id="sCode" opacity="0">
+          <rect x="40" y="40" width="640" height="340" rx="4" fill="#0B0C0F" stroke="var(--hair2)"/>
+          <text x="64" y="76" style="font-size:16px">Script · JavaScript</text>
+          <text class="m c1" x="64" y="126" style="fill:var(--mute);font-size:17px"><tspan style="fill:var(--acc)">const</tspan> o = <tspan style="fill:var(--acc)">await</tspan> tools.orders.get({ id: 12345 })</text>
+          <text class="m c2" x="64" y="160" style="fill:var(--mute);font-size:17px"><tspan style="fill:var(--acc)">const</tspan> u = <tspan style="fill:var(--acc)">await</tspan> tools.users.get({ id: o.customer_id })</text>
+          <text class="m c3" x="64" y="194" style="fill:var(--mute);font-size:17px"><tspan style="fill:var(--acc)">const</tspan> s = <tspan style="fill:var(--acc)">await</tspan> tools.shipments.find({ order: o.id })</text>
+          <text class="m c4" x="64" y="244" style="fill:var(--mute);font-size:17px"><tspan style="fill:var(--acc)">return</tspan> { status: s.status, eta: s.eta,</text>
+          <text class="m c4b" x="64" y="278" style="fill:var(--mute);font-size:17px">         customer: u.name }</text>
+          <text class="d" x="64" y="350" style="font-size:14px">LLM wrote this. ~300 bytes.</text>
+        </g>
+        <text id="sGWbig" x="744" y="76" style="font-size:16px">AnythingMCP</text>
+        <path class="ln" id="sScriptLn" d="M680 210 H720"/>
+        <path class="ln ret" id="sRet" d="M1400 300 H1360"/>
+        <g class="tbl" id="sT1" opacity="0"><rect class="bg" x="-120" y="-56" width="240" height="112" rx="3"/><text class="h" x="-104" y="-30">users</text><text class="d" x="104" y="-30" text-anchor="end">… rows</text><line x1="-120" y1="-16" x2="120" y2="-16"/><text class="dots" x="-104" y="8">… … … … … … …</text><text class="dots" x="-104" y="30">… … … … … … …</text></g><g class="tbl" id="sT2" opacity="0"><rect class="bg" x="-120" y="-56" width="240" height="112" rx="3"/><text class="h" x="-104" y="-30">orders</text><text class="d" x="104" y="-30" text-anchor="end">8,247 rows</text><line x1="-120" y1="-16" x2="120" y2="-16"/><text class="dots" x="-104" y="8">… … … … … … …</text><text class="dots" x="-104" y="30">… … … … … … …</text></g><g class="tbl" id="sT3" opacity="0"><rect class="bg" x="-120" y="-56" width="240" height="112" rx="3"/><text class="h" x="-104" y="-30">shipments</text><text class="d" x="104" y="-30" text-anchor="end">… rows</text><line x1="-120" y1="-16" x2="120" y2="-16"/><text class="dots" x="-104" y="8">… … … … … … …</text><text class="dots" x="-104" y="30">… … … … … … …</text></g>
+        <g id="sAns" opacity="0"><rect x="-310" y="-28" width="620" height="56" rx="3" fill="rgba(191,255,71,.08)" stroke="var(--acc)"/><text class="m a" x="0" y="7" text-anchor="middle" style="font-size:16px" textLength="580" lengthAdjust="spacingAndGlyphs">{ "status": "delayed", "eta": "2026-10-19", "customer": "…" }</text></g>
+        <path class="ln a" id="sAnsLn" d="M90 470 H0"/><text class="d" id="sAnsT" x="20" y="500" opacity="0" style="font-size:14px">→ LLM</text>
+      </g>
+      <path class="ln a" id="sFinalLn" d="M510 150 H420"/><g id="sFinal" opacity="0"><rect x="100" y="282" width="260" height="36" rx="3" fill="rgba(191,255,71,.08)" stroke="var(--acc)"/><text class="m a" x="230" y="306" text-anchor="middle" style="font-size:14px">1 row · 41 B</text></g>
+    </svg></div>
+  </div>
+</section>
+
+<!-- 5 SECURITY -->
+<section id="security">
+  <div class="pin4">
+    <div class="head4"><div><div class="eyebrow micro">Isolation</div><h2>Security and safety.</h2></div><p class="hand4" id="secHand">sandboxed &amp; nothing leaks.</p></div>
+    <div class="fl perm"><svg viewBox="0 0 1400 600" id="secSvg" preserveAspectRatio="xMidYMid meet">
+      <!-- shield around the script -->
+      <g id="xShield" opacity="0">
+        <rect class="shield-glow" x="476" y="126" width="448" height="348" rx="14"/>
+        <rect class="shield r1" x="482" y="132" width="436" height="336" rx="12"/>
+        <rect class="shield r2" x="470" y="120" width="460" height="360" rx="16"/>
+        <g transform="translate(700 150)"><rect x="-9" y="-3" width="18" height="13" rx="2" fill="var(--acc)"/><path d="M-5 -3 V-8 a5 5 0 0 1 10 0 V-3" fill="none" stroke="var(--acc)" stroke-width="2.5"/></g>
+        <text class="ok" x="700" y="188" text-anchor="middle" style="font-size:12px;letter-spacing:.2em">sandboxed</text>
+      </g>
+      <!-- script (centre) -->
+      <g id="xS" opacity="0">
+        <rect class="card" x="500" y="150" width="400" height="300" rx="4"/>
+        <text x="524" y="214">Script</text>
+        <text class="m" x="524" y="240" style="font-size:16px"><tspan style="fill:var(--acc)">await</tspan> tools.orders.get(…)</text>
+        <text class="m" x="524" y="280" style="font-size:16px"><tspan style="fill:var(--acc)">await</tspan> tools.users.get(…)</text>
+        <text class="m" x="524" y="320" style="font-size:16px"><tspan style="fill:var(--acc)">await</tspan> tools.shipments.find(…)</text>
+        <text class="m" x="524" y="370" style="font-size:16px;fill:var(--mute)">return { status, eta, customer }</text>
+      </g>
+      <!-- MCP servers (left) -->
+      <g id="xSrv" opacity="0">
+        <rect class="card" x="40" y="40" width="360" height="520" rx="4"/>
+        <text x="64" y="76">MCP servers</text>
+        <g id="sv1" opacity="0"><rect class="card" x="64" y="110" width="312" height="110" rx="4"/><text class="n" x="84" y="146" style="text-transform:none;letter-spacing:0">ERP · Europe</text><text class="d" x="84" y="172">orders · users · shipments</text><text class="m ok" id="sv1T" x="84" y="200" opacity="0">script listed · runnable</text></g>
+        <g id="sv2" opacity="0"><rect class="card" x="64" y="245" width="312" height="110" rx="4"/><text class="n" x="84" y="281" style="text-transform:none;letter-spacing:0">ERP · Americas</text><text class="d" x="84" y="307">orders · users · shipments</text><text class="m ok" id="sv2T" x="84" y="335" opacity="0">script listed · runnable</text></g>
+        <g id="sv3" opacity="0"><rect class="card" x="64" y="380" width="312" height="110" rx="4"/><text class="n" x="84" y="416" style="text-transform:none;letter-spacing:0">Bundesbank</text><text class="d" x="84" y="442">exchange_rates · bond_yields</text><text class="tag" id="sv3T" x="84" y="470" opacity="0">not listed</text></g>
+      </g>
+      <!-- users (right) -->
+      <g id="xUsr" opacity="0">
+        <rect class="card" x="1000" y="40" width="360" height="520" rx="4"/>
+        <text x="1024" y="76">Users</text>
+        <g id="us1" opacity="0"><rect class="card" x="1024" y="110" width="312" height="110" rx="4"/><text class="n" x="1044" y="146" style="text-transform:none;letter-spacing:0">Ops analyst</text><text class="d" x="1044" y="172">role: orders read</text><text class="m ok" id="us1T" x="1044" y="200" opacity="0">can run</text></g>
+        <g id="us2" opacity="0"><rect class="card" x="1024" y="245" width="312" height="110" rx="4"/><text class="n" x="1044" y="281" style="text-transform:none;letter-spacing:0">Finance viewer</text><text class="d" x="1044" y="307">role: viewer</text><text class="tag" id="us2T" x="1044" y="335" opacity="0">cannot run</text></g>
+        <g id="us3" opacity="0"><rect class="card" x="1024" y="380" width="312" height="110" rx="4"/><text class="n" x="1044" y="416" style="text-transform:none;letter-spacing:0">Marketing</text><text class="d" x="1044" y="442">role: no ERP tools</text><text class="tag" id="us3T" x="1044" y="470" opacity="0">cannot run</text></g>
+      </g>
+      <!-- links left: servers → script -->
+      <path class="ln" id="ls1" d="M376 165 C 440 165, 440 230, 500 230"/>
+      <path class="ln" id="ls2" d="M376 300 C 440 300, 440 300, 500 300"/>
+      <path class="ln dead" id="ls3" d="M376 435 C 440 435, 440 370, 500 370"/>
+      <g id="lk3" opacity="0"><g transform="translate(438 402)"><rect x="-9" y="-3" width="18" height="13" rx="2" fill="var(--red)"/><path d="M-5 -3 V-8 a5 5 0 0 1 10 0 V-3" fill="none" stroke="var(--red)" stroke-width="2.5"/></g></g>
+      <!-- links right: script → users -->
+      <path class="ln" id="lu1" d="M900 230 C 960 230, 960 165, 1024 165"/>
+      <path class="ln dead" id="lu2" d="M900 300 C 960 300, 960 300, 1024 300"/>
+      <g id="lk2" opacity="0"><g transform="translate(962 300)"><rect x="-9" y="-3" width="18" height="13" rx="2" fill="var(--red)"/><path d="M-5 -3 V-8 a5 5 0 0 1 10 0 V-3" fill="none" stroke="var(--red)" stroke-width="2.5"/></g></g>
+      <path class="ln dead" id="lu3" d="M900 370 C 960 370, 960 435, 1024 435"/>
+      <g id="lk3b" opacity="0"><g transform="translate(962 402)"><rect x="-9" y="-3" width="18" height="13" rx="2" fill="var(--red)"/><path d="M-5 -3 V-8 a5 5 0 0 1 10 0 V-3" fill="none" stroke="var(--red)" stroke-width="2.5"/></g></g>
+    </svg></div>
+  </div>
+</section>
+
+<!-- 4 COMPARE -->
+<section id="compare">
+  <div class="pin4">
+    <div class="head4"><div><div class="eyebrow micro">Compare</div><h2>Same answer. A fraction of the tokens.</h2></div><p class="hand4" id="cHand">fast and cheap.</p></div>
+    <div class="fl bars"><svg viewBox="0 0 1400 600" id="cSvg" preserveAspectRatio="xMidYMid meet">
+      <defs id="cDefs"></defs>
+      <g id="cBefore"></g>
+      <g id="cAfter"></g>
+      <g id="cLblL" opacity="0"><rect x="500" y="46" width="18" height="18" fill="rgba(232,230,225,.25)"/><text x="530" y="62">Raw tool call</text></g>
+      <g id="cLblR" opacity="0"><rect x="740" y="46" width="18" height="18" fill="rgba(191,255,71,.55)"/><text class="a" x="770" y="62">Code Mode</text></g>
+    </svg></div>
+  </div>
+</section>
+
+<!-- 7 END (hero reprise) -->
+<section id="end">
+  <canvas id="tex2"></canvas>
+  <div class="hero__shade"></div>
+  <div class="hero__in">
+    <div class="pl">AnythingMCP</div>
+    <h1>Code <b>Mode</b></h1>
+    <div style="height:22px"></div>
+    <div class="ans mono">{ team name: "No thanks, i use claude" }</div>
+    <div class="ans mono">{ challenge: "Sandbox AI" }</div>
+    <p><b class="hand" style="transform:rotate(-6deg) translateY(.08em)">Thanks!</b></p>
+  </div>
+</section>
+
+<footer><span>AnythingMCP · Code Mode · Black Forest Hackathon 2026</span><span>Background: 25 real rows from the 8,247-row response, repeated to scale. Benchmark numbers from our run history.</span></footer>
+</main>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/DrawSVGPlugin.min.js"></script>
+<script src="vendor/MotionPathPlugin.min.js"></script>
+<script src="vendor/TextPlugin.min.js"></script>
+<script src="vendor/SplitText.min.js"></script>
+<script src="vendor/countup.umd.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger,DrawSVGPlugin,MotionPathPlugin,TextPlugin,SplitText);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v)),lerp=(a,b,t)=>a+(b-a)*t;
+const fmtB=b=>b>=1e6?(b/1e6).toFixed(2)+' MB':b>=1e3?(b/1e3).toFixed(1)+' KB':Math.round(b)+' B';
+const RAW=1.69e6,ANS=41;
+const REAL=["{\"id\":25,\"total\":2361.7,\"status\":\"delivered\",\"ordered_at\":\"2026-09-19\",\"customer_id\":1869,\"promised_at\":\"2026-09-26\",\"delivered_at\":\"2026-09-26\"}","{\"id\":27,\"total\":1355.86,\"status\":\"delivered\",\"ordered_at\":\"2026-09-04\",\"customer_id\":1451,\"promised_at\":\"2026-09-11\",\"delivered_at\":\"2026-09-09\"}","{\"id\":42,\"total\":1862.41,\"status\":\"delivered\",\"ordered_at\":\"2026-09-25\",\"customer_id\":1,\"promised_at\":\"2026-10-03\",\"delivered_at\":\"2026-10-03\"}","{\"id\":68,\"total\":1453.61,\"status\":\"delayed\",\"ordered_at\":\"2026-09-06\",\"customer_id\":541,\"promised_at\":\"2026-09-16\",\"delivered_at\":\"2026-09-29\"}","{\"id\":92,\"total\":1529.29,\"status\":\"delivered\",\"ordered_at\":\"2026-09-26\",\"customer_id\":76,\"promised_at\":\"2026-10-02\",\"delivered_at\":\"2026-10-01\"}","{\"id\":125,\"total\":1169.3,\"status\":\"delivered\",\"ordered_at\":\"2026-09-03\",\"customer_id\":670,\"promised_at\":\"2026-09-11\",\"delivered_at\":\"2026-09-10\"}","{\"id\":191,\"total\":2501.82,\"status\":\"delayed\",\"ordered_at\":\"2026-09-11\",\"customer_id\":1511,\"promised_at\":\"2026-09-21\",\"delivered_at\":\"2026-10-05\"}","{\"id\":242,\"total\":525.45,\"status\":\"delivered\",\"ordered_at\":\"2026-09-18\",\"customer_id\":1994,\"promised_at\":\"2026-09-22\",\"delivered_at\":\"2026-09-21\"}","{\"id\":251,\"total\":2121.3,\"status\":\"open\",\"ordered_at\":\"2026-09-04\",\"customer_id\":376,\"promised_at\":\"2026-09-12\",\"delivered_at\":null}","{\"id\":279,\"total\":3591.98,\"status\":\"delayed\",\"ordered_at\":\"2026-09-17\",\"customer_id\":1645,\"promised_at\":\"2026-09-25\",\"delivered_at\":\"2026-09-28\"}","{\"id\":314,\"total\":961.67,\"status\":\"delivered\",\"ordered_at\":\"2026-09-15\",\"customer_id\":1930,\"promised_at\":\"2026-09-19\",\"delivered_at\":\"2026-09-18\"}","{\"id\":321,\"total\":1606.41,\"status\":\"delivered\",\"ordered_at\":\"2026-09-11\",\"customer_id\":1546,\"promised_at\":\"2026-09-19\",\"delivered_at\":\"2026-09-17\"}","{\"id\":344,\"total\":3044.4,\"status\":\"open\",\"ordered_at\":\"2026-09-01\",\"customer_id\":1745,\"promised_at\":\"2026-09-07\",\"delivered_at\":null}","{\"id\":355,\"total\":1197.65,\"status\":\"open\",\"ordered_at\":\"2026-09-07\",\"customer_id\":1504,\"promised_at\":\"2026-09-14\",\"delivered_at\":null}","{\"id\":403,\"total\":801.88,\"status\":\"delivered\",\"ordered_at\":\"2026-09-14\",\"customer_id\":827,\"promised_at\":\"2026-09-22\",\"delivered_at\":\"2026-09-21\"}","{\"id\":405,\"total\":2195.63,\"status\":\"delivered\",\"ordered_at\":\"2026-09-15\",\"customer_id\":337,\"promised_at\":\"2026-09-23\",\"delivered_at\":\"2026-09-23\"}","{\"id\":407,\"total\":1854.24,\"status\":\"delivered\",\"ordered_at\":\"2026-09-27\",\"customer_id\":1756,\"promised_at\":\"2026-10-07\",\"delivered_at\":\"2026-10-05\"}","{\"id\":412,\"total\":867.09,\"status\":\"delivered\",\"ordered_at\":\"2026-09-18\",\"customer_id\":119,\"promised_at\":\"2026-09-27\",\"delivered_at\":\"2026-09-27\"}","{\"id\":438,\"total\":2031.09,\"status\":\"delivered\",\"ordered_at\":\"2026-09-23\",\"customer_id\":1980,\"promised_at\":\"2026-09-26\",\"delivered_at\":\"2026-09-26\"}","{\"id\":476,\"total\":2043.49,\"status\":\"delivered\",\"ordered_at\":\"2026-09-23\",\"customer_id\":143,\"promised_at\":\"2026-09-28\",\"delivered_at\":\"2026-09-27\"}","{\"id\":516,\"total\":2009.7,\"status\":\"delivered\",\"ordered_at\":\"2026-09-11\",\"customer_id\":463,\"promised_at\":\"2026-09-20\",\"delivered_at\":\"2026-09-19\"}","{\"id\":518,\"total\":1529.58,\"status\":\"delivered\",\"ordered_at\":\"2026-09-22\",\"customer_id\":1861,\"promised_at\":\"2026-09-29\",\"delivered_at\":\"2026-09-28\"}","{\"id\":585,\"total\":1035.94,\"status\":\"delivered\",\"ordered_at\":\"2026-09-08\",\"customer_id\":955,\"promised_at\":\"2026-09-14\",\"delivered_at\":\"2026-09-13\"}","{\"id\":588,\"total\":1341.86,\"status\":\"delivered\",\"ordered_at\":\"2026-09-18\",\"customer_id\":1154,\"promised_at\":\"2026-09-28\",\"delivered_at\":\"2026-09-28\"}","{\"id\":616,\"total\":3578.28,\"status\":\"delayed\",\"ordered_at\":\"2026-09-15\",\"customer_id\":103,\"promised_at\":\"2026-09-23\",\"delivered_at\":\"2026-10-06\"}"];
+
+let lenis=null;
+if(!reduce){lenis=new Lenis({lerp:.1});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}
+const goTo=(el,opts)=>lenis?lenis.scrollTo(el,Object.assign({duration:1.2},opts||{})):(typeof el==='number'?scrollTo({top:el,behavior:'smooth'}):el.scrollIntoView({behavior:'smooth'}));
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const el=document.querySelector(a.getAttribute('href'));if(!el)return;e.preventDefault();goTo(el)}));
+
+/* 1 hero texture: real rows, repeated to scale */
+for(const c of [document.getElementById('tex'),document.getElementById('tex2')]){const x=c.getContext('2d');
+let text='';for(let k=0;k<60;k++)for(const r of REAL)text+=r.replace(/"id":(\d+)/,(m,id)=>'"id":'+(+id+k*330))+',';
+let W,H,cols,rows,lines=[],off=0;const FS=10,LH=13,CW=6.02;
+const rs=()=>{const d=Math.min(devicePixelRatio,2);W=c.width=c.offsetWidth*d;H=c.height=c.offsetHeight*d;x.setTransform(d,0,0,d,0,0);
+  cols=Math.max(20,Math.floor(c.offsetWidth/CW));rows=Math.ceil(c.offsetHeight/LH)+2;lines=[];for(let i=0;i<text.length;i+=cols)lines.push(text.slice(i,i+cols))};
+addEventListener('resize',rs);rs();
+(function f(){requestAnimationFrame(f);if(document.hidden||!lines.length)return;x.clearRect(0,0,c.offsetWidth,c.offsetHeight);x.font=`${FS}px "JetBrains Mono",Menlo,monospace`;x.fillStyle='rgba(232,230,225,.17)';
+  off+=reduce?0:.12;const start=Math.floor(off);const fy=-(off-start)*LH;
+  for(let r=0;r<rows;r++){x.fillText(lines[(start+r)%lines.length],0,fy+r*LH+FS)}})()}
+
+/* progress bar */
+{const pr=document.getElementById('prog');ScrollTrigger.create({trigger:'main',start:'top top',end:'bottom bottom',onUpdate:s=>pr.style.width=(s.progress*100)+'%'})}
+
+/* shared "No!"-style hand sequence; vh-based so every page runs at the same scroll speed */
+function handSeq(tl,E,hand,fade,startVh){const u=v=>v/E;const D=140;
+  tl.to(fade,{opacity:0,duration:u(D*.5)},u(startVh))
+    .to(hand,{x:'-34vw',y:'38vh',scale:14,rotation:-4,duration:u(D),ease:'power2.in'},u(startVh))
+    .to(hand,{opacity:0,duration:u(D*.35)},u(startVh+D*.65))
+    .to({},{duration:.001},1)}
+
+/* 1 hero: "No!" grows and dissolves into page 2 */
+const heroST=(()=>{gsap.set('#hero .hero__in p b.hand',{rotation:-6,y:'.08em'});
+const tl=gsap.timeline({paused:true,defaults:{ease:'none'}});
+tl.to('#hero .hero__in .pl,#hero .hero__in h1,#hero .hero__in .ans',{opacity:0,y:-30,duration:.35},0)
+  .to('#tex',{opacity:0,duration:.5},0)
+  .to('#hero .hero__in p',{y:'-28vh',duration:.6},0)
+  .to('#hero .hero__in p b.hand',{scale:14,rotation:-4,duration:1,ease:'power2.in'},0)
+  .to('#hero .hero__in p b.hand',{opacity:0,duration:.35},.65)
+  .to('#hero .hero__in p',{opacity:0,duration:.25},.72);
+return ScrollTrigger.create({trigger:'#hero',start:'top top',end:'+=140%',pin:true,scrub:.6,anticipatePin:1,onUpdate:s=>tl.progress(s.progress)})})();
+
+/* 2 problem: three round trips */
+const problemST=(()=>{const ns='http://www.w3.org/2000/svg';const E=660;
+gsap.set('#pq1,#pq2,#pret',{drawSVG:'0%'});
+const slots=[[400,470],[700,470],[1000,470]];const sqls=['SELECT * FROM users','SELECT * FROM orders','SELECT * FROM shipments'];
+const q2t=document.getElementById('pq2t');
+const parts=document.getElementById('pParts');const P=[];
+for(let i=0;i<6;i++){const c=document.createElementNS(ns,'circle');c.setAttribute('r',3);c.setAttribute('class','p');c.setAttribute('opacity',0);parts.appendChild(c);P.push({c,tw:gsap.to(c,{motionPath:{path:'#pret',align:'#pret',alignOrigin:[.5,.5]},duration:1.6,repeat:-1,ease:'none',paused:true}).progress(i/6)})}
+const c=gsap.timeline({defaults:{ease:'none'}});
+c.to('#pHand',{opacity:1,duration:.05},0)
+  .to('#pLLM',{opacity:1,duration:.04},.07).to('#pBub',{opacity:1,duration:.04},.11)
+  .to('#pGW',{opacity:1,duration:.04},.14).to('#pDB',{opacity:1,duration:.04},.16)
+  .to('#pCtx,#pCtxT',{opacity:1,duration:.04},.18);
+const R=.2;
+[0,1,2].forEach(i=>{const t0=.2+i*R;const T='#pT'+(i+1);
+  c.call(()=>{q2t.textContent=sqls[i]},null,t0)
+    .set('#pq1,#pq2',{drawSVG:'0%'},t0).set('#pq1t,#pq2t',{opacity:0},t0)
+    .to('#pq1',{drawSVG:'100%',duration:.03},t0).to('#pq1t',{opacity:1,duration:.01},t0+.02)
+    .to('#pq2',{drawSVG:'100%',duration:.03},t0+.04).to('#pq2t',{opacity:1,duration:.01},t0+.06)
+    .set('#pret',{drawSVG:'0%'},t0+.08).to('#pret',{drawSVG:'100%',duration:.05},t0+.08)
+    .set(T,{opacity:0,x:1220,y:300},t0+.09).to(T,{opacity:1,duration:.02},t0+.09)
+    .to(T,{x:700,y:320,duration:.05,ease:'power1.inOut'},t0+.1)
+    .to(T,{x:slots[i][0],y:slots[i][1],duration:.07,ease:'power1.inOut'},t0+.15)
+    .to('#pret',{drawSVG:'100% 100%',duration:.04},t0+.19)});
+c.to('#pCtx',{stroke:'#FF4D3D',duration:.02},.84).to('#pNeed',{opacity:1,duration:.02},.84).to('#pCtxT',{fill:'#FF4D3D',duration:.02},.84);
+// content occupies 0..510vh, the hand sequence 520..660vh
+const tl=gsap.timeline({paused:true});tl.add(c,0);c.timeScale(c.duration()/(510/E));
+handSeq(tl,E,'#pHand','#pSvg,#problem .head4 h2,#problem .head4 .eyebrow',520);
+return ScrollTrigger.create({trigger:'#problem',start:'top top',end:'+='+E+'%',pin:true,scrub:.5,anticipatePin:1,animation:tl,invalidateOnRefresh:true,
+  onUpdate:()=>{const ct=c.time();const inRet=[0,1,2].some(i=>ct>.2+i*R+.08&&ct<.2+i*R+.19);for(const q of P){q.c.setAttribute('opacity',inRet?1:0);inRet?q.tw.play():q.tw.pause()}}})})();
+
+/* 3 solution: green layer → zoom → script → tables stop inside → answer */
+const solutionST=(()=>{const E=1060;
+gsap.set('#sScriptLn,#sRet,#sAnsLn,#sFinalLn',{drawSVG:'0%'});
+const c=gsap.timeline({defaults:{ease:'none'}});
+c.to('#sCM',{opacity:1,attr:{x:490,y:0,width:420,height:290},duration:.06},.12).to('#sCMT',{opacity:1,duration:.04},.16)
+  .to('#sLLM',{x:-500,duration:.14},.26).to('#sDB',{x:500,duration:.14},.26).to('#sSvg',{attr:{viewBox:'0 0 1400 600'},duration:.14},.26)
+  .to('#solution .head4',{opacity:0,height:0,marginBottom:0,duration:.14},.26).to('#solution .pin4',{paddingTop:12,paddingBottom:12,paddingLeft:24,paddingRight:24,gap:0,duration:.14},.26)
+  .to('#sCM',{attr:{x:0,y:0,width:1400,height:600},duration:.14},.26).to('#sCMT',{attr:{x:1380,y:26},duration:.14},.26)
+  .to('#sGWr',{attr:{x:720,y:40,width:640,height:520},duration:.14},.26)
+  .to('#sGWi,#sGWt',{opacity:0,duration:.08},.26)
+  .to('#sIn',{opacity:1,duration:.04},.4)
+  .to('#sCode',{opacity:1,duration:.05},.42).to('#sScriptLn',{drawSVG:'100%',duration:.04},.5);
+const slots=[[1040,190],[1040,310],[1040,430]];const lines=['.c2','.c1','.c3'];
+[0,1,2].forEach(i=>{const t0=.52+i*.08;const T='#sT'+(i+1);
+  c.set('#sRet',{drawSVG:'0%'},t0).to('#sRet',{drawSVG:'100%',duration:.02},t0)
+    .set(T,{opacity:0,x:1380,y:300,scale:.5,transformOrigin:'50% 50%'},t0+.01).to(T,{opacity:1,duration:.01},t0+.01)
+    .to(T,{x:slots[i][0],y:slots[i][1],scale:.9,duration:.06,ease:'power1.inOut'},t0+.02)
+    .to('#sCode '+lines[i],{fill:'#BFFF47',duration:.02},t0+.05).to('#sCode '+lines[i],{fill:'#E8E6E1',duration:.02},t0+.08)});
+c.to('#sT1,#sT2,#sT3',{x:1040,y:310,scale:0,opacity:0,duration:.03,ease:'power2.in'},.76)
+  .to('#sCode .c4',{fill:'#BFFF47',duration:.02},.76)
+  .set('#sAns',{x:1040,y:310},.78).to('#sAns',{opacity:1,duration:.02},.78)
+  .to('#sAns',{x:360,y:470,duration:.04,ease:'power1.inOut'},.805)
+  .to('#sAnsLn',{drawSVG:'100%',duration:.02},.845).to('#sAnsT',{opacity:1,duration:.01},.855)
+  .to('#sIn',{opacity:0,duration:.02},.86).to('#solution .head4',{opacity:1,height:'auto',duration:.03},.86).to('#solution .pin4',{paddingTop:96,paddingBottom:36,paddingLeft:'var(--g)',paddingRight:'var(--g)',gap:12,duration:.03},.86)
+  .to('#sLLM',{x:0,duration:.03},.86).to('#sDB',{x:0,duration:.03},.86).to('#sSvg',{attr:{viewBox:'0 -40 1400 360'},duration:.03},.86)
+  .to('#sGWr',{attr:{x:510,y:20,width:380,height:250},duration:.03},.86)
+  .to('#sCM',{attr:{x:490,y:0,width:420,height:290},duration:.03},.86).to('#sCMT',{attr:{x:890,y:4},duration:.03},.86)
+  .to('#sGWi,#sGWt',{opacity:1,duration:.03},.885)
+  .to('#sFinalLn',{drawSVG:'100%',duration:.01},.89).to('#sFinal',{opacity:1,duration:.01},.9)
+  .to('#sHand',{opacity:1,duration:.01},.91);
+// content 0..910vh, hand 920..1060vh
+const tl=gsap.timeline({paused:true});tl.add(c,0);c.timeScale(c.duration()/(910/E));
+handSeq(tl,E,'#sHand','#sSvg,#solution .head4 h2,#solution .head4 .eyebrow',920);
+return ScrollTrigger.create({trigger:'#solution',start:'top top',end:'+='+E+'%',pin:true,scrub:.8,anticipatePin:1,animation:tl,invalidateOnRefresh:true})})();
+
+/* 5 security: servers → script → users */
+const securityST=(()=>{const E=520,u=v=>v/E;
+gsap.set('#ls1,#ls2,#ls3,#lu1,#lu2,#lu3',{drawSVG:'0%'});
+const tl=gsap.timeline({paused:true,defaults:{ease:'none'}});
+tl.to('#xS',{opacity:1,duration:u(14)},u(10)).to('#xShield',{opacity:1,duration:u(14)},u(22))
+// servers
+  .to('#xSrv',{opacity:1,duration:u(12)},u(40))
+  .to('#sv1',{opacity:1,duration:u(8)},u(54)).to('#sv2',{opacity:1,duration:u(8)},u(62)).to('#sv3',{opacity:1,duration:u(8)},u(70))
+  .to('#ls1',{drawSVG:'100%',duration:u(12)},u(86)).to('#sv1T',{opacity:1,duration:u(6)},u(96))
+  .to('#ls2',{drawSVG:'100%',duration:u(12)},u(102)).to('#sv2T',{opacity:1,duration:u(6)},u(112))
+  .to('#ls3',{drawSVG:'100%',duration:u(12)},u(118)).to('#lk3',{opacity:1,duration:u(6)},u(128)).to('#sv3T',{opacity:1,duration:u(6)},u(128))
+// users
+  .to('#xUsr',{opacity:1,duration:u(12)},u(160))
+  .to('#us1',{opacity:1,duration:u(8)},u(174)).to('#us2',{opacity:1,duration:u(8)},u(182)).to('#us3',{opacity:1,duration:u(8)},u(190))
+  .to('#lu1',{drawSVG:'100%',duration:u(12)},u(206)).to('#us1T',{opacity:1,duration:u(6)},u(216))
+  .to('#lu2',{drawSVG:'100%',duration:u(12)},u(222)).to('#lk2',{opacity:1,duration:u(6)},u(232)).to('#us2T',{opacity:1,duration:u(6)},u(232))
+  .to('#lu3',{drawSVG:'100%',duration:u(12)},u(238)).to('#lk3b',{opacity:1,duration:u(6)},u(248)).to('#us3T',{opacity:1,duration:u(6)},u(248))
+  .to('#secHand',{opacity:1,duration:u(8)},u(290));
+handSeq(tl,E,'#secHand','#secSvg,#security .head4 h2,#security .head4 .eyebrow',300);
+return ScrollTrigger.create({trigger:'#security',start:'top top',end:'+='+E+'%',pin:true,scrub:.6,anticipatePin:1,animation:tl,invalidateOnRefresh:true})})();
+
+/* 4 compare: bars drain, then split (interleaved) */
+const compareST=(()=>{const ns='http://www.w3.org/2000/svg';const svg=document.getElementById('cSvg');
+const mk=(t,a,parent)=>{const e=document.createElementNS(ns,t);for(const k in a)e.setAttribute(k,a[k]);parent.appendChild(e);return e};
+const DATA=[['Query 1',1.69e6,41],['Query 2',20.1e3,1.2e3],['Query 3',158.4e3,1.3e3]];
+const W=170,G=240,BASE=520,HMAX=380,TOP=BASE-HMAX;const X0=700-(3*W+2*G)/2;const SHIFT=(W+28)/2;
+const before=document.getElementById('cBefore'),after=document.getElementById('cAfter'),defs=document.getElementById('cDefs');
+const bars=[];
+DATA.forEach((d,i)=>{const x=X0+i*(W+G);
+  mk('rect',{class:'ghost',x,y:TOP,width:W,height:HMAX,rx:2},before);mk('rect',{class:'frame',x,y:TOP,width:W,height:HMAX,rx:2},before);
+  const bv=mk('text',{class:'v',x:x+W/2,y:TOP-44,'text-anchor':'middle'},before);bv.textContent=fmtB(d[1]);
+  const bt=mk('text',{class:'t',x:x+W/2,y:TOP-16,'text-anchor':'middle'},before);bt.textContent='≈ '+Math.round(d[1]/4).toLocaleString('en-US')+' tokens';
+  const bn=mk('text',{x:x+W/2,y:BASE+38,'text-anchor':'middle'},svg);bn.textContent=d[0];
+  const cid='cclip'+i;const cp=mk('clipPath',{id:cid},defs);mk('rect',{x,y:TOP,width:W,height:HMAX,rx:2},cp);
+  const g=mk('g',{'clip-path':'url(#'+cid+')'},after);
+  const liq=mk('g',{},g);
+  const amp=5,per=W;let dpath='M'+(x-W)+' 0';for(let k=0;k<=4*8;k++){const px=x-W+k*(per/8);const py=Math.sin(k/8*Math.PI*2)*amp;dpath+=' L'+px.toFixed(1)+' '+py.toFixed(1)}dpath+=' V'+(HMAX+40)+' H'+(x-W)+' Z';
+  const wave=mk('path',{class:'liq a',d:dpath},liq);
+  mk('rect',{class:'frame',x,y:TOP,width:W,height:HMAX,rx:2},after);
+  const lab=mk('g',{opacity:0},after);
+  const av=mk('text',{class:'v a',x:x+W/2,y:-20,'text-anchor':'middle'},lab);
+  const at=mk('text',{class:'t a',x:x+W/2,y:8,'text-anchor':'middle'},lab);
+  gsap.set(liq,{y:TOP});gsap.set(lab,{y:TOP});
+  gsap.to(wave,{x:W,duration:2.2,repeat:-1,ease:'none'});
+  bars.push({d,liq,lab,av,at});});
+mk('line',{class:'base',x1:X0-120,x2:X0+3*W+2*G+120,y1:BASE,y2:BASE},svg);
+const pr={p:0};
+const drain=()=>{for(const b of bars){const q=pr.p;const ratio=b.d[2]/b.d[1];const hh=Math.max(3,HMAX*(1-q*(1-ratio)));const y=BASE-hh;
+  gsap.set(b.liq,{y});gsap.set(b.lab,{y:y-6});
+  const bytes=Math.exp(lerp(Math.log(b.d[1]),Math.log(b.d[2]),q));b.av.textContent=fmtB(bytes);b.at.textContent='≈ '+Math.round(bytes/4).toLocaleString('en-US')+' tokens'}};
+drain();
+const E=370,u=v=>v/E;
+const tl=gsap.timeline({paused:true,defaults:{ease:'none'}});
+tl.to(pr,{p:1,duration:u(130),onUpdate:drain},u(12))
+  .to(bars.map(b=>b.lab),{opacity:1,duration:u(10)},u(44))
+  .to(before,{x:-SHIFT,duration:u(50)},u(160)).to(after,{x:SHIFT,duration:u(50)},u(160))
+  .to('#cLblL,#cLblR',{opacity:1,duration:u(12)},u(205))
+  .to('#cHand',{opacity:1,duration:u(8)},u(215));
+handSeq(tl,E,'#cHand','#cSvg,#compare .head4 h2,#compare .head4 .eyebrow',228);
+return ScrollTrigger.create({trigger:'#compare',start:'top top',end:'+='+E+'%',pin:true,scrub:.6,anticipatePin:1,animation:tl,invalidateOnRefresh:true})})();
+
+ScrollTrigger.sort();ScrollTrigger.refresh();
+if(location.search.includes('print')){document.documentElement.classList.add('print');lenis&&lenis.destroy();
+  const snap=[[problemST,500/660],[solutionST,905/1060],[compareST,220/370],[securityST,292/520]];
+  ScrollTrigger.getAll().forEach(s=>s.kill(false));
+  document.querySelectorAll('.pin-spacer').forEach(sp=>{const kids=[...sp.childNodes];sp.replaceWith(...kids)});
+  document.querySelectorAll('main>section').forEach(s=>s.removeAttribute('style'));
+  for(const [st,p] of snap){st.animation.progress(p)}
+  gsap.globalTimeline.pause();window.scrollTo(0,0);document.documentElement.dataset.ready='1'}
+
+/* keyboard stepping */
+{const secs=gsap.utils.toArray('main > section');const pinned={hero:heroST,problem:problemST,solution:solutionST,compare:compareST,security:securityST};
+const cur=()=>{let best=0,bd=1e9;secs.forEach((s,i)=>{const d=Math.abs(s.getBoundingClientRect().top);if(d<bd){bd=d;best=i}});return best};
+addEventListener('keydown',e=>{
+  if(['ArrowRight',' ','PageDown','Enter'].includes(e.key)){e.preventDefault();const i=cur(),st=pinned[secs[i].id];
+    if(st&&st.progress<.95){goTo(st.end,{duration:3});return}
+    if(i<secs.length-1)goTo(secs[i+1])}
+  else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();const i=cur(),st=pinned[secs[i].id];
+    if(st&&st.progress>.05){goTo(st.start,{duration:3});return}
+    if(i>0)goTo(secs[i-1])}
+  else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}})}
+</script>
+</body>
+</html>

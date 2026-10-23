@@ -37,6 +37,11 @@ window.RESUME_DATA = {
   ],
   projects: [
     {
+      id: "anythingmcp-sandbox", enabled: false, bulletLimit: 3,
+      title: "AnythingMCP Code Mode Sandbox", organization: "Black Forest Hackathon Team Project", period: "10.2026",
+      bullets: ["Built a saved-script Code Mode that executes JavaScript beside MCP connectors and returns only the aggregated result to the model", "Implemented an isolated V8 runtime with read-only defaults, tenant-aware authorization, declared tool access, limits and audit links", "Validated the system with 81 end-to-end checks and a 20-case isolation suite; benchmarked a 150,000-order workload"]
+    },
+    {
       id: "parcel-sorting", enabled: true, bulletLimit: 2,
       title: "Intelligent Parcel Sorting System", organization: "Team Project", period: "03.2026 - Present",
       bullets: ["Collaborated on parcel recognition, grasping and placement with a Dobot Nova5, Orbbec depth camera and Schmalz vacuum gripper", "Combined YOLO and point clouds for grasp points, surface normals, hand-eye transforms and TCP compensation", "Integrated robot motion, vacuum I/O and a pick-and-place state machine", "Added next-target preselection, deduplication, failure recovery and monitoring; trialled at a Jinan postal parcel distribution site for one month"]
@@ -144,6 +149,10 @@ window.RESUME_ZH = {
     }
   ],
   projects: {
+    "anythingmcp-sandbox": {
+      title: "AnythingMCP Code Mode 沙箱", organization: "Black Forest Hackathon 团队项目", period: "2026.10",
+      bullets: ["构建可保存脚本的 Code Mode，在 MCP 连接器旁执行 JavaScript，仅将聚合结果返回给模型", "实现隔离 V8 运行时、默认只读、租户级鉴权、工具声明、资源限制与审计链路", "通过 81 项端到端检查与 20 项隔离测试，并对 15 万订单数据集完成基准验证"]
+    },
     "parcel-sorting": {
       title: "快递站智能分拣系统", organization: "团队协作项目", period: "2026.03 - 至今",
       bullets: ["团队协作，结合越疆 Nova5、Orbbec 深度相机与 Schmalz 真空吸盘实现包裹识别、抓取与放置", "结合 YOLO 与深度点云计算抓取点、表面法线，完成手眼变换、末端姿态与 TCP 偏移补偿", "集成机械臂运动与真空 I/O 控制，构建识别、抓取、搬运及放置状态机", "实现目标预选、去重、失败恢复与实时监控；已在济南市邮政快递集散点试运行一个月"]

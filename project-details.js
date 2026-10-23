@@ -1,5 +1,49 @@
 /* Long-form project narratives. Keep CV bullets concise in resume-data.js. */
 window.PROJECT_DETAILS = {
+  'anythingmcp-sandbox': {
+    en: [
+      {
+        title: 'The problem with large tool responses',
+        paragraphs: ['AnythingMCP connects agents to APIs and databases through MCP tools. When a tool returns a large table, the conventional path sends every row through the model even when the question needs only one count, sum or record. Code Mode moves that data processing into the gateway so the model writes a short JavaScript program and receives only the final JSON result.'],
+        facts: ['Black Forest Hackathon 2026, Sandbox AI challenge', 'Team implementation built on the AnythingMCP gateway', 'Designed for data sources that cannot aggregate and workflows spanning several connectors']
+      },
+      {
+        title: 'Saved scripts beside the connectors',
+        paragraphs: ['The script runs as the body of an async function with access to declared tools, input arguments and a small utility library. It can call MCP tools, filter or combine their responses and return a compact object. Scripts can be created, edited and executed through MCP, REST or the dashboard, while saved versions retain their connector and tool declarations for reuse.']
+      },
+      {
+        title: 'Isolation and authorization',
+        paragraphs: ['Each run starts in a fresh V8 isolate without fetch, sockets, timers, modules, process, file-system access or environment variables. Tool calls leave the isolate through a host bridge, where AnythingMCP rechecks tenant, user role, declared tools, read-only policy, argument schema, deadlines and response-size limits. Connector credentials remain on the host, and each tool call is linked to the sandbox run in the audit trail.'],
+        facts: ['Read-only by default; writes require an operator setting', '81 end-to-end checks plus a 20-case live isolation suite', 'Scripts from another organization or an incompatible MCP server are not exposed']
+      },
+      {
+        title: 'Measured result and honest boundary',
+        paragraphs: ['The benchmark used 150,000 orders and 450,000 order lines. Across three analytical questions, Code Mode matched independently computed ground truth and reduced model-facing response bytes by 99.82%, 99.99% and 99.95% compared with conventional row transfer. Token counts are estimates based on bytes divided by four, and the benchmark did not run a live language model.'],
+        facts: ['The V8 isolate is an in-process boundary, not an operating-system sandbox', 'Raw SQL aggregation remains faster when the source already supports the required query', 'The main benefit is compact multi-step processing over REST, SOAP, OData or multiple connectors']
+      }
+    ],
+    zh: [
+      {
+        title: '大体量工具响应的问题',
+        paragraphs: ['AnythingMCP 通过 MCP 工具把智能体连接到 API 与数据库。传统链路会把工具返回的整张表送入模型，即使问题最终只需要一个计数、求和结果或单条记录。Code Mode 将数据处理移动到网关内部，由模型生成短 JavaScript，再只接收最终 JSON 结果。'],
+        facts: ['Black Forest Hackathon 2026，Sandbox AI 赛题', '基于 AnythingMCP 网关完成的团队实现', '面向不支持聚合的数据源及跨多个连接器的工作流']
+      },
+      {
+        title: '在连接器旁运行可保存脚本',
+        paragraphs: ['脚本作为异步函数体运行，可访问已声明工具、输入参数和少量实用函数。它可以调用 MCP 工具，在网关内过滤或组合响应，再返回紧凑对象；用户和智能体均可通过 MCP、REST 或 Dashboard 创建、编辑和执行脚本，保存后的版本同时记录所需连接器与工具。']
+      },
+      {
+        title: '隔离与鉴权',
+        paragraphs: ['每次执行都会创建新的 V8 isolate，其中不提供 fetch、Socket、计时器、模块、process、文件系统或环境变量。工具调用通过宿主桥接离开隔离环境，由 AnythingMCP 重新检查租户、用户角色、已声明工具、默认只读策略、参数 Schema、截止时间和响应大小；连接器凭据始终保留在宿主侧，每次工具调用也会与沙箱运行记录关联。'],
+        facts: ['默认只读，写操作只能由运维配置显式开启', '通过 81 项端到端检查和 20 项实时隔离测试', '其它组织或当前 MCP Server 不具备连接器的脚本不会被暴露']
+      },
+      {
+        title: '实测结果与边界',
+        paragraphs: ['基准数据包含 15 万订单与 45 万订单明细。三个分析问题的 Code Mode 结果均与独立计算的真值一致，相比把全部行传给模型，响应字节数分别减少 99.82%、99.99% 和 99.95%。Token 数按字节数除以 4 估算，测试没有调用真实大语言模型。'],
+        facts: ['V8 isolate 是后端进程内边界，不等同于操作系统级沙箱', '数据源本身支持目标 SQL 聚合时，直接 SQL 仍然更快', '主要价值在于 REST、SOAP、OData 或多连接器上的紧凑多步处理']
+      }
+    ]
+  },
   'parcel-sorting': {
     en: [
       {

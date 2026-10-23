@@ -8,7 +8,7 @@ const presentation = fs.readFileSync(path.join(root, 'portfolio.js'), 'utf8');
 const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 assert(!/id="blog"|href="#blog"|blog-modal/.test(home), 'Home page must not include the removed blog section');
 assert(!/personal-project(?:-grid)?/.test(presentation), 'Personal projects must use the same work cards as selected projects');
-for (const match of presentation.matchAll(/(?:image|video): '([^']+)'/g)) {
+for (const match of presentation.matchAll(/(?:image|video|presentation|src): '([^']+)'/g)) {
   assert(fs.existsSync(path.join(root, match[1])), `Missing project media: ${match[1]}`);
 }
 const context = { window: {} };
@@ -26,6 +26,8 @@ assert(!ids(en.education).includes('military-service'));
 assert(ids(zh.education).includes('military-service'));
 assert(en.languages.some((entry) => entry.includes('IELTS 6.5')));
 assert(en.projects.find((entry) => entry.id === 'parcel-sorting').organization.includes('Team'));
+assert(en.projects.find((entry) => entry.id === 'anythingmcp-sandbox').bullets.join().includes('V8'));
+assert(zh.projects['anythingmcp-sandbox'].bullets.join().includes('81 项'));
 assert(en.projects.find((entry) => entry.id === 'zilo-ring').bullets.join().includes('binary 0/1'));
 assert(zh.projects['zilo-ring'].bullets.join().includes('快速双次动作'));
 assert(zh.publications.find((entry) => entry.id === 'svd-imoe').bullets.join().includes('投稿中'));
