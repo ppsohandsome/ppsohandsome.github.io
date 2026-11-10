@@ -947,6 +947,10 @@ body:not(.user-is-tabbing) a:focus {
     margin: 0;
 }
 
+.project-gallery figure:only-child {
+    grid-column: 1 / -1;
+}
+
 .project-gallery img {
     display: block;
     width: 100%;
@@ -954,6 +958,11 @@ body:not(.user-is-tabbing) a:focus {
     border: 1px solid rgba(240, 233, 242, .16);
     object-fit: cover;
     object-position: top;
+}
+
+.project-gallery figure:only-child img {
+    aspect-ratio: auto;
+    object-fit: contain;
 }
 
 .project-gallery figcaption {

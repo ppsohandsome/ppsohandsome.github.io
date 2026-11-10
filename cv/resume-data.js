@@ -6,11 +6,25 @@ window.RESUME_DATA = {
     email: "chunpo.wu@uni-konstanz.de",
     emails: ["chunpo.wu@uni-konstanz.de", "pphaoshuaia@gmail.com"],
     address: "Gustav-Schwab-Str 9, Konstanz, Germany, 78467",
+    hometown: "Yangzhou, Jiangsu, China",
     photo: "./images/people/personal2.png",
     summary: "M.Sc. student at University of Konstanz with hands-on experience in robot perception and control, edge vision deployment, LLM fine-tuning, RAG and knowledge graphs."
   },
   skills: ["Computer Vision", "Python & JAX", "Vision-Language-Action (VLA)", "LLMs & Vision-Language Models", "Virtual Reality", "SLAM", "Autonomous Robots", "Leadership"],
   languages: ["Chinese (Native)", "English (IELTS 6.5)", "German (A2)"],
+  activities: ["CyberLago hackathon challenge award", "AdventureX hackathon track third prize", "Shandong Jiaotong University debate team"],
+  awards: [
+    { id: "vast-outstanding", title: "IEEE VAST Challenge Outstanding Award: Award for Innovative Support for Analytical Pivoting" },
+    { id: "innovation-national", title: "National College Student Innovation and Entrepreneurship Training Program project approval (2024)" },
+    { id: "innovation-provincial", title: "Provincial Second Prize, College Student Innovation and Entrepreneurship Training Program (2022)" },
+    { id: "lanqiao", title: "National Excellence Award, 14th Lanqiao Cup Competition" },
+    { id: "huawei", title: "Provincial First Prize, Huawei Kunpeng Innovation Competition openEuler Track" },
+    { id: "intelligent-tech", title: "Third Prize, Shandong College Student Intelligent Technology Application Design Competition (2022)" },
+    { id: "computer-design", title: "Provincial Second Prize, Shandong College Student Computer Design Competition (2023)" },
+    { id: "ai-competition", title: "Provincial Third Prize, Shandong College Student AI Competition (2023)" },
+    { id: "scholarship", title: "First-Class Comprehensive Scholarship (4 times)" },
+    { id: "outstanding-student", title: "Outstanding Student of the Year (3 times)" }
+  ],
   education: [
     {
       id: "msc-konstanz",
@@ -44,45 +58,57 @@ window.RESUME_DATA = {
     {
       id: "parcel-sorting", enabled: true, bulletLimit: 2,
       title: "Intelligent Parcel Sorting System", organization: "Team Project", period: "03.2026 - Present",
+      summary: "Combined a Dobot Nova5 collaborative robot, Orbbec depth camera and Schmalz vacuum gripper for parcel recognition, grasping and placement.",
+      stack: "Python, Tkinter, YOLO, Open3D, PCA, TCP/IP, robot I/O control",
+      result: "Trialled at a Jinan postal parcel distribution site for one month.",
       bullets: ["Collaborated on parcel recognition, grasping and placement with a Dobot Nova5, Orbbec depth camera and Schmalz vacuum gripper", "Combined YOLO and point clouds for grasp points, surface normals, hand-eye transforms and TCP compensation", "Integrated robot motion, vacuum I/O and a pick-and-place state machine", "Added next-target preselection, deduplication, failure recovery and monitoring; trialled at a Jinan postal parcel distribution site for one month"]
     },
     {
       id: "railway-monitoring", enabled: true, bulletLimit: 3,
       title: "Railway Safety Monitoring System", organization: "China Railway Huat Tie", period: "09.2023 - 08.2024",
+      summary: "Developed a real-time intelligent video platform for railway maintenance depots, covering pantographs, disconnectors, train fronts and plate recognition.",
+      stack: "RTSP, NVIDIA Jetson, DeepStream, edge AI, Kafka, MQTT",
+      result: "Deployed in Chongqing and the Chuzhou-Nanjing section; the Mexico deployment completed pre-delivery.",
       bullets: ["Built a real-time monitoring system using 30+ 1080p RTSP streams per site", "Integrated Jetson hardware decoding, DeepStream inference and secondary inference", "Connected equipment recognition results through Kafka and MQTT"]
     },
     {
       id: "drone-inspection", enabled: true, bulletLimit: 3,
       title: "Drone-Based Railway Inspection System", organization: "CHN Energy", period: "12.2024 - 05.2025",
+      summary: "Developed defect detection and fault analysis for Xinshuo Railway using UAV imagery and video.",
+      stack: "Qwen2.5-VL, vision-language models, image and video analysis, knowledge graphs",
+      result: "Supported standardized inspection and a 100+ TB database spanning more than 50 equipment and defect categories.",
       bullets: ["Developed UAV defect detection for over 50 equipment and defect categories", "Applied Qwen2.5-VL for visual reasoning, defect localization and zero/few-shot inference", "Built an equipment fault knowledge graph and supported a 100+ TB inspection dataset"]
     },
     {
       id: "autonomous-drone", enabled: true, bulletLimit: 4,
       title: "Autonomous Drone Navigation & Target Tracking", organization: "Bachelor's Thesis", period: "01.2025 - 06.2025",
+      summary: "Independently built vehicle tracking, dynamic obstacle avoidance and 3D reconstruction from a DJI Tello monocular RGB stream.",
+      stack: "YOLOv11, AprilTag, Depth Anything v2, Sobel, MASt3R-SLAM, Tello control",
+      result: "Completed end-to-end integration from video streaming and perception to flight control.",
       bullets: ["Independently developed vehicle tracking using YOLOv11, AprilTag and image-grid flight control", "Combined Depth Anything v2 and horizontal Sobel gradients for obstacle avoidance", "Integrated MASt3R-SLAM with dynamic-object masks and confidence filtering", "Built an end-to-end pipeline from Tello video streaming to perception and flight control"]
     },
     {
-      id: "bearfit", enabled: false, bulletLimit: 3,
+      id: "bearfit", enabled: true, bulletLimit: 2,
       title: "BearFit Multi-Device IMU Fitness Sensing", organization: "Personal Project", period: "09.2024 - 04.2025; later ring extension",
       bullets: ["Combined phone, Apple Watch, earbuds, and IMU ring data for body-movement sensing", "Built synchronized multi-device streaming with MQTT and FastAPI", "Designed live workout tracking and motion feedback for normal gym use"]
     },
     {
-      id: "music-universe", enabled: false, bulletLimit: 3,
+      id: "music-universe", enabled: true, bulletLimit: 2,
       title: "Music Universe", organization: "Data Visualization Project", period: "2025",
       bullets: ["Mapped one million songs into an interactive visual universe", "Used XGBoost, PCA, and UMAP for genre and structure analysis", "Explored long-term patterns in the Million Song Dataset"]
     },
     {
-      id: "braindance", enabled: false, bulletLimit: 2,
+      id: "braindance", enabled: true, bulletLimit: 2,
       title: "Brain Dance VR", organization: "VR Interaction Project", period: "2025",
       bullets: ["Built a recorded-memory experience inspired by Cyberpunk 2077 on Quest 3 and Unity", "Integrated 3D Gaussian Splatting scenes with time scrubbing, memory replay and layered clue discovery"]
     },
     {
-      id: "soarm-vision", enabled: false, bulletLimit: 2,
+      id: "soarm-vision", enabled: true, bulletLimit: 2,
       title: "LeRobot SO-ARM101 Visual Interaction", organization: "Personal Project", period: "2026",
       bullets: ["Connected large-model APIs to a vision-to-robot-action interaction pipeline", "Used optical-flow tracking and simplified scene graphs to reduce full-frame uploads and visual token usage"]
     },
     {
-      id: "llm-gateway", enabled: false, bulletLimit: 2,
+      id: "llm-gateway", enabled: true, bulletLimit: 2,
       title: "LLM API Gateway", organization: "Personal Project", period: "02.2025 - Present",
       bullets: ["Built and operate a unified API entry point for Claude, OpenAI, DeepSeek and Kimi", "Provide ongoing model access services at https://aaccx.pw/"]
     },
@@ -121,10 +147,24 @@ window.RESUME_ZH = {
     name: "吴春坡",
     role: "人工智能 / 计算机视觉工程师",
     address: "德国康斯坦茨 Gustav-Schwab-Str 9，78467",
+    hometown: "江苏扬州",
     summary: "康斯坦茨大学硕士研究生，具备机器人感知与控制、边缘视觉部署、LLM 微调、RAG 与知识图谱实践经验。"
   },
   skills: ["计算机视觉", "Python 与 JAX", "视觉-语言-动作模型（VLA）", "大语言模型与视觉语言模型", "虚拟现实", "SLAM", "自主机器人", "团队领导力"],
   languages: ["中文（母语）", "英语（雅思 6.5）", "德语（A2）"],
+  activities: ["德国 CyberLago 黑客松命题赛道奖", "杭州 AdventureX 黑客松赛道三等奖", "新国辩山东交通学院校队成员"],
+  awards: [
+    { id: "vast-outstanding", title: "IEEE VAST 挑战赛 Outstanding 特殊奖项：Award for Innovative Support for Analytical Pivoting" },
+    { id: "innovation-national", title: "2024 年度大学生创新创业训练计划国家级立项" },
+    { id: "innovation-provincial", title: "2022 年度大学生创新创业训练计划省级二等奖" },
+    { id: "lanqiao", title: "第十四届蓝桥杯大赛国家级优秀奖" },
+    { id: "huawei", title: "华为鲲鹏大赛 openEuler 赛道省级一等奖" },
+    { id: "intelligent-tech", title: "2022 年度山东省大学生智能技术应用设计大赛三等奖" },
+    { id: "computer-design", title: "2023 年度山东省大学生计算机设计大赛省级二等奖" },
+    { id: "ai-competition", title: "2023 年度山东省大学生人工智能大赛省级三等奖" },
+    { id: "scholarship", title: "本科综合一等奖学金（4 次）" },
+    { id: "outstanding-student", title: "本科年度优秀学生（3 次）" }
+  ],
   education: [
     {
       id: "msc-konstanz",
@@ -155,18 +195,30 @@ window.RESUME_ZH = {
     },
     "parcel-sorting": {
       title: "快递站智能分拣系统", organization: "团队协作项目", period: "2026.03 - 至今",
+      summary: "结合越疆 Nova5 协作机械臂、Orbbec 深度相机与 Schmalz 真空吸盘，实现包裹视觉识别、抓取与放置。",
+      stack: "Python、Tkinter、YOLO、Open3D、PCA、TCP/IP、机械臂 I/O 控制",
+      result: "已在济南市邮政快递集散点试运行一个月。",
       bullets: ["团队协作，结合越疆 Nova5、Orbbec 深度相机与 Schmalz 真空吸盘实现包裹识别、抓取与放置", "结合 YOLO 与深度点云计算抓取点、表面法线，完成手眼变换、末端姿态与 TCP 偏移补偿", "集成机械臂运动与真空 I/O 控制，构建识别、抓取、搬运及放置状态机", "实现目标预选、去重、失败恢复与实时监控；已在济南市邮政快递集散点试运行一个月"]
     },
     "railway-monitoring": {
       title: "铁路安全视频监测系统", organization: "中铁华铁", period: "2023.09 - 2024.08",
+      summary: "面向铁路维修地库构建实时智能视频监测平台，完成受电弓、隔离开关、车头与车牌号等识别。",
+      stack: "RTSP、NVIDIA Jetson、DeepStream、边缘 AI、Kafka、MQTT",
+      result: "重庆及滁宁段已部署运行，墨西哥段已完成预交付。",
       bullets: ["构建单站点接入 30+ 路 1080p RTSP 视频流的实时监测系统", "打通 Jetson 硬件解码、DeepStream 推理与二次推理流程", "通过 Kafka 与 MQTT 传递设备识别结果，完成系统集成"]
     },
     "drone-inspection": {
       title: "无人机铁路巡检系统", organization: "国家能源集团", period: "2024.12 - 2025.05",
+      summary: "面向新朔铁路设备巡检场景，基于无人机图像与视频开发缺陷检测与故障分析系统。",
+      stack: "Qwen2.5-VL、视觉语言模型、图像与视频分析、知识图谱",
+      result: "支持标准化巡检并形成超过 100 TB、覆盖 50 余类设备与缺陷的数据库。",
       bullets: ["面向超过 50 类设备及缺陷目标开发无人机小目标检测算法", "应用 Qwen2.5-VL 进行视觉推理、缺陷定位与零样本、少样本推理", "构建设备故障知识图谱，支持超 100 TB 巡检数据库建设"]
     },
     "autonomous-drone": {
       title: "自主无人机导航与目标跟踪", organization: "本科毕业设计", period: "2025.01 - 2025.06",
+      summary: "独立开发基于 DJI Tello 单目 RGB 视频的目标车辆跟踪、动态避障与三维环境重建流程。",
+      stack: "YOLOv11、AprilTag、Depth Anything v2、Sobel、MASt3R-SLAM、Tello 飞行控制",
+      result: "完成从视频流、视觉感知到飞行控制的端到端集成。",
       bullets: ["独立开发，融合 YOLOv11、AprilTag 与图像网格控制实现目标车辆跟踪", "结合 Depth Anything v2 与 Sobel 水平梯度实现动态避障", "集成 MASt3R-SLAM，通过动态目标掩膜与置信度过滤降低地图干扰", "完成 Tello 视频流、视觉感知到飞行控制的端到端集成"]
     },
     bearfit: {

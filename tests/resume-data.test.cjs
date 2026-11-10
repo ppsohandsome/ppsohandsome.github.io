@@ -19,12 +19,16 @@ const ids = (entries) => Array.from(entries, (entry) => entry.id).sort();
 assert.deepEqual(ids(en.projects), Object.keys(zh.projects).sort());
 assert.deepEqual(ids(en.experience), ids(zh.experience));
 assert.deepEqual(ids(en.publications), ids(zh.publications));
+assert.deepEqual(ids(en.awards), ids(zh.awards));
 for (const entries of [en.projects, en.experience, en.publications, zh.education]) {
   assert.equal(new Set(ids(entries)).size, entries.length, 'IDs must be unique');
 }
 assert(!ids(en.education).includes('military-service'));
 assert(ids(zh.education).includes('military-service'));
 assert(en.languages.some((entry) => entry.includes('IELTS 6.5')));
+assert.equal(en.activities.length, zh.activities.length);
+assert.equal(en.profile.hometown, 'Yangzhou, Jiangsu, China');
+assert.equal(zh.profile.hometown, '江苏扬州');
 assert(en.projects.find((entry) => entry.id === 'parcel-sorting').organization.includes('Team'));
 assert(en.projects.find((entry) => entry.id === 'anythingmcp-sandbox').bullets.join().includes('V8'));
 assert(zh.projects['anythingmcp-sandbox'].bullets.join().includes('81 项'));
@@ -52,4 +56,7 @@ for (const name of fs.readdirSync(path.join(root, 'projects')).filter((name) => 
     assert(fs.existsSync(path.resolve(root, 'projects', decodeURIComponent(match[1]))), `${name}: missing ${match[1]}`);
   }
 }
+const cvStudio = fs.readFileSync(path.join(root, 'cv-studio.js'), 'utf8');
+assert(cvStudio.includes('cv-page--one') && cvStudio.includes('cv-page--two'), 'CV Studio must render two explicit A4 pages');
+assert(cvStudio.includes("'military-service': true"), 'Chinese military service must remain selectable');
 console.log('Resume parity, privacy, stable IDs and local project assets: OK');

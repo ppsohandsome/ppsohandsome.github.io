@@ -33,9 +33,17 @@
     },
     'drone-inspection': {
       group: 'engineering', tags: ['Qwen2.5-VL', 'VLM', 'Knowledge Graph', 'UAV'],
+      image: 'images/projects/drone-inspection/railway-anomaly-result.jpg',
       page: 'project.html?project=drone-inspection',
       summary: pair('UAV railway inspection combining small-object detection, visual-language reasoning and equipment fault knowledge graphs.', '面向新朔铁路设备巡检，结合无人机小目标检测、视觉语言推理与设备故障知识图谱。'),
-      pipeline: pair(['UAV imagery', '50+ categories', 'Visual reasoning', 'Fault knowledge graph'], ['无人机图像', '50+ 类目标', '视觉推理', '故障知识图谱'])
+      pipeline: pair(['UAV imagery', '50+ categories', 'Visual reasoning', 'Fault knowledge graph'], ['无人机图像', '50+ 类目标', '视觉推理', '故障知识图谱']),
+      gallery: [
+        {
+          src: 'images/projects/drone-inspection/railway-anomaly-result.jpg',
+          en: 'Railway anomaly localization and structured visual-reasoning result',
+          zh: '铁路异常定位与结构化视觉推理结果'
+        }
+      ]
     },
     'railway-monitoring': {
       group: 'engineering', tags: ['Jetson', 'DeepStream', 'Kafka', 'MQTT'],
