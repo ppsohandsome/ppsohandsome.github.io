@@ -84,6 +84,46 @@ window.PROJECT_DETAILS = {
       }
     ]
   },
+  'quzhou-guide': {
+    en: [
+      {
+        title: 'From a physical point to a spoken answer',
+        paragraphs: ['The guide combines location-triggered narration with open-ended visitor questions. When an RFID point is reached, the system loads the corresponding site context instead of asking the language model to infer the location. The visitor can then listen to the prepared introduction or continue with a natural-language question, keeping the interaction tied to the place being visited.'],
+        facts: ['On-site map interface', 'Chinese and English demonstrations', 'RFID-triggered point context plus conversational follow-up']
+      },
+      {
+        title: 'Ancient-city knowledge retrieval',
+        paragraphs: ['Historical and scenic-site material is organized into a Quzhou Ancient City knowledge base and retrieved before an answer is generated. RAG narrows the model context to passages relevant to the current point and question, so the response is grounded in project material rather than relying only on the model\'s general memory. The retrieval and generation stages remain separate, allowing the source content to be updated without rebuilding the full interaction layer.']
+      },
+      {
+        title: 'Audience-aware explanation styles',
+        paragraphs: ['The same fact should not be presented identically to every visitor. Response styles were tuned for children, adults and older users: children receive shorter sentences and clearer analogies, adults receive denser historical context, and older visitors receive more direct wording and a calmer information rhythm. The goal is to preserve the underlying facts while changing vocabulary, detail and pacing for the audience.']
+      },
+      {
+        title: 'Voice identity and multilingual delivery',
+        paragraphs: ['Voice cloning turns the generated text into a consistent narrator rather than a generic text-to-speech voice. Together with the RFID context, this creates a complete loop from physical location to retrieved knowledge, audience-adapted answer and spoken delivery. The combined project video shows the deployed interface handling Chinese question answering and English point narration on the illustrated ancient-city map.']
+      }
+    ],
+    zh: [
+      {
+        title: '从实体点位到语音回答',
+        paragraphs: ['讲解器将点位触发讲解与游客自由问答接入同一条交互链路。设备到达 RFID 点位后，系统直接载入该景点对应的上下文，而不是让大模型自行猜测当前位置；游客既可以收听当前景点介绍，也可以继续用自然语言追问，使回答始终围绕正在游览的实体空间。'],
+        facts: ['现场地图交互界面', '中英文讲解演示', 'RFID 点位上下文与连续问答']
+      },
+      {
+        title: '古城知识库与 RAG',
+        paragraphs: ['项目将衢州古城的历史与景点资料整理为可检索知识库，在生成回答前先根据当前点位和游客问题召回相关内容。RAG 将模型上下文限制在项目资料范围内，减少仅凭通用模型记忆回答带来的偏差；检索与生成相互独立，后续补充或修订古城资料时无需重做整个交互层。']
+      },
+      {
+        title: '面向不同年龄的回复风格',
+        paragraphs: ['同一段历史信息不应对所有游客使用完全相同的表达。项目分别微调儿童、成人与老年游客友好的回复风格：儿童版本采用更短句子和直观类比，成人版本提供更完整的历史背景，老年版本强调直接用词与更平缓的信息节奏，在保持事实一致的前提下调整词汇、信息密度和讲解方式。']
+      },
+      {
+        title: '声音克隆与多语言讲解',
+        paragraphs: ['声音克隆将模型生成的文本转换为具有统一讲解身份的语音，而不是使用缺少角色感的通用播报音。它与 RFID 上下文共同形成“实体点位、知识检索、分人群回答、语音输出”的完整闭环；合并后的项目视频分别展示了古城手绘地图上的中文问答和英文点位讲解效果。']
+      }
+    ]
+  },
   'autonomous-drone': {
     en: [
       {

@@ -64,6 +64,14 @@ window.RESUME_DATA = {
       bullets: ["Collaborated on parcel recognition, grasping and placement with a Dobot Nova5, Orbbec depth camera and Schmalz vacuum gripper", "Combined YOLO and point clouds for grasp points, surface normals, hand-eye transforms and TCP compensation", "Integrated robot motion, vacuum I/O and a pick-and-place state machine", "Added next-target preselection, deduplication, failure recovery and monitoring; trialled at a Jinan postal parcel distribution site for one month"]
     },
     {
+      id: "quzhou-guide", enabled: false, bulletLimit: 3,
+      title: "Quzhou Ancient City AI Guide", organization: "Shandong Youxiangtu Intelligent Technology", period: "09.2025 - 02.2026",
+      summary: "Developed an LLM-based scenic-site guide with grounded question answering, voice interaction and location-aware narration.",
+      stack: "LLM, RAG, voice cloning, RFID, knowledge base",
+      result: "Delivered an on-site prototype supporting Chinese and English map-based narration and question answering.",
+      bullets: ["Built a RAG pipeline over curated Quzhou Ancient City knowledge for grounded visitor questions and site explanations", "Tuned response styles for children, adults and older visitors, adjusting vocabulary, detail and pacing", "Integrated voice cloning and RFID point triggers to connect physical locations with contextual spoken narration"]
+    },
+    {
       id: "railway-monitoring", enabled: true, bulletLimit: 3,
       title: "Railway Safety Monitoring System", organization: "China Railway Huat Tie", period: "09.2023 - 08.2024",
       summary: "Developed a real-time intelligent video platform for railway maintenance depots, covering pantographs, disconnectors, train fronts and plate recognition.",
@@ -199,6 +207,13 @@ window.RESUME_ZH = {
       stack: "Python、Tkinter、YOLO、Open3D、PCA、TCP/IP、机械臂 I/O 控制",
       result: "已在济南市邮政快递集散点试运行一个月。",
       bullets: ["团队协作，结合越疆 Nova5、Orbbec 深度相机与 Schmalz 真空吸盘实现包裹识别、抓取与放置", "结合 YOLO 与深度点云计算抓取点、表面法线，完成手眼变换、末端姿态与 TCP 偏移补偿", "集成机械臂运动与真空 I/O 控制，构建识别、抓取、搬运及放置状态机", "实现目标预选、去重、失败恢复与实时监控；已在济南市邮政快递集散点试运行一个月"]
+    },
+    "quzhou-guide": {
+      title: "衢州古城智能讲解器", organization: "山东有向图智能科技有限公司", period: "2025.09 - 2026.02",
+      summary: "面向古城游览场景开发基于 LLM 的智能讲解器，提供知识库问答、语音交互与点位感知讲解。",
+      stack: "LLM、RAG、声音克隆、RFID、古城知识库",
+      result: "完成支持中英文地图讲解与问答交互的现场原型。",
+      bullets: ["整理衢州古城知识并构建 RAG 检索链路，为游客问题生成有来源边界的景点讲解", "针对儿童、成人与老年游客微调回复风格，调整用词、信息密度与讲解节奏", "集成声音克隆与 RFID 点位触发，使实体位置能够自动关联对应景点的上下文语音讲解"]
     },
     "railway-monitoring": {
       title: "铁路安全视频监测系统", organization: "中铁华铁", period: "2023.09 - 2024.08",

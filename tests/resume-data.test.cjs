@@ -34,6 +34,9 @@ assert(en.projects.find((entry) => entry.id === 'anythingmcp-sandbox').bullets.j
 assert(zh.projects['anythingmcp-sandbox'].bullets.join().includes('81 项'));
 assert(en.projects.find((entry) => entry.id === 'zilo-ring').bullets.join().includes('binary 0/1'));
 assert(zh.projects['zilo-ring'].bullets.join().includes('快速双次动作'));
+assert(en.projects.find((entry) => entry.id === 'quzhou-guide').bullets.join().includes('RFID'));
+assert(zh.projects['quzhou-guide'].bullets.join().includes('儿童、成人与老年'));
+assert(presentation.includes("'quzhou-guide'"));
 assert(zh.publications.find((entry) => entry.id === 'svd-imoe').bullets.join().includes('投稿中'));
 assert(!/face tracking|人脸跟踪/.test(JSON.stringify(en.projects) + JSON.stringify(zh.projects)));
 for (const entry of [en.projects.find((item) => item.id === 'llm-gateway'), zh.projects['llm-gateway']]) {

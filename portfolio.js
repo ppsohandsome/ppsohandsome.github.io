@@ -26,6 +26,16 @@
       pipeline: pair(['RGB + depth', 'Detection + normals', 'Hand-eye + TCP', 'Grasp + place', 'Monitor + recover'], ['RGB 与深度', '检测与表面法线', '手眼变换与 TCP', '抓取与放置', '监控与恢复']),
       video: 'images/projects/parcel_sorting/video.mp4'
     },
+    'quzhou-guide': {
+      group: 'engineering', tags: ['LLM', 'RAG', 'Voice Cloning', 'RFID'],
+      image: 'images/projects/quzhou-guide/cover.jpg', page: 'project.html?project=quzhou-guide',
+      summary: pair('An LLM-based guide for Quzhou Ancient City, combining grounded question answering, cloned-voice narration, audience-aware response styles and RFID-triggered site content.', '面向衢州古城的 LLM 智能讲解器，结合知识库问答、声音克隆、分人群回复风格与 RFID 点位触发。'),
+      result: pair('The on-site prototype supports Chinese and English map-based narration and question answering.', '现场原型支持中英文地图讲解与问答交互。'),
+      resultTitle: pair('On-site Prototype', '现场原型'),
+      pipeline: pair(['RFID point', 'Site context', 'RAG retrieval', 'Audience-aware LLM', 'Cloned-voice narration'], ['RFID 点位', '景点上下文', 'RAG 检索', '分人群 LLM', '克隆声音讲解']),
+      videoNote: pair('Combined on-site demonstrations of Chinese question answering and English point narration.', '合并展示中文问答与英文点位讲解的现场效果。'),
+      video: 'images/projects/quzhou-guide/demo.mp4'
+    },
     'autonomous-drone': {
       group: 'engineering', tags: ['Tello', 'YOLOv11', 'AprilTag', 'MASt3R-SLAM'],
       image: 'images/projects/general/project_drove_first.jpg', page: 'autonomous-drone.html',
@@ -150,7 +160,7 @@
     };
     if (page === 'home') {
       const projects = data.projects;
-      const engineeringIds = ['anythingmcp-sandbox', 'parcel-sorting', 'autonomous-drone', 'drone-inspection', 'railway-monitoring'];
+      const engineeringIds = ['anythingmcp-sandbox', 'parcel-sorting', 'quzhou-guide', 'autonomous-drone', 'drone-inspection', 'railway-monitoring'];
       const personalIds = ['zilo-ring', 'bearfit', 'soarm-vision', 'llm-gateway', 'braindance', 'music-universe'];
       document.querySelector('#work .row').innerHTML = `<h2>${tr('Selected Projects', '精选项目')}</h2>
         <h3 class="project-group-heading">${tr('Engineering & Applied AI', '工程项目与 AI 应用')}</h3>
