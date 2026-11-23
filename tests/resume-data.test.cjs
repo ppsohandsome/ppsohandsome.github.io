@@ -37,6 +37,8 @@ assert(zh.projects['zilo-ring'].bullets.join().includes('快速双次动作'));
 assert(en.projects.find((entry) => entry.id === 'quzhou-guide').bullets.join().includes('RFID'));
 assert(zh.projects['quzhou-guide'].bullets.join().includes('儿童、成人与老年'));
 assert(presentation.includes("'quzhou-guide'"));
+assert(!presentation.includes('Project Funding & Activities'));
+assert(presentation.includes('Shandong Jiaotong University debate team member'));
 assert(zh.publications.find((entry) => entry.id === 'svd-imoe').bullets.join().includes('投稿中'));
 assert(!/face tracking|人脸跟踪/.test(JSON.stringify(en.projects) + JSON.stringify(zh.projects)));
 for (const entry of [en.projects.find((item) => item.id === 'llm-gateway'), zh.projects['llm-gateway']]) {

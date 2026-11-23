@@ -113,6 +113,9 @@
     pair('Shandong College Student Intelligent Technology Application Design Competition, Third Prize (2022)', '2022 年山东省大学生智能技术应用设计大赛三等奖'),
     pair('Shandong College Student Computer Design Competition, Provincial Second Prize (2023)', '2023 年山东省大学生计算机设计大赛省级二等奖'),
     pair('Shandong College Student AI Competition, Provincial Third Prize (2023)', '2023 年山东省大学生人工智能大赛省级三等奖'),
+    pair('National College Student Innovation and Entrepreneurship Training Program project approval (2024)', '2024 年度大学生创新创业训练计划国家级立项'),
+    pair('Provincial Second Prize, College Student Innovation and Entrepreneurship Training Program (2022)', '2022 年度大学生创新创业训练计划省级二等奖'),
+    pair('Shandong Jiaotong University debate team member', '新国辩山东交通学院校队成员'),
     pair('Undergraduate Comprehensive First-Class Scholarship (4 times); Annual Outstanding Student (3 times)', '本科综合一等奖学金（4 次）；本科年度优秀学生（3 次）')
   ];
   const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -181,12 +184,7 @@
         <div class="timeline-column"><h3>${tr('Publications & Submissions', '论文与投稿')}</h3><div class="timeline">${data.publications.map((entry) => {
           const title = publicationUrls[entry.id] ? external(publicationUrls[entry.id], entry.title) : esc(entry.title);
           return `<article class="timeline__item" data-entry-id="${entry.id}"><p class="timeline__meta">${entry.id === 'svd-imoe' ? tr('Submission in progress', '投稿中') : tr('Published', '已发表')}</p><h4>${title}</h4>${list(entry.bullets)}</article>`;
-        }).join('')}</div>
-        <h3>${tr('Project Funding & Activities', '项目立项与活动')}</h3>${list([
-          tr('National College Student Innovation and Entrepreneurship Training Program project approval (2024)', '2024 年度大学生创新创业训练计划国家级立项'),
-          tr('Provincial Second Prize, College Student Innovation and Entrepreneurship Training Program (2022)', '2022 年度大学生创新创业训练计划省级二等奖'),
-          tr('Shandong Jiaotong University debate team member', '新国辩山东交通学院校队成员')
-        ])}</div>
+        }).join('')}</div></div>
         <div class="timeline-column"><h3>${tr('Competitions & Awards', '竞赛与奖项')}</h3><ul class="recognition-list">${awards.map((award, index) => `<li>${index === 2 ? external('https://gallery.adventure-x.cn/projects/cmryvrum9000602l7g4o7boke', award[lang]) : esc(award[lang])}</li>`).join('')}</ul></div>
         </div></div>`;
       document.querySelector('.header__text > p').textContent = tr('Computer vision, robotics and large-model applications. Building perception-to-action systems that work in practice.', '计算机视觉、机器人与大模型应用。从视觉感知到实际动作，构建可落地的系统。');
