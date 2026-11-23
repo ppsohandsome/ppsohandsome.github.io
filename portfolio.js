@@ -2,6 +2,17 @@
 (() => {
   const pair = (en, zh) => ({ en, zh });
   const metadata = {
+    'normacore-agent': {
+      group: 'engineering', tags: ['Claude', 'MCP', 'NormaCore', 'Robot Vision'],
+      image: 'images/projects/normacore-agent/cover.png', page: 'project.html?project=normacore-agent',
+      summary: pair('A Claude-controlled robot-arm agent that turns natural-language tasks into MCP tool calls for visual pickup, sorting, calibration and multi-view inspection.', '由 Claude 直接编排 MCP 工具的机械臂智能体，将自然语言任务转化为视觉抓取、分类放置、自动标定与多视角采集动作。'),
+      result: pair('The demo closes the loop from scene observation and target selection to physical pickup and post-action visual verification.', '演示打通了场景观察、目标选择、实体抓取与动作后视觉复核的完整闭环。'),
+      resultTitle: pair('Working Demo', '实机演示'),
+      pipeline: pair(['Natural-language task', 'Claude planning', 'MCP robot skills', 'Vision + calibration', 'Arm execution', 'Visual verification'], ['自然语言任务', 'Claude 规划', 'MCP 机械臂技能', '视觉与标定', '机械臂执行', '视觉复核']),
+      youtube: 'https://www.youtube.com/embed/GVwGbDMH5KE',
+      youtubeUrl: 'https://www.youtube.com/watch?v=GVwGbDMH5KE',
+      videoNote: pair('Physical robot-arm demonstration covering pickup and the agent-control workflow.', '机械臂实机演示，展示 pickup 任务与智能体控制流程。')
+    },
     'anythingmcp-sandbox': {
       group: 'engineering', tags: ['AnythingMCP', 'TypeScript', 'V8 Isolate', 'MCP'],
       image: 'images/projects/anythingmcp/cover.png', page: 'project.html?project=anythingmcp-sandbox',
@@ -163,7 +174,7 @@
     };
     if (page === 'home') {
       const projects = data.projects;
-      const engineeringIds = ['anythingmcp-sandbox', 'parcel-sorting', 'quzhou-guide', 'autonomous-drone', 'drone-inspection', 'railway-monitoring'];
+      const engineeringIds = ['normacore-agent', 'anythingmcp-sandbox', 'parcel-sorting', 'quzhou-guide', 'autonomous-drone', 'drone-inspection', 'railway-monitoring'];
       const personalIds = ['zilo-ring', 'bearfit', 'soarm-vision', 'llm-gateway', 'braindance', 'music-universe'];
       document.querySelector('#work .row').innerHTML = `<h2>${tr('Selected Projects', '精选项目')}</h2>
         <h3 class="project-group-heading">${tr('Engineering & Applied AI', '工程项目与 AI 应用')}</h3>
@@ -237,6 +248,7 @@
       <dt>${tr('Technology', '技术栈')}</dt><dd>${esc(meta.tags.join(' · '))}</dd></dl></aside></div></section>`;
     const media = document.querySelector('#projectMedia');
     if (meta.video) media.innerHTML = `<h2>${tr('Demo Video', '演示视频')}</h2><div class="video-embed"><video controls playsinline preload="none" poster="${root}${meta.image}"><source src="${root}${meta.video.replace('.mp4', '.webm')}" type="video/webm"><source src="${root}${meta.video}" type="video/mp4"></video></div>${meta.videoNote ? `<p class="project-period">${esc(meta.videoNote[lang])}</p>` : ''}<a href="${root}${meta.video}" download class="link__text">${tr('Download video (MP4)', '下载视频（MP4）')}</a>`;
+    if (meta.youtube) media.innerHTML = `<h2>${tr('Demo Video', '演示视频')}</h2><div class="video-embed"><iframe src="${esc(meta.youtube)}" title="${esc(project.title)} ${tr('demo video', '演示视频')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>${meta.videoNote ? `<p class="project-period">${esc(meta.videoNote[lang])}</p>` : ''}<p>${external(meta.youtubeUrl, tr('Watch on YouTube', '在 YouTube 观看'))}</p>`;
     if (meta.presentation) media.insertAdjacentHTML('beforeend', `<h2>${tr('Interactive Code Mode Presentation', 'Code Mode 交互演示')}</h2><div class="presentation-embed"><iframe src="${root}${meta.presentation}" title="${tr('AnythingMCP Code Mode interactive presentation', 'AnythingMCP Code Mode 交互演示')}" loading="lazy"></iframe></div><p class="project-period">${tr('Scroll inside the frame or open it in a new tab for the full animated presentation.', '可在框内滚动播放，或在新标签页中打开完整动画演示。')}</p><p>${external(`${root}${meta.presentation}`, tr('Open presentation in a new tab', '在新标签页打开演示'))}</p>`);
     if (meta.gallery) media.insertAdjacentHTML('beforeend', `<h2>${tr('Implementation Evidence', '实现截图')}</h2><div class="project-gallery">${meta.gallery.map((item) => `<figure><img src="${root}${item.src}" alt="${esc(item[lang])}" loading="lazy"><figcaption>${esc(item[lang])}</figcaption></figure>`).join('')}</div>`);
     mediaNodes.forEach((node) => {

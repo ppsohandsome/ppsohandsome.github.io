@@ -51,6 +51,14 @@ window.RESUME_DATA = {
   ],
   projects: [
     {
+      id: "normacore-agent", enabled: false, bulletLimit: 3,
+      title: "Claude + MCP Robot Arm Agent", organization: "NormaCore CIC Hackathon Team Project", period: "11.2026",
+      summary: "Built an agentic robot-control system that lets Claude operate a physical arm through structured MCP skills.",
+      stack: "Claude, MCP, Python, NormaCore Station, AprilTag, robot vision, inverse kinematics",
+      result: "Demonstrated a closed-loop pickup workflow from visual observation to physical execution and verification.",
+      bullets: ["Exposed visual observation, pickup, sorting, placement and arm-control capabilities as structured MCP tools for Claude", "Connected overhead and wrist-camera perception to NormaCore Station, inverse kinematics and guarded physical execution", "Implemented AprilTag desktop localization, nine-point placement calibration and multi-view wrist-camera acquisition"]
+    },
+    {
       id: "anythingmcp-sandbox", enabled: false, bulletLimit: 3,
       title: "AnythingMCP Code Mode Sandbox", organization: "Black Forest Hackathon Team Project", period: "10.2026",
       bullets: ["Built a saved-script Code Mode that executes JavaScript beside MCP connectors and returns only the aggregated result to the model", "Implemented an isolated V8 runtime with read-only defaults, tenant-aware authorization, declared tool access, limits and audit links", "Validated the system with 81 end-to-end checks and a 20-case isolation suite; benchmarked a 150,000-order workload"]
@@ -197,6 +205,13 @@ window.RESUME_ZH = {
     }
   ],
   projects: {
+    "normacore-agent": {
+      title: "Claude + MCP 机械臂智能体", organization: "NormaCore CIC Hackathon 团队项目", period: "2026.11",
+      summary: "构建由 Claude 通过结构化 MCP 技能直接操作实体机械臂的智能体控制系统。",
+      stack: "Claude、MCP、Python、NormaCore Station、AprilTag、机器人视觉、逆运动学",
+      result: "完成从视觉观察、目标选择到实体抓取和结果复核的闭环演示。",
+      bullets: ["将视觉观察、抓取、分类、放置与机械臂基础控制封装为 Claude 可调用的 MCP 工具", "连接顶部与腕部相机感知、NormaCore Station、逆运动学及带约束的实体动作执行", "实现 AprilTag 桌面定位、九点放置标定与腕部相机多视角采集"]
+    },
     "anythingmcp-sandbox": {
       title: "AnythingMCP Code Mode 沙箱", organization: "Black Forest Hackathon 团队项目", period: "2026.10",
       bullets: ["构建可保存脚本的 Code Mode，在 MCP 连接器旁执行 JavaScript，仅将聚合结果返回给模型", "实现隔离 V8 运行时、默认只读、租户级鉴权、工具声明、资源限制与审计链路", "通过 81 项端到端检查与 20 项隔离测试，并对 15 万订单数据集完成基准验证"]

@@ -1,5 +1,45 @@
 /* Long-form project narratives. Keep CV bullets concise in resume-data.js. */
 window.PROJECT_DETAILS = {
+  'normacore-agent': {
+    en: [
+      {
+        title: 'From language to physical action',
+        paragraphs: ['This hackathon project gives Claude a structured interface to a physical NormaCore ElRobot arm. Instead of asking the model to emit joint angles, the MCP server exposes bounded skills for looking at the workspace, selecting an object, picking it up, sorting several pieces, placing a held object and returning to known poses. Claude interprets the request and composes these tools into an executable task.'],
+        facts: ['Claude or another MCP client acts as the task-level planner', 'NormaCore Station connects cameras, motor state and robot commands', 'The demo includes a physical pickup task rather than a UI-only simulation']
+      },
+      {
+        title: 'Closed-loop pickup and sorting',
+        paragraphs: ['An overhead camera provides the table view used to identify and number coloured objects, cups and plates. The selected image position is mapped into the arm workspace and solved through the robot model before motion is issued. After a pickup or placement, the system captures a fresh image and checks whether the target left its original location or arrived near the intended destination; failed grasps can be found again and retried instead of being reported as successful without evidence.']
+      },
+      {
+        title: 'Two calibration workflows',
+        paragraphs: ['The project separates desktop localization from robot placement calibration. Four tag16h5 AprilTags define a normalized tabletop plane and an approximate metric planar mapping, while a second routine places a coloured calibration object at nine positions and refits the camera-to-arm placement map. This is deliberately described as planar localization and placement calibration: it does not claim to replace multi-view camera-intrinsic calibration or independent robot-base registration.']
+      },
+      {
+        title: 'Multi-view inspection and the 3D boundary',
+        paragraphs: ['The wrist camera can sweep over a target or capture images at 13 stops around a circular path, providing controlled multi-view observations for later geometry processing. The accompanying VibeUI explores monocular depth, scene structure, coverage and point-cloud presentation, but the current repository does not contain a complete point-cloud fusion or mesh-reconstruction pipeline. The website therefore presents this part as a reconstruction-oriented interface prototype, not a finished 3D reconstruction result.']
+      }
+    ],
+    zh: [
+      {
+        title: '从自然语言到实体动作',
+        paragraphs: ['该黑客松项目为 Claude 提供操作 NormaCore ElRobot 实体机械臂的结构化接口。系统不让模型直接生成关节角，而是通过 MCP 暴露观察工作区、选择目标、抓取、批量分类、放置和返回预设姿态等受约束技能；Claude 负责理解自然语言任务，再组合这些工具形成可执行流程。'],
+        facts: ['Claude 或其它 MCP 客户端承担任务级规划', 'NormaCore Station 连接摄像头、舵机状态与控制指令', '演示包含真实机械臂 pickup 任务，并非只有界面模拟']
+      },
+      {
+        title: '抓取与分类的闭环验证',
+        paragraphs: ['顶部相机提供桌面视图，系统识别并编号彩色物体、杯子和盘子。目标图像位置经过桌面映射和机械臂模型求解后才转换为动作；抓取或放置完成后，系统重新拍摄桌面，判断目标是否离开原位置或到达指定区域。若夹爪抓空，系统能够在新画面中重新定位并重试，而不是在缺少视觉证据时直接报告成功。']
+      },
+      {
+        title: '两类标定流程',
+        paragraphs: ['项目将桌面定位与机械臂放置标定分开处理。四个 tag16h5 AprilTag 用于建立归一化桌面平面和近似米制平面映射；另一套流程让机械臂把彩色标定物依次放到九个位置，根据相机观察结果重新拟合图像到机械臂的放置映射。这里准确描述为平面定位与放置标定，不把它包装成完整的相机内参标定或独立机器人基坐标注册。']
+      },
+      {
+        title: '多视角采集与三维边界',
+        paragraphs: ['腕部相机可以在目标上方旋转扫描，或沿圆形轨迹在 13 个停靠点采集图像，为后续几何处理提供受控的多视角输入。配套 VibeUI 探索了单目深度、场景结构、覆盖率和点云展示方式，但当前代码库没有完整的点云融合或网格重建流水线，因此网站将这一部分明确写为面向三维重建的界面原型，而不是已经完成的三维重建成果。']
+      }
+    ]
+  },
   'anythingmcp-sandbox': {
     en: [
       {
